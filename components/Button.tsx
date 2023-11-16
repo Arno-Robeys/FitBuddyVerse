@@ -25,9 +25,8 @@ export function Button({
 }: ButtonProps) {
 	return (
 		<TouchableOpacity
-			className={`${containerClasses} ${
-				containerClasses === defaultContainerClasses && buttonVariants[variant]
-			}`}
+			className={`${containerClasses} ${containerClasses === defaultContainerClasses && buttonVariants[variant]
+				}`}
 			onPress={onPress}
 		>
 			<Text className={labelClasses}>{label}</Text>
