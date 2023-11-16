@@ -13,11 +13,11 @@
     "@mantine/hooks": "^7.2.2",
     "@react-native-community/checkbox": "^0.5.16",
     "date-fns": "^2.30.0",
-    "expo": "~49.0.15",
+    "expo": "~49.0.18",
     "expo-constants": "~14.4.2",
     "expo-font": "~11.4.0",
     "expo-linking": "~5.0.2",
-    "expo-router": "^2.0.0",
+    "expo-router": "^2.0.12",
     "expo-status-bar": "~1.6.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
@@ -28,10 +28,15 @@
     "react-native-screens": "~3.22.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@types/react": "~18.2.14",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.1.3"
+    "@babel/core": "^7.23.3",
+    "@types/react": "~18.2.37",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2"
+  },
+  "overrides": {
+    "@expo/image-utils": {
+      "semver": "7.5.4"
+    }
   },
   "private": true
 }
