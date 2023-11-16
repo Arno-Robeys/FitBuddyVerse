@@ -3,7 +3,7 @@ import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import WorkoutsContext from "@/components/workout/context/WorkoutsContext";
-import { TWorkout } from "../../../Mobile Applications - PROJECT OLD/types/workout.type";
+import { TWorkout } from "@/types/workout.type";
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
