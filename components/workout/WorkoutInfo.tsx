@@ -1,5 +1,5 @@
 import { format, intervalToDuration, isYesterday } from "date-fns";
-import { useWorkoutContext } from "../../../Mobile Applications - PROJECT OLD/components/workout/context/WorkoutContext";
+import { useWorkoutContext } from "@/components/workout/context/WorkoutContext";
 import { Text, Linking, View, TouchableHighlight } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 

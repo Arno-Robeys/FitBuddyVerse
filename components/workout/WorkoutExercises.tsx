@@ -1,5 +1,5 @@
-import WorkoutExercise from '../../../Mobile Applications - PROJECT OLD/components/workout/WorkoutExercise';
-import { useWorkoutContext } from '../../../Mobile Applications - PROJECT OLD/components/workout/context/WorkoutContext';
+import WorkoutExercise from '@/components/workout/WorkoutExercise';
+import { useWorkoutContext } from '@/components/workout/context/WorkoutContext';
 
 export default function WorkoutExercises() {
     const { workout } = useWorkoutContext();
