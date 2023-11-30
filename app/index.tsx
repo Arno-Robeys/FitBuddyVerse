@@ -24,6 +24,10 @@ export default function LoginPage() {
 		router.push("/feed");
 	};
 
+	const signUp = async () => {
+		router.push("/signUp")
+	}
+
 	return (
 		<View className="flex-1 justify-center p-4">
 			<Text className="text-center text-2xl font-bold mb-4">
@@ -56,6 +60,11 @@ export default function LoginPage() {
 					) : (
 						<ActivityIndicator color="white" />
 					)}
+				</View>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={signUp}>
+				<View className="bg-gray-800 rounded p-3 items-center mt-4">
+					<Text className="text-white text-lg">No account yet? Sign up</Text>
 				</View>
 			</TouchableOpacity>
 		</View>
