@@ -35,7 +35,7 @@ export default function RegistrationForm() {
             <Stack.Screen
                 options={{
                     title: 'Sing Up',
-                    headerStyle: { backgroundColor: '#151619' },
+                    headerStyle: { backgroundColor: '#374151' },
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold',

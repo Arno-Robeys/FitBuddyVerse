@@ -33,7 +33,7 @@ export default function LoginPage() {
 			<Stack.Screen
 				options={{
 					title: 'Sign in',
-					headerStyle: { backgroundColor: '#151619' },
+					headerStyle: { backgroundColor: '#374151' },
 					headerTintColor: '#fff',
 					headerTitleStyle: {
 						fontWeight: 'bold',

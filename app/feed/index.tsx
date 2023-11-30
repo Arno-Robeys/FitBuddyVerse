@@ -32,7 +32,7 @@ export default function FeedPage() {
 			<Stack.Screen
 				options={{
 					title: 'Workout Feed',
-					headerStyle: { backgroundColor: '#151619' },
+					headerStyle: { backgroundColor: '#374151' },
 					headerTintColor: '#fff',
 					headerTitleStyle: {
 						fontWeight: 'bold',
