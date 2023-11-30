@@ -50,8 +50,8 @@ const Workout: FC<Props> = ({
 	return (
 		<WorkoutContext.Provider value={{ workout, profile }}>
 			<View className="col-start-1 col-end-3">
-				<View className="relative rounded-md p-6 font-medium mb-6 space-y-3 shadow-md bg-[#1A2E4F] text-white">
-					<Text>{workoutInfo}</Text>
+				<View className="relative rounded-md p-6 font-medium mb-6 space-y-3 shadow-md bg-[#1A2E4F] text-white ">
+					<Text className="font-medium">{workoutInfo}</Text>
 					<Text>{exercises}</Text>
 					<Text>{likes}</Text>
 					<Text>{action}</Text>
