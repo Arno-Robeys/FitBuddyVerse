@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Errors from "@/components/Errors";
-import { router } from "expo-router";
+import {router, Stack} from "expo-router";
 
 
 export default function LoginPage() {
@@ -30,6 +30,16 @@ export default function LoginPage() {
 
 	return (
 		<View className="flex-1 justify-center p-4">
+			<Stack.Screen
+				options={{
+					title: 'Sign in',
+					headerStyle: { backgroundColor: '#151619' },
+					headerTintColor: '#fff',
+					headerTitleStyle: {
+						fontWeight: 'bold',
+					}
+				}}
+			/>
 			<Text className="text-center text-2xl font-bold mb-4">
 				Sign in to your account
 			</Text>

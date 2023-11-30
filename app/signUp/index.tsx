@@ -4,14 +4,6 @@ import Errors from "@/components/Errors";
 import { router } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import { Image } from 'react-native';
-function LogoTitle() {
-    return (
-        <Image
-            style={{ width: 50, height: 50 }}
-            source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-        />
-    );
-}
 export default function RegistrationForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -42,7 +34,7 @@ export default function RegistrationForm() {
         <View className="flex-1 justify-center p-4">
             <Stack.Screen
                 options={{
-                    title: 'Registration Form',
+                    title: 'Sing Up',
                     headerStyle: { backgroundColor: '#151619' },
                     headerTintColor: '#fff',
                     headerTitleStyle: {

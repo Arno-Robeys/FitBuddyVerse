@@ -4,8 +4,9 @@ import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import WorkoutsContext from "@/components/workout/context/WorkoutsContext";
 import { TWorkout } from "@/types/workout.type";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
+import {Stack} from "expo-router";
 
 export default function FeedPage() {
 	const [stateChanged, setStateChanged] = useState<boolean>(false);
@@ -28,6 +29,16 @@ export default function FeedPage() {
 
 	return (
 		<>
+			<Stack.Screen
+				options={{
+					title: 'Workout Feed',
+					headerStyle: { backgroundColor: '#151619' },
+					headerTintColor: '#fff',
+					headerTitleStyle: {
+						fontWeight: 'bold',
+					}
+				}}
+			/>
 			<View className="bg-white py-24 sm:py-32">
 				<View className="mx-auto max-w-7xl px-6 lg:px-8">
 					<View className="mx-auto max-w-2xl lg:mx-0">
