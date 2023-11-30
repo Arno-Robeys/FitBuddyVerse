@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
 import Errors from "@/components/Errors";
 import { router } from "expo-router";
-
+import { Link, Stack } from 'expo-router';
+import { Image } from 'react-native';
+function LogoTitle() {
+    return (
+        <Image
+            style={{ width: 50, height: 50 }}
+            source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+        />
+    );
+}
 export default function RegistrationForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -25,8 +34,22 @@ export default function RegistrationForm() {
         // You can send the registration details to your backend or perform any other actions
     };
 
+    const goBack = async () => {
+        router.push("/")
+    }
+
     return (
         <View className="flex-1 justify-center p-4">
+            <Stack.Screen
+                options={{
+                    title: 'Registration Form',
+                    headerStyle: { backgroundColor: '#151619' },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    }
+                }}
+            />
             <Text className="text-center text-2xl font-bold mb-4">
                 Registration Form
             </Text>
@@ -86,6 +109,11 @@ export default function RegistrationForm() {
             <TouchableOpacity onPress={handleRegistration}>
                 <View className="bg-gray-800 rounded p-2 items-center">
                     <Text className="text-white text-lg">Register</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity className="items-center" onPress={goBack}>
+                <View className="text-gray-700 mt-2.5">
+                    <Text className="border-b-2 font-bold">Go back</Text>
                 </View>
             </TouchableOpacity>
         </View>
