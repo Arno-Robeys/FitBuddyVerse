@@ -5,7 +5,7 @@ import { useToggle } from "@mantine/hooks";
 import React from "react";
 import { TProfile } from "@/types/profile.type";
 import { EvilIcons } from "@expo/vector-icons";
-import { Linking, TouchableHighlight, View, Text } from "react-native";
+import {Linking, TouchableHighlight, View, Text, TouchableOpacity} from "react-native";
 
 interface Props {
 	workout: TWorkout;
@@ -49,19 +49,18 @@ const Workout: FC<Props> = ({
 
 	return (
 		<WorkoutContext.Provider value={{ workout, profile }}>
-			<View className="col-start-1 col-end-3">
-				<View className="relative rounded-md p-6 font-medium mb-6 space-y-3 shadow-md bg-[#1A2E4F] text-white ">
-					<Text className="font-medium">{workoutInfo}</Text>
-					<Text>{exercises}</Text>
-					<Text>{likes}</Text>
-					<Text>{action}</Text>
-					<Text>{comments}</Text>
-					<TouchableHighlight
-						className="absolute right-5 top-5 border-white border-2 rounded-md shadow-md p-1"
-						onPress={() => Linking.openURL(`/workouts/${workout.id}`)}
-					>
-						<EvilIcons name="pencil" size={24} color="white" />
-					</TouchableHighlight>
+			<View className="w-full max-w-sm bg-gray-700 border border-gray-500 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
+				<View className="flex justify-end px-4 pt-4">
+					<TouchableOpacity className="items-end" onPress={() => Linking.openURL(`/workouts/${workout.id}`)}>
+						<EvilIcons className="w-5 h-5" name="pencil" size={32} color="white" />
+					</TouchableOpacity>
+				</View>
+				<View className="w-full flex flex-col items-center px-20">
+					<Text className="">{workoutInfo}</Text>
+					<Text className="">{exercises}</Text>
+					<Text className="">{likes}</Text>
+					<Text className="">{action}</Text>
+					<Text className="">{comments}</Text>
 				</View>
 			</View>
 		</WorkoutContext.Provider>

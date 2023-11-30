@@ -18,31 +18,29 @@ export default function WorkoutInfo() {
 
 	return (
 		<>
-			<TouchableHighlight
-				onPress={() => Linking.openURL(`/profile/${profile?.id}`)}
-			>
-				<View className="flex items-center gap-x-4 w-full m-a text-white">
-					<AntDesign name="user" size={24} color="white" />
-					<View className="flex flex-col">
-						<Text>{profile?.username}</Text>
-						<Text className="text-white">{createdAtDateString}</Text>
+			<View className="w-full flex flex-col items-center pb-10">
+				<TouchableHighlight className="flex flex-row items-center"
+					onPress={() => Linking.openURL(`/profile/${profile?.id}`)}
+				>
+					<View className="items-center">
+						<AntDesign name="user" size={32} color="white" />
+						<View>
+							<Text className="py-1 font-bold text-base text-white">{profile?.username}</Text>
+							<Text className="py-1 font-bold text-sm text-white">{createdAtDateString}</Text>
+						</View>
 					</View>
-				</View>
-			</TouchableHighlight>
-			<View className="relative w-full">
-				<Text className="mt-3 text-lg font-semibold leading-6">
-					{workout.name}
-				</Text>
-				<View className="flex mt-3 text-sm leading-6 gap-3 w-full">
-					<View>
-						<Text>Duration</Text>
-						<Text className="font-semibold">
-							{duration?.hours}h {duration?.minutes}min
+				</TouchableHighlight>
+				<View>
+					<Text className="items-center border-t-2 border-b-2 border-gray-500 font-bold text-white my-1 p-1 text-xl">
+						{workout.name}
+					</Text>
+					<View className="px-1.5">
+						<Text className="text-white py-0.5 text-base">
+							Duration : {duration?.hours}h {duration?.minutes}min
 						</Text>
-					</View>
-					<View>
-						<Text>Volume</Text>
-						<Text className="font-semibold">{workout.volumeKG} kg</Text>
+						<Text className="text-white py-0.5 text-base">
+							Volume : {workout.volumeKG} kg
+						</Text>
 					</View>
 				</View>
 			</View>
