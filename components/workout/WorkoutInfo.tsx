@@ -1,7 +1,8 @@
 import { format, intervalToDuration, isYesterday } from "date-fns";
 import { useWorkoutContext } from "@/components/workout/context/WorkoutContext";
-import { Text, Linking, View, TouchableHighlight } from "react-native";
+import { Text, View, TouchableHighlight } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 export default function WorkoutInfo() {
 	const { workout, profile } = useWorkoutContext();
@@ -19,14 +20,19 @@ export default function WorkoutInfo() {
 	return (
 		<>
 			<View className="w-full flex flex-col items-center pb-10">
-				<TouchableHighlight className="flex flex-row items-center"
-					onPress={() => Linking.openURL(`/profile/${profile?.id}`)}
+				<TouchableHighlight
+					className="flex flex-row items-center"
+					onPress={() => router.push(`/profile/${profile?.id}`)}
 				>
 					<View className="items-center">
 						<AntDesign name="user" size={32} color="white" />
 						<View>
-							<Text className="py-1 font-bold text-base text-white">{profile?.username}</Text>
-							<Text className="py-1 font-bold text-sm text-white">{createdAtDateString}</Text>
+							<Text className="py-1 font-bold text-base text-white">
+								{profile?.username}
+							</Text>
+							<Text className="py-1 font-bold text-sm text-white">
+								{createdAtDateString}
+							</Text>
 						</View>
 					</View>
 				</TouchableHighlight>

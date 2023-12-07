@@ -1,11 +1,14 @@
-import { TWorkout } from "@/types/workout.type";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { useSession } from "@/app/ctx";
 import WorkoutContext from "@/components/workout/context/WorkoutContext";
-import { useToggle } from "@mantine/hooks";
-import React from "react";
+import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
+import { TWorkout } from "@/types/workout.type";
 import { EvilIcons } from "@expo/vector-icons";
-import {Linking, TouchableHighlight, View, Text, TouchableOpacity} from "react-native";
+import { useToggle } from "@mantine/hooks";
+import { useQuery } from "@tanstack/react-query";
+import { router } from "expo-router";
+import React, { FC, ReactNode, useEffect, useState } from "react";
+import { Linking, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
 	workout: TWorkout;
@@ -25,34 +28,46 @@ const Workout: FC<Props> = ({
 	action,
 	show = true,
 }: Props) => {
-	const [profile, setProfile] = useState<TProfile>();
 	const [modalOpen, toggle] = useToggle([false, true]);
+	const session = useSession();
+	if (session?.isLoading) return <Text>Loading...</Text>;
+	if (!session) return <Text>Not logged in</Text>;
+	console.log("session:" + session?.session);
+	const sessionJSON = JSON.parse(session.session!);
 
-	useEffect(() => {
-		let isMounted = true;
-
-		async function fetchData(id: number) {
-			try {
-				if (isMounted) {
-					setProfile(profile);
-				}
-			} catch (error) {
-				console.log(error);
+	const {
+		data: profile,
+		isLoading,
+		isError,
+		error,
+	} = useQuery({
+		queryKey: ["profile", workout.profileId],
+		queryFn: async () => {
+			const response = await profileService.getProfileEmbedAll({
+				id: workout.profileId.toString(),
+				accessToken: sessionJSON.accessToken,
+			});
+			if (response.code === "error") {
+				throw new Error(response.error.message);
 			}
-		}
-		fetchData(workout.profileId);
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
+			return response.data;
+		},
+	});
 
 	return (
 		<WorkoutContext.Provider value={{ workout, profile }}>
-			<View className="w-full max-w-sm bg-gray-700 border border-gray-500 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
+			<View className="w-full max-w-sm bg-gray-700 border border-gray-500 shadow dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
 				<View className="flex justify-end px-4 pt-4">
-					<TouchableOpacity className="items-end" onPress={() => Linking.openURL(`/workouts/${workout.id}`)}>
-						<EvilIcons className="w-5 h-5" name="pencil" size={32} color="white" />
+					<TouchableOpacity
+						className="items-end"
+						onPress={() => router.push(`/profile/${workout.profileId}`)}
+					>
+						<EvilIcons
+							className="w-5 h-5"
+							name="pencil"
+							size={32}
+							color="white"
+						/>
 					</TouchableOpacity>
 				</View>
 				<View className="w-full flex flex-col items-center px-20">

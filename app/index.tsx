@@ -1,43 +1,49 @@
-import React, { useEffect, useRef, useState } from "react";
+import Errors from "@/components/Errors";
+import { Stack, router } from "expo-router";
+import React, { useRef, useState } from "react";
 import {
-	View,
+	ActivityIndicator,
 	Text,
 	TextInput,
 	TouchableOpacity,
-	ActivityIndicator,
+	View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Errors from "@/components/Errors";
-import {router, Stack} from "expo-router";
-
+import { useSession } from "./ctx";
 
 export default function LoginPage() {
-	const emailOrUsername = useRef(null);
-	const password = useRef(null);
+	const [emailOrUsername, setEmailOrUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
-	const navigation = useNavigation();
+
+	const session = useSession();
+	if (session?.isLoading) return <Text>Loading...</Text>;
 
 	const handleSubmit = async () => {
-
+		const user = {
+			email: emailOrUsername,
+			username: emailOrUsername,
+			password: password,
+		};
+		session?.signIn(user);
 		router.push("/feed");
 	};
 
 	const signUp = async () => {
-		router.push("/signUp")
-	}
+		router.push("/signUp");
+	};
 
 	return (
 		<View className="flex-1 justify-center p-4">
 			<Stack.Screen
 				options={{
-					title: 'Sign in',
-					headerStyle: { backgroundColor: '#374151' },
-					headerTintColor: '#fff',
+					title: "Sign in",
+					headerStyle: { backgroundColor: "#374151" },
+					headerTintColor: "#fff",
 					headerTitleStyle: {
-						fontWeight: 'bold',
-					}
+						fontWeight: "bold",
+					},
 				}}
 			/>
 			<Text className="text-center text-2xl font-bold mb-4">
@@ -49,17 +55,19 @@ export default function LoginPage() {
 
 			<View className="mb-4">
 				<TextInput
-					ref={emailOrUsername}
+					onChangeText={(text) => setEmailOrUsername(text)}
 					placeholder="Email or username"
 					className="border border-gray-500 rounded p-2 mb-2"
 					cursorColor={"#000"}
+					value={emailOrUsername}
 				/>
 				<TextInput
-					ref={password}
+					onChangeText={(text) => setPassword(text)}
 					placeholder="Password"
 					secureTextEntry
 					className="border border-gray-500 rounded p-2"
 					cursorColor={"#000"}
+					value={password}
 				/>
 			</View>
 
