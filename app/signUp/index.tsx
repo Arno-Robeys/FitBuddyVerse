@@ -34,7 +34,7 @@ export default function RegistrationForm() {
         <View className="flex-1 justify-center p-4">
             <Stack.Screen
                 options={{
-                    title: 'Sing Up',
+                    title: 'Sign Up',
                     headerStyle: { backgroundColor: '#374151' },
                     headerTintColor: '#fff',
                     headerTitleStyle: {
