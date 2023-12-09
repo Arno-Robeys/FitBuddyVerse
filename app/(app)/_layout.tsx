@@ -19,9 +19,6 @@ export default function AppLayout() {
 
 	// This layout can be deferred because it's not the root layout.
 	return (
-		<Tabs screenOptions={{ headerShown: false }}>
-			<Tabs.Screen name="feed" options={{ title: "Feed" }}></Tabs.Screen>
-			<Tabs.Screen name="profile" options={{ title: "Profile" }}></Tabs.Screen>
-		</Tabs>
+		<Tabs screenOptions={{ headerShown: false, tabBarIcon: ({ focused, color, size }) => null, tabBarLabelStyle: {fontSize: 18} }}/>
 	);
 }

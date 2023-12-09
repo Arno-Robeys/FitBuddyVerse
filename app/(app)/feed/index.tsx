@@ -13,7 +13,6 @@ export default function FeedPage() {
 	const session = useSession();
 	if (session?.isLoading) return <Text>Loading...</Text>;
 	if (!session) return <Text>Not logged in</Text>;
-	console.log("session:" + session?.session);
 
 	const sessionJSON = JSON.parse(session.session!);
 

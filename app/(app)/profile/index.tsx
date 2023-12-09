@@ -39,7 +39,7 @@ export default function ProfilePage() {
 		<>
 			<Stack.Screen
 				options={{
-					title: "Workout Feed",
+					title: "Profile",
 					headerStyle: { backgroundColor: "#374151" },
 					headerTintColor: "#fff",
 					headerTitleStyle: {
@@ -51,15 +51,16 @@ export default function ProfilePage() {
 				<View className="mx-auto max-w-7xl px-6 lg:px-8">
 					<View className="mx-auto max-w-2xl lg:mx-0">
 						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-							Your Feed
+							Profile
 						</Text>
 						<Text className="mt-2 text-lg text-gray-600 mb-4">
-							Workouts of all your following will appear here.
+							Your profile information is listed below.
 						</Text>
 					</View>
 					<View
 						style={{
 							marginTop: 2,
+							marginBottom: 8,
 							padding: 4,
 							backgroundColor: "rgba(112,128,144,0.2)",
 							borderRadius: 8,

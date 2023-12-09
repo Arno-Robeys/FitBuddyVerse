@@ -1,6 +1,6 @@
 import Errors from "@/components/Errors";
 import { Stack, router } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	ActivityIndicator,
 	Text,
@@ -15,24 +15,22 @@ export default function LoginPage() {
 	const [password, setPassword] = useState("");
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [errors, setErrors] = useState([]);
+	const [errors, setErrors] = useState<any[]>([]);
 
 	const session = useSession();
 	if (session?.isLoading) return <Text>Loading...</Text>;
 
 	const handleSubmit = async () => {
-		const user = {
-			email: emailOrUsername,
-			username: emailOrUsername,
-			password: password,
-		};
-		session?.signIn(user);
+		const response = await session?.signIn({email: emailOrUsername, username: emailOrUsername, password: password}) as any[];
+		
+		if (response[0] === "error") {
+			setErrors([response[1]]);
+			return;
+		}
+		
 		router.push("/feed");
 	};
 
-	const signUp = async () => {
-		router.push("/signUp");
-	};
 
 	return (
 		<View className="flex-1 justify-center p-4">
@@ -41,9 +39,7 @@ export default function LoginPage() {
 					title: "Sign in",
 					headerStyle: { backgroundColor: "#374151" },
 					headerTintColor: "#fff",
-					headerTitleStyle: {
-						fontWeight: "bold",
-					},
+					headerTitleStyle: {fontWeight: "bold"}
 				}}
 			/>
 			<Text className="text-center text-2xl font-bold mb-4">
@@ -80,7 +76,7 @@ export default function LoginPage() {
 					)}
 				</View>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={signUp}>
+			<TouchableOpacity onPress={() => router.push("/signUp")}>
 				<View className="bg-gray-800 rounded p-3 items-center mt-4">
 					<Text className="text-white text-lg">No account yet? Sign up</Text>
 				</View>

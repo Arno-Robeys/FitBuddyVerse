@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
 import Errors from "@/components/Errors";
 import { router } from "expo-router";
-import { Link, Stack } from 'expo-router';
-import { Image } from 'react-native';
+import { Stack } from 'expo-router';
+
 export default function RegistrationForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
