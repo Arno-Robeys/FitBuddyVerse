@@ -29,14 +29,18 @@ export function SessionProvider(props: React.PropsWithChildren) {
 
 	return (
 		<AuthContext.Provider
-			value={{signIn: async (signInProps) => {
+			value={{
+				signIn: async (signInProps) => {
 					// Perform sign-in logic here
-					const res = await axios.post(`${process.env.EXPO_PUBLIC_URL}/profiles/login`, signInProps).catch((err) => {
-						console.log(err);
-						return err;
-					});
-						
+					const res = await axios
+						.post(`${process.env.EXPO_PUBLIC_URL}/profiles/login`, signInProps)
+						.catch((err) => {
+							console.log(err);
+							return err;
+						});
+
 					const user = res?.status === 200 ? res.data.profile : null;
+
 					if (user) {
 						setSession(
 							JSON.stringify({
@@ -56,7 +60,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
 					setSession(null);
 				},
 				session,
-				isLoading
+				isLoading,
 			}}
 		>
 			{props.children}

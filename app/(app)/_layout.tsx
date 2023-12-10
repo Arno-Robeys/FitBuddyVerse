@@ -19,6 +19,12 @@ export default function AppLayout() {
 
 	// This layout can be deferred because it's not the root layout.
 	return (
-		<Tabs screenOptions={{ headerShown: false, tabBarIcon: ({ focused, color, size }) => null, tabBarLabelStyle: {fontSize: 18} }}/>
+		<Tabs
+			screenOptions={{
+				headerShown: false,
+				tabBarIcon: ({ focused, color, size }) => null,
+				tabBarLabelStyle: { fontSize: 18 },
+			}}
+		/>
 	);
 }

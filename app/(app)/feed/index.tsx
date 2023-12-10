@@ -11,19 +11,20 @@ import { Text, View } from "react-native";
 
 export default function FeedPage() {
 	const session = useSession();
-	if (session?.isLoading) return <Text>Loading...</Text>;
-	if (!session) return <Text>Not logged in</Text>;
-
-	const sessionJSON = JSON.parse(session.session!);
-
+	const sessionJSON = session?.session ? JSON.parse(session.session) : null;
 	const {
 		data: profile,
 		isLoading,
 		isError,
 		error,
 	} = useQuery({
-		queryKey: ["profile", sessionJSON.id],
+		queryKey: ["profile", sessionJSON?.id],
 		queryFn: async () => {
+			if (!sessionJSON) {
+				// You can throw a cancel error here if your query client supports it
+				// or simply return a default value that signifies no data.
+				return;
+			}
 			const response = await profileService.getProfileEmbedAll({
 				id: sessionJSON.id,
 				accessToken: sessionJSON.accessToken,
@@ -33,7 +34,12 @@ export default function FeedPage() {
 			}
 			return response.data;
 		},
+		enabled: !!sessionJSON, // This ensures the query only runs when sessionJSON is available
 	});
+
+	if (!sessionJSON) {
+		return <Text>No session</Text>;
+	}
 
 	return (
 		<>

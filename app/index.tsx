@@ -21,16 +21,19 @@ export default function LoginPage() {
 	if (session?.isLoading) return <Text>Loading...</Text>;
 
 	const handleSubmit = async () => {
-		const response = await session?.signIn({email: emailOrUsername, username: emailOrUsername, password: password}) as any[];
-		
+		const response = (await session?.signIn({
+			email: emailOrUsername,
+			username: emailOrUsername,
+			password: password,
+		})) as any[];
+
 		if (response[0] === "error") {
 			setErrors([response[1]]);
 			return;
 		}
-		
+		console.log(response[0]);
 		router.push("/feed");
 	};
-
 
 	return (
 		<View className="flex-1 justify-center p-4">
@@ -39,7 +42,7 @@ export default function LoginPage() {
 					title: "Sign in",
 					headerStyle: { backgroundColor: "#374151" },
 					headerTintColor: "#fff",
-					headerTitleStyle: {fontWeight: "bold"}
+					headerTitleStyle: { fontWeight: "bold" },
 				}}
 			/>
 			<Text className="text-center text-2xl font-bold mb-4">
