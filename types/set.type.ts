@@ -5,4 +5,5 @@ export type TExerciseSet = {
     setNr: number;
     repetitions: number;
     weightKG: number;
+    isCompleted?: boolean;
 };
