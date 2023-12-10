@@ -9,6 +9,7 @@ import {
 	View,
 } from "react-native";
 import { useSession } from "./ctx";
+import { decode } from "base-64";
 
 export default function LoginPage() {
 	const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -18,7 +19,23 @@ export default function LoginPage() {
 	const [errors, setErrors] = useState<any[]>([]);
 
 	const session = useSession();
-	if (session?.isLoading) return <Text>Loading...</Text>;
+
+	useEffect(() => {
+		const sessionJSON = session?.session ? JSON.parse(session.session) : null;
+		if (sessionJSON) {
+			const jwtPayload = JSON.parse(
+				decode(sessionJSON.accessToken.split(".")[1])
+			);
+			const isExpired = Date.now() >= jwtPayload.exp * 1000;
+
+			if (isExpired) {
+				console.log("Token expired.");
+			} else {
+				console.log("Valid token");
+				router.push("/feed");
+			}
+		}
+	}, [session]);
 
 	const handleSubmit = async () => {
 		const response = (await session?.signIn({
