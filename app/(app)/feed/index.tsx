@@ -4,10 +4,12 @@ import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
+import { TWorkout } from "@/types/workout.type";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
-import { Stack } from "expo-router";
-import { Text, View } from "react-native";
+import { Stack, router, useNavigation } from "expo-router";
+import { useEffect } from "react";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 
 export default function FeedPage() {
 	const session = useSession();
@@ -25,7 +27,7 @@ export default function FeedPage() {
 				// or simply return a default value that signifies no data.
 				return;
 			}
-			const response = await profileService.getProfileEmbedAll({
+			const response = await profileService.getProfileWithFollowingEmbedAll({
 				id: sessionJSON.id,
 				accessToken: sessionJSON.accessToken,
 			});
@@ -51,6 +53,18 @@ export default function FeedPage() {
 					headerTitleStyle: {
 						fontWeight: "bold",
 					},
+					headerRight: () => (
+						<TouchableOpacity
+							onPress={() => {
+								session?.signOut();
+								session!.session = null;
+								router.push("/");
+							}}
+							className="bg-blue-500 rounded py-2 px-4"
+						>
+							<Text className="text-white font-bold">Logout</Text>
+						</TouchableOpacity>
+					),
 				}}
 			/>
 			<View className="bg-white py-24 sm:py-32">
@@ -80,7 +94,11 @@ export default function FeedPage() {
 										/>
 									);
 								}}
-								data={profile?.workouts}
+								data={
+									profile?.following
+										?.map((f) => f.workouts)
+										.flat() as TWorkout[]
+								}
 								estimatedItemSize={100}
 							/>
 						)}

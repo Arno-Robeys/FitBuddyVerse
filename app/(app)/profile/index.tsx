@@ -8,8 +8,8 @@ import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
-import { Stack } from "expo-router";
-import { Text, View } from "react-native";
+import { Stack, router } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
 	const session = useSession();
@@ -45,6 +45,18 @@ export default function ProfilePage() {
 					headerTitleStyle: {
 						fontWeight: "bold",
 					},
+					headerRight: () => (
+						<TouchableOpacity
+							onPress={() => {
+								session?.signOut();
+								session!.session = null;
+								router.push("/");
+							}}
+							className="bg-blue-500 rounded py-2 px-4"
+						>
+							<Text className="text-white font-bold">Logout</Text>
+						</TouchableOpacity>
+					),
 				}}
 			/>
 			<View className="bg-white py-24 sm:py-32">

@@ -2,21 +2,39 @@ import { TProfile } from "@/types/profile.type";
 import { requestHandler } from "./requestHandler";
 import axios from "axios";
 
-const getProfileWithFollowingEmbedAll = async (
-	id: number,
-	session: any
-): Promise<TProfile> => {
-	const res = await fetch(
-		`${process.env.EXPO_PUBLIC_URL}/profiles/${id}/following?embed=all`,
+interface getProfileWithFollowingEmbedAllParams {
+	id: string;
+	accessToken: string;
+}
+
+// const getProfileWithFollowingEmbedAll = async (
+// 	id: number,
+// 	session: any
+// ): Promise<TProfile> => {
+// 	const res = await fetch(
+// 		`${process.env.EXPO_PUBLIC_URL}/profiles/${id}/following?embed=all`,
+// 		{
+// 			headers: {
+// 				authorization: "Bearer " + session?.user.accessToken,
+// 			},
+// 		}
+// 	);
+// 	const data = await res.json();
+// 	return data as TProfile;
+// };
+const getProfileWithFollowingEmbedAll = requestHandler<
+	getProfileWithFollowingEmbedAllParams,
+	TProfile
+>((params) =>
+	axios.get(
+		`${process.env.EXPO_PUBLIC_URL}/profiles/${params?.id}/following?embed=all`,
 		{
 			headers: {
-				authorization: "Bearer " + session?.user.accessToken,
+				authorization: "Bearer " + params?.accessToken,
 			},
 		}
-	);
-	const data = await res.json();
-	return data as TProfile;
-};
+	)
+);
 
 // const getProfileEmbedAll = async (id: number, session: any): Promise<TProfile> => {
 //     const res = await fetch(`${process.env.EXPO_PUBLIC_URL}/profiles/${id}?embed=all`, {
