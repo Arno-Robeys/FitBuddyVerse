@@ -23,4 +23,8 @@ export class ExerciseSet {
         this.repetitions = repetitions;
         this.weightKG = weightKG;
     }
+
+    static From(exerciseSet: TExerciseSet): ExerciseSet {
+        return new ExerciseSet(exerciseSet)
+    }
 }

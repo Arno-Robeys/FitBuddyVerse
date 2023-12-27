@@ -3,7 +3,7 @@ import { WorkoutComment } from '@/model/comment';
 import { Workout } from '@/model/workout';
 
 export class Profile {
-    readonly id: string;
+    readonly id?: number;
     readonly email: string;
     readonly username: string;
     readonly password: string;
@@ -11,6 +11,7 @@ export class Profile {
     readonly workoutComments?: WorkoutComment[]
     readonly followedBy?: Profile[]
     readonly following?: Profile[]
+    readonly profilePicture?: string
 
     constructor({
         id,
@@ -30,5 +31,9 @@ export class Profile {
         this.workoutComments = workoutComments;
         this.followedBy = followedBy;
         this.following = following;
+    }
+
+    static From(profile: TProfile): Profile {
+        return new Profile(profile)
     }
 }

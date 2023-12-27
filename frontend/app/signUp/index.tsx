@@ -5,8 +5,6 @@ import { router } from "expo-router";
 import { Stack } from 'expo-router';
 
 export default function RegistrationForm() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,8 +13,6 @@ export default function RegistrationForm() {
     const handleRegistration = () => {
         // Implement your registration logic here
         console.log('Registration details:', {
-            firstName,
-            lastName,
             email,
             username,
             password,
@@ -31,17 +27,7 @@ export default function RegistrationForm() {
     }
 
     return (
-        <View className="flex-1 justify-center p-4">
-            <Stack.Screen
-                options={{
-                    title: 'Sign Up',
-                    headerStyle: { backgroundColor: '#374151' },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    }
-                }}
-            />
+        <View className="bg-white flex-1 justify-center p-4">
             <Text className="text-center text-2xl font-bold mb-4">
                 Registration Form
             </Text>
@@ -50,23 +36,6 @@ export default function RegistrationForm() {
                 <Errors errors={errors} clear={() => setErrors([])} />
             )}
             <View className="mb-4">
-                <Text className="text-base">
-                    First Name
-                </Text>
-                <TextInput className="border border-gray-500 rounded p-2"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChangeText={(text) => setFirstName(text)}
-                />
-
-                <Text className="text-base">
-                    Last Name
-                </Text>
-                <TextInput className="border border-gray-500 rounded p-2"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChangeText={(text) => setLastName(text)}
-                />
 
                 <Text className="text-base">
                     Email

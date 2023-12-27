@@ -1,5 +1,6 @@
 import { TWorkoutComment } from './comment.type';
 import { TExercise } from './exercise.type';
+import { TProfile } from './profile.type';
 import { TExerciseSet } from './set.type';
 
 export type TWorkout = {
@@ -7,11 +8,11 @@ export type TWorkout = {
     name: string;
     createdAt: string;
     durationSec: number;
-    likeCount: number;
     volumeKG: number;
     profileId: number;
     workoutComments?: TWorkoutComment[];
     exerciseSets?: TExerciseSet[];
+    likedBy?: TProfile[];
 };
 
 export type TWorkoutExercise = {
@@ -19,7 +20,6 @@ export type TWorkoutExercise = {
     name: string;
     createdAt: string;
     durationSec: number;
-    likeCount?: number;
     volumeKG: number;
     profileId: string;
     exercise?: TExercise[];

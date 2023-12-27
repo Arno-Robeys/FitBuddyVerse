@@ -4,6 +4,7 @@ import React, {useState } from "react";
 import {ActivityIndicator, Text, TextInput, TouchableOpacity, View} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileService from "@/lib/profileService";
+import { set } from "date-fns";
 
 export default function LoginPage() {
 	const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -17,7 +18,8 @@ export default function LoginPage() {
 		setIsLoading(true);
 		profileService.loginProfile(emailOrUsername, password).then((res) => {
 			if (res.status === 200) {
-				AsyncStorage.setItem("profile", JSON.stringify(res.profile));
+				AsyncStorage.setItem("profile", JSON.stringify(res.data.profile));
+				setErrors([]);
 				router.push("/feed");
 			} else {
 				setErrors(['Invalid username or password']);
@@ -26,20 +28,13 @@ export default function LoginPage() {
 			setErrors(['Invalid username or password']);
 			console.log(err);
 		}).finally(() => {
+			setPassword("");
 			setIsLoading(false);
 		});
 	};
 
 	return (
-		<View className="flex-1 justify-center p-4">
-			<Stack.Screen
-				options={{
-					title: "Sign in",
-					headerStyle: { backgroundColor: "#374151" },
-					headerTintColor: "#fff",
-					headerTitleStyle: { fontWeight: "bold" },
-				}}
-			/>
+		<View className="bg-white flex-1 justify-center p-4">
 			<Text className="text-center text-2xl font-bold mb-4">
 				Sign in to your account
 			</Text>

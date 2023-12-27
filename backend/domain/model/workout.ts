@@ -2,6 +2,7 @@ import { TWorkout } from '@/types/workout.type';
 import { WorkoutComment } from '@/model/comment';
 import { ExerciseSet } from '@/model/set';
 import { Profile } from '@/model/profile';
+import { Exercise } from '@/model/exercise';
 
 export class Workout {
     readonly id: string;
@@ -12,6 +13,7 @@ export class Workout {
     readonly volumeKG: number;
     readonly profileId: string;
     readonly workoutComments?: WorkoutComment[];
+    readonly exercise?: Exercise[];
     readonly exerciseSets?: ExerciseSet[];
     readonly likedBy?: Profile[];
 
@@ -35,5 +37,9 @@ export class Workout {
         this.workoutComments = workoutComments;
         this.exerciseSets = exerciseSets;
         this.likedBy = likedBy;
+    }
+
+    static From(workout: TWorkout): Workout {
+        return new Workout(workout)
     }
 }

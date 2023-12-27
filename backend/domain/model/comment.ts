@@ -20,4 +20,8 @@ export class WorkoutComment{
         this.message = message;
         this.createdAt = createdAt;
     }
+
+    static From(workoutComment: TWorkoutComment): WorkoutComment {
+        return new WorkoutComment(workoutComment)
+    }
 }

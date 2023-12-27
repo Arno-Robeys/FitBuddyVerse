@@ -8,7 +8,7 @@ export default function WorkoutLikes() {
 		<View>
 			<Text className="text-white">
 				<EvilIcons name="like" size={24} color="white"/>
-				{workout.likeCount}
+				{workout?.likedBy?.length ?? 0}
 			</Text>
 		</View>
 	);

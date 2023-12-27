@@ -1,9 +1,8 @@
 "use client";
 import Exercise from "@/components/exercise/Exercise";
 import { TWorkoutExercise } from "@/types/workout.type";
-import { Stack } from "expo-router";
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
 const exerciseDummy = [
     {
@@ -57,6 +56,23 @@ const exerciseDummy = [
                 "isCompleted": true
             }
         ]
+    },
+    {
+        "id": 3,
+        "name": "Incline Bench Press",
+        "type": "Chest",
+        "equipment": "Dumbbell",
+        "exerciseSets": [
+            {
+                "id": 5,
+                "workoutId": 1,
+                "exerciseId": 3,
+                "setNr": 1,
+                "repetitions": 11,
+                "weightKG": 34,
+                "isCompleted": false
+            }
+        ]
     }
 ]
 
@@ -74,52 +90,35 @@ export default function WorkoutPage() {
     };
 
 	return (
-		<>
-			<Stack.Screen
-				options={{
-					title: "Workout Tracker",
-					headerStyle: { backgroundColor: "#374151" },
-					headerTintColor: "#fff",
-					headerTitleStyle: {
-						fontWeight: "bold",
-					},
-				}}
-			/>
-            <View className="p-2">
-                <View className="flex-col">
-                    <View className="flex-row justify-between pb-4 space-x-1">
-                        <TouchableOpacity className="bg-red-500 rounded py-2 px-4">
-                            <Text className="text-white font-bold">Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={FinishHandler} className="bg-blue-500 rounded py-2 px-4">
-                            <Text className="text-white font-bold">Finish</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <Text className="mb-2 font-bold">Workout Name</Text>
-                    <TextInput className="border border-gray-400 rounded p-2 text-base"
-                    value={workout.name}
-                    onChangeText={(value) => setWorkout({ ...workout, name: value })}
-                    placeholder="New Workout"
-                    />
-
-                    <TouchableOpacity onPress={() => setOpened(true)} className="bg-gray-700 rounded mt-4 py-2">
-                        <Text className="text-center text-white font-bold">+ Add Exercise</Text>
+		<ScrollView className="bg-white h-screen">
+            <View className="flex-col p-2">
+                <View className="flex-row justify-between pb-4 space-x-1">
+                    <TouchableOpacity className="bg-red-500 rounded py-2 px-4">
+                        <Text className="text-white font-bold">Cancel</Text>
                     </TouchableOpacity>
-
-                    <Exercise workout={workout} setWorkout={setWorkout} />
+                    <TouchableOpacity onPress={FinishHandler} className="bg-blue-500 rounded py-2 px-4">
+                        <Text className="text-white font-bold">Finish</Text>
+                    </TouchableOpacity>
                 </View>
 
-                {/* Modal AddExercise*/}
-                <Modal visible={opened} onRequestClose={() => setOpened(false)} animationType="slide">
-                    <TouchableOpacity onPress={() => setOpened(false)} className="bg-gray-700 py-4">
-                        <Text className="text-center text-white font-bold">Close</Text>
-                    </TouchableOpacity>
-                    <View>
-        
-                    </View>
-                </Modal>
+                <Text className="mb-2 font-bold">Workout Name</Text>
+                <TextInput className="border border-gray-400 rounded p-2 text-base" value={workout.name} onChangeText={(value) => setWorkout({ ...workout, name: value })} placeholder="New Workout"/>
+
+                <TouchableOpacity onPress={() => setOpened(true)} className="bg-gray-700 rounded mt-4 py-2">
+                    <Text className="text-center text-white font-bold">+ Add Exercise</Text>
+                </TouchableOpacity>
+                <Exercise workout={workout} setWorkout={setWorkout} />
             </View>
-		</>
+
+            {/* Modal AddExercise*/}
+            <Modal visible={opened} onRequestClose={() => setOpened(false)} animationType="slide">
+                <TouchableOpacity onPress={() => setOpened(false)} className="bg-gray-700 py-4">
+                    <Text className="text-center text-white font-bold">Close</Text>
+                </TouchableOpacity>
+                <View>
+    
+                </View>
+            </Modal>
+		</ScrollView>
 	);
 }

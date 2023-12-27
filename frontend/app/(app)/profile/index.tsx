@@ -7,9 +7,8 @@ import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
-import { Stack, router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function ProfilePage() {
 	const [profile, setProfile] = useState<TProfile>();
@@ -20,9 +19,9 @@ export default function ProfilePage() {
 				var profile = await AsyncStorage.getItem("profile");
 				profile = JSON.parse(profile!);
 				//@ts-ignore
-				var res = await profileService.getProfileEmbedAll({ id: profile.id, accessToken: profile.accessToken });
+				//var res = await profileService.getProfileEmbedAll({ id: profile.id });
 				//@ts-ignore
-				setProfile(res.data);
+				//setProfile(res.data);
 			}catch(err) {
 				console.log(err);
 			}
@@ -32,28 +31,7 @@ export default function ProfilePage() {
 	
 	return (
 		<>
-			<Stack.Screen
-				options={{
-					title: "Profile",
-					headerStyle: { backgroundColor: "#374151" },
-					headerTintColor: "#fff",
-					headerTitleStyle: {
-						fontWeight: "bold",
-					},
-					headerRight: () => (
-						<TouchableOpacity
-							onPress={() => {
-								AsyncStorage.removeItem("profile");
-								router.push("/");
-							}}
-							className="bg-blue-500 rounded py-2 px-4"
-						>
-							<Text className="text-white font-bold">Logout</Text>
-						</TouchableOpacity>
-					),
-				}}
-			/>
-			<View className="bg-white py-24 sm:py-32">
+			<View className="bg-white py-24">
 				<View className="mx-auto max-w-7xl px-6 lg:px-8">
 					<View className="mx-auto max-w-2xl lg:mx-0">
 						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

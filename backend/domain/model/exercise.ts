@@ -1,6 +1,7 @@
 import { ExerciseSet } from '@/model/set';
 import { TExercise } from '@/types/exercise.type';
-import { Muscle } from '@/model/muscle';
+import { Note } from './note';
+import { Workout } from '@prisma/client';
 
 export class Exercise {
     readonly id: string;
@@ -8,14 +9,18 @@ export class Exercise {
     readonly type: string;
     readonly equipment: string;
     readonly exerciseSets?: ExerciseSet[];
-    readonly muscles?: Muscle[];
+    readonly notes?: Note[];
+    readonly workouts?: Workout[];
 
-    constructor({ id, name, type, equipment, exerciseSets, muscles }: TExercise) {
+    constructor({ id, name, type, equipment, exerciseSets }: TExercise) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.equipment = equipment;
         this.exerciseSets = exerciseSets;
-        this.muscles = muscles;
+    }
+
+    static From(exercise: TExercise): Exercise {
+        return new Exercise(exercise)
     }
 }

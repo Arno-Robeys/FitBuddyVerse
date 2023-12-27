@@ -1,5 +1,5 @@
-import { Muscle } from '@/domain/model/muscle';
 import { ExerciseSet } from '@/domain/model/set';
+import { Note } from '@/domain/model/note';
 
 export type TExercise = {
     id?: string;
@@ -7,7 +7,7 @@ export type TExercise = {
     type: string;
     equipment: string;
     exerciseSets?: ExerciseSet[];
-    muscles?: Muscle[];
+    notes?: Note[];
 };
 
 export type TInputExercise = {

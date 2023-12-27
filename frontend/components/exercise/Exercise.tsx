@@ -74,6 +74,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
         workout.exercise.map((row: TExercise) => (
           <View key={row.name}>
             <Text className='font-bold text-xl'>{row.name}</Text>
+            <TextInput placeholder='Add Exercise Note...'></TextInput>
             <View className='flex-row justify-between'>
               <Text className='font-bold text-base'>{row.type}</Text>
               <Text className='font-bold text-base'>{row.equipment}</Text>

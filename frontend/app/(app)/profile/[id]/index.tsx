@@ -4,13 +4,12 @@ import Workout from "@/components/workout/Workout";
 import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
-import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
-import { Stack, router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function ProfilePage() {
 	const { id } = useLocalSearchParams();
@@ -24,9 +23,9 @@ export default function ProfilePage() {
 				var profile = await AsyncStorage.getItem("profile");
 				profile = JSON.parse(profile!);
 				//@ts-ignore
-				var res = await profileService.getProfileEmbedAll({ id: id, accessToken: profile.accessToken });
+				//var res = await profileService.getProfileEmbedAll({ id: id, accessToken: profile.accessToken });
 				//@ts-ignore
-				setProfile(res.data);
+				//setProfile(res.data);
 			}catch(err) {
 				console.log(err);
 			}
@@ -35,29 +34,7 @@ export default function ProfilePage() {
 	}, []);
 	return (
 		<>
-			<Stack.Screen
-				options={{
-					title: "Profile",
-					headerStyle: { backgroundColor: "#374151" },
-					headerTintColor: "#fff",
-					headerTitleStyle: {
-						fontWeight: "bold",
-					},
-					headerRight: () => (
-						<TouchableOpacity
-							onPress={() => {
-								AsyncStorage.removeItem("profile");
-								router.push("/");
-							}}
-							className="bg-blue-500 rounded py-2 px-4"
-						>
-							<Text className="text-white font-bold">Logout</Text>
-						</TouchableOpacity>
-					),
-				}}
-			/>
-
-			<View className="py-24 sm:py-32">
+			<View className="bg-white py-24">
 				<View className="mx-auto max-w-5xl px-6 lg:px-8">
 					{
 						<View>

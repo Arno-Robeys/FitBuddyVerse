@@ -32,9 +32,9 @@ const Workout: FC<Props> = ({
 				var profile = await AsyncStorage.getItem("profile");
 				profile = JSON.parse(profile!);
 				//@ts-ignore
-				var res = await profileService.getProfileEmbedAll({ id: profile.id, accessToken: profile.accessToken });
+				//var res = await profileService.getProfileEmbedAll({ id: profile.id, accessToken: profile.accessToken });
 				//@ts-ignore
-				setProfile(res.data);
+				//setProfile(res.data);
 			}catch(err) {
 				console.log(err);
 			}

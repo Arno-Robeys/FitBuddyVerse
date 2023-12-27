@@ -7,7 +7,6 @@ export type TWorkout = {
 	name: string;
 	createdAt: Date;
 	durationSec: number;
-	likeCount: number;
 	volumeKG: number;
 	profileId: string;
 	workoutComments?: WorkoutComment[];
@@ -19,7 +18,6 @@ export type TInputWorkout = {
 	name: string;
 	createdAt: string;
 	durationSec: number;
-	likeCount: number;
 	volumeKG: number;
 	profileId: string;
 };

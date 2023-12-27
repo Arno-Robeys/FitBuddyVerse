@@ -3,7 +3,7 @@ import { Workout } from '@/domain/model/workout';
 import { Profile } from '@/domain/model/profile';
 
 export type TProfile = {
-    id?: string;
+    id?: number;
     email: string;
     username: string;
     password: string;
@@ -11,10 +11,20 @@ export type TProfile = {
     workoutComments?: WorkoutComment[];
     followedBy?: Profile[];
     following?: Profile[];
+    profilePicture?: string;
 };
+
+export type TResponseProfile = {
+    id?: number;
+    email: string;
+    username: string;
+    profilePicture?: string;
+};
+
 export type TInputProfile = {
-    id: string;
+    id: number;
     email: string;
     username: string;
     password: string;
+    profilePicture?: string;
 };
