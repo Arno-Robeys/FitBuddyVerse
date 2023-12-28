@@ -15,6 +15,15 @@ export default function AppLayout() {
 				}}
 			/>
 			<Tabs.Screen
+				name="workouts/index"
+				options={{
+					title: "Workouts",
+					tabBarIcon: ({ size, color }) => (
+						<Ionicons name="ios-barbell" size={size} color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
 				name="profile/index"
 				options={{
 					title: "Profile",
@@ -22,15 +31,6 @@ export default function AppLayout() {
 						<Ionicons name="ios-person" size={size} color={color} />
 					),
 					href: `/profile`,
-				}}
-			/>
-			<Tabs.Screen
-				name="workouts/index"
-				options={{
-					title: "Workouts",
-					tabBarIcon: ({ size, color }) => (
-						<Ionicons name="ios-barbell" size={size} color={color} />
-					),
 				}}
 			/>
 			<Tabs.Screen name="profile/[id]/index" options={{tabBarButton: () => null}}/>
