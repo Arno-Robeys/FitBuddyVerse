@@ -81,40 +81,40 @@ const exerciseDummy = [
 
 export default function WorkoutPage() {
 
-    const [workout, setWorkout] = useState<TWorkoutExercise>({name: '', createdAt: new Date().toISOString(), durationSec: 0, volumeKG: 0, profileId: '', exercise: exerciseDummy});
+    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: new Date().toISOString(), durationSec: 0, volumeKG: 0, profileId: '', exercise: exerciseDummy });
     const [opened, setOpened] = useState(false);
-  
+
     const FinishHandler = async () => {
-      // Implement your finish logic
+        // Implement your finish logic
     };
 
     const AddExerciseHandler = () => {
-      // Implement your add exercise logic
+        // Implement your add exercise logic
     };
 
     useEffect(() => {
         const interval = setInterval(() => {
-          setWorkout(prevWorkout => ({
-            ...prevWorkout,
-            durationSec: prevWorkout.createdAt
-              ? Math.floor((Date.now() - Date.parse(prevWorkout.createdAt)) / 1000)
-              : 0
-          }));
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                durationSec: prevWorkout.createdAt
+                    ? Math.floor((Date.now() - Date.parse(prevWorkout.createdAt)) / 1000)
+                    : 0
+            }));
         }, 1000);
-      
+
         return () => clearInterval(interval);
-      }, [workout.createdAt]);
+    }, [workout.createdAt]);
 
     const formatDuration = (durationSec: number) => {
         const duration = moment.duration(durationSec, 'seconds');
         return durationSec < 60 ? `${durationSec} sec` : `${duration.minutes()}m ${duration.seconds()}s`;
     };
 
-	return (
-		<ScrollView className="bg-white h-screen">
+    return (
+        <ScrollView className="bg-white h-screen">
             <View className="flex-col p-2">
                 <Text className="mb-2 font-bold text-2xl">Workout Name</Text>
-                <TextInput className="border border-gray-400 rounded p-2 text-base" value={workout.name} onChangeText={(value) => setWorkout({ ...workout, name: value })} placeholder="New Workout"/>
+                <TextInput className="border border-gray-400 rounded p-2 text-base" value={workout.name} onChangeText={(value) => setWorkout({ ...workout, name: value })} placeholder="New Workout" />
 
                 <TouchableOpacity onPress={() => setOpened(true)} className="bg-gray-700 rounded mt-4 py-2">
                     <Text className="text-center text-white font-bold text-lg">+ Add Exercise</Text>
@@ -132,9 +132,9 @@ export default function WorkoutPage() {
                     <Text className="text-center text-white font-bold">Close</Text>
                 </TouchableOpacity>
                 <View>
-    
+
                 </View>
             </Modal>
-		</ScrollView>
-	);
+        </ScrollView>
+    );
 }

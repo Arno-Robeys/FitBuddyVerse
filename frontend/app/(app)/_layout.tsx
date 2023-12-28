@@ -33,7 +33,7 @@ export default function AppLayout() {
 					href: `/profile`,
 				}}
 			/>
-			<Tabs.Screen name="profile/[id]/index" options={{tabBarButton: () => null}}/>
+			<Tabs.Screen name="profile/[id]/index" options={{ tabBarButton: () => null }} />
 		</Tabs>
 	);
 }
