@@ -56,6 +56,7 @@ export default function LoginPage() {
 					secureTextEntry
 					className="border border-gray-500 rounded p-2"
 					cursorColor={"#000"}
+					autoCapitalize="none"
 					value={password}
 				/>
 			</View>

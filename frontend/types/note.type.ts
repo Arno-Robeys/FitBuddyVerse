@@ -1,5 +1,5 @@
 export type TNote = {
-    id?: string;
+    id?: number;
     workoutId: string;
     exerciseId: string;
     note: string;

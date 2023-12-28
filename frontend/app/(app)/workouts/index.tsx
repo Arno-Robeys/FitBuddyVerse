@@ -1,7 +1,10 @@
 "use client";
 import Exercise from "@/components/exercise/Exercise";
 import { TWorkoutExercise } from "@/types/workout.type";
-import React, { useState } from 'react';
+import { set } from "date-fns";
+import { router } from "expo-router";
+import moment from "moment";
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
 const exerciseDummy = [
@@ -16,8 +19,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 89,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": true
             },
             {
@@ -25,8 +28,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 2,
-                "repetitions": 12,
-                "weightKG": 90,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             },
             {
@@ -34,8 +37,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 3,
-                "repetitions": 11,
-                "weightKG": 20,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             }
         ]
@@ -51,8 +54,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 2,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 34,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": true
             }
         ]
@@ -68,8 +71,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 3,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 34,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             }
         ]
@@ -84,29 +87,42 @@ export default function WorkoutPage() {
     const FinishHandler = async () => {
       // Implement your finish logic
     };
-  
+
     const AddExerciseHandler = () => {
       // Implement your add exercise logic
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setWorkout(prevWorkout => ({
+            ...prevWorkout,
+            durationSec: prevWorkout.createdAt
+              ? Math.floor((Date.now() - Date.parse(prevWorkout.createdAt)) / 1000)
+              : 0
+          }));
+        }, 1000);
+      
+        return () => clearInterval(interval);
+      }, [workout.createdAt]);
+
+    const formatDuration = (durationSec: number) => {
+        const duration = moment.duration(durationSec, 'seconds');
+        return durationSec < 60 ? `${durationSec} sec` : `${duration.minutes()}m ${duration.seconds()}s`;
     };
 
 	return (
 		<ScrollView className="bg-white h-screen">
             <View className="flex-col p-2">
-                <View className="flex-row justify-between pb-4 space-x-1">
-                    <TouchableOpacity className="bg-red-500 rounded py-2 px-4">
-                        <Text className="text-white font-bold">Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={FinishHandler} className="bg-blue-500 rounded py-2 px-4">
-                        <Text className="text-white font-bold">Finish</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Text className="mb-2 font-bold">Workout Name</Text>
+                <Text className="mb-2 font-bold text-2xl">Workout Name</Text>
                 <TextInput className="border border-gray-400 rounded p-2 text-base" value={workout.name} onChangeText={(value) => setWorkout({ ...workout, name: value })} placeholder="New Workout"/>
 
                 <TouchableOpacity onPress={() => setOpened(true)} className="bg-gray-700 rounded mt-4 py-2">
-                    <Text className="text-center text-white font-bold">+ Add Exercise</Text>
+                    <Text className="text-center text-white font-bold text-lg">+ Add Exercise</Text>
                 </TouchableOpacity>
+                <View className="flex-row justify-between">
+                    <Text className="text-base">Time: {formatDuration(workout.durationSec)}</Text>
+                    <Text className="text-base">Total Volume: {workout.volumeKG}</Text>
+                </View>
                 <Exercise workout={workout} setWorkout={setWorkout} />
             </View>
 
