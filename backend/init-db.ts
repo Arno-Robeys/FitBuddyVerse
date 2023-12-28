@@ -7,7 +7,8 @@ const prisma = new PrismaClient();
 const main = async () => {
   console.log("Connected");
   // Use the prisma API to fill the database with some initial data
-  await prisma.profile.createMany({data: [{
+  await prisma.profile.createMany({
+    data: [{
       email: "nino@example.com",
       username: "Nino",
       password: "t",
@@ -27,9 +28,11 @@ const main = async () => {
       username: "Arno",
       password: "t",
     }
-  ]});
+    ]
+  });
 
-  await prisma.workout.createMany({data: [{
+  await prisma.workout.createMany({
+    data: [{
       name: "Nino's Beste Workout!",
       durationSec: 2530,
       volumeKG: 10300,
@@ -53,9 +56,11 @@ const main = async () => {
       volumeKG: 12309,
       profileId: 4,
     }
-  ]});
+    ]
+  });
 
-  await prisma.exercise.createMany({data: [{
+  await prisma.exercise.createMany({
+    data: [{
       name: "Bench Press",
       type: "Chest",
       equipment: "Dumbbell",
@@ -79,9 +84,11 @@ const main = async () => {
       equipment: "Machine",
       description: "Seated row is an exercise for the back muscles. Sit on the machine and grip the handles. Pull the handles towards you and push them back out.",
     }
-  ]});
+    ]
+  });
 
-  await prisma.exerciseSet.createMany({data: [{
+  await prisma.exerciseSet.createMany({
+    data: [{
       weightKG: 20,
       setNr: 1,
       repetitions: 10,
@@ -165,7 +172,27 @@ const main = async () => {
       exerciseId: 4,
       workoutId: 4,
     }
-  ]});
+    ]
+  });
+
+  await prisma.exerciseNote.createMany({
+    data: [{
+      workoutId: 1,
+      exerciseId: 1,
+      note: "1e opwarming",
+    },
+    {
+      workoutId: 2,
+      exerciseId: 2,
+      note: "2e opwarming",
+    },
+    {
+      workoutId: 3,
+      exerciseId: 3,
+      note: "3e opwarming",
+    },
+    ]
+  });
 
 };
 

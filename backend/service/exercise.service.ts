@@ -7,6 +7,12 @@ const getExerciseById = async (exerciseId: number): Promise<Exercise> => {
     return exercise;
 }
 
+const getExerciseByIdFromUser = async (exerciseId: number, profileId: number): Promise<Exercise | null> => {
+    const exercise = await exerciseDb.getExerciseByIdFromUser(exerciseId, profileId);
+    return exercise;
+}
+
 export default {
     getExerciseById,
+    getExerciseByIdFromUser,
 }
