@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { FC } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
+
 interface Props {
   workout: TWorkoutExercise;
   setWorkout: any;
@@ -15,6 +16,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
   function navigateToExerciseInfo(exerciseId: number) {
     console.log('navigateToExerciseInfo');
   }
+
   function ChangeInputHandler(setNr: number, exerciseId: number, target: string, type: string): void {
     var number = Number(target);
     if (isNaN(number)) {
