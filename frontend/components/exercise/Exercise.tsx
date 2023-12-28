@@ -4,6 +4,7 @@ import { TWorkoutExercise } from '@/types/workout.type';
 import { Ionicons } from '@expo/vector-icons';
 import React, { FC } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { router } from "expo-router";
 
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
 const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
 
   function navigateToExerciseInfo(exerciseId: number) {
-    console.log('navigateToExerciseInfo');
+    router.push(`/exerciseInfo/${exerciseId}`)
+    console.log(exerciseId)
   }
 
   function ChangeInputHandler(setNr: number, exerciseId: number, target: string, type: string): void {

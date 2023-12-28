@@ -132,7 +132,7 @@ export default function WorkoutPage() {
                     <Text className="text-center text-white font-bold">Close</Text>
                 </TouchableOpacity>
                 <View>
-
+                    <Text>test</Text>
                 </View>
             </Modal>
         </ScrollView>
