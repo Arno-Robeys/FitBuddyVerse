@@ -19,8 +19,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 89,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": true
             },
             {
@@ -28,8 +28,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 2,
-                "repetitions": 12,
-                "weightKG": 90,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             },
             {
@@ -37,8 +37,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 1,
                 "setNr": 3,
-                "repetitions": 11,
-                "weightKG": 20,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             }
         ]
@@ -54,8 +54,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 2,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 34,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": true
             }
         ]
@@ -71,8 +71,8 @@ const exerciseDummy = [
                 "workoutId": 1,
                 "exerciseId": 3,
                 "setNr": 1,
-                "repetitions": 11,
-                "weightKG": 34,
+                "repetitions": 0,
+                "weightKG": 0,
                 "isCompleted": false
             }
         ]
@@ -120,8 +120,8 @@ export default function WorkoutPage() {
                     <Text className="text-center text-white font-bold text-lg">+ Add Exercise</Text>
                 </TouchableOpacity>
                 <View className="flex-row justify-between">
-                    <Text className="text-base">Tijd: {formatDuration(workout.durationSec)}</Text>
-                    <Text className="text-base">Totale Volume: {workout.volumeKG}</Text>
+                    <Text className="text-base">Time: {formatDuration(workout.durationSec)}</Text>
+                    <Text className="text-base">Total Volume: {workout.volumeKG}</Text>
                 </View>
                 <Exercise workout={workout} setWorkout={setWorkout} />
             </View>

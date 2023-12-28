@@ -16,7 +16,7 @@ export type TWorkout = {
 };
 
 export type TWorkoutExercise = {
-    id?: string;
+    id?: number;
     name: string;
     createdAt: string;
     durationSec: number;

@@ -27,6 +27,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
                 } else if (type === 'repetitions') {
                     set.repetitions = number;
                 }
+                if(set.isCompleted) newTableData.volumeKG = calculateVolume(); // Recalculate volume
             }
         }
         setWorkout(newTableData);
@@ -68,6 +69,36 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
         setWorkout(newTableData);
     }
 
+    function ChangeVolumeHandler(setNr: number, exerciseId: number, value: boolean): void {
+      setWorkout((prevWorkout: any) => {
+          const updatedWorkout = { ...prevWorkout };
+          const exercise = updatedWorkout.exercise?.find((exercise: { id: number; }) => exercise.id === exerciseId);
+
+          if (exercise) {
+              const set = exercise.exerciseSets?.find((set: { setNr: number; }) => set.setNr === setNr);
+
+              if (set) {
+                  set.isCompleted = value;
+                  updatedWorkout.volumeKG = calculateVolume(); // Recalculate volume
+              }
+          }
+
+          return { ...updatedWorkout };
+      });
+    }
+
+    function calculateVolume(): number {
+      var volume = 0;
+      workout.exercise?.forEach((exercise) => {
+          exercise.exerciseSets?.forEach((set) => {
+              if(set.isCompleted) {
+                  volume += set.weightKG * set.repetitions;
+              }
+          });
+      });
+      return volume;
+    }
+
   return (
     <View className='mt-2'>
       {workout.exercise ? (
@@ -91,11 +122,11 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
               </View>
               {row.exerciseSets ? (
                 row.exerciseSets.map((r: TExerciseSet) => (
-                  <View key={r.setNr} className='flex-row justify-around border-b border-gray-300 py-2'>
+                  <View key={r.setNr} className={`flex-row justify-around border-b border-gray-300 py-2 ${r.isCompleted ? 'bg-green-300' : ''}`}>
                     <Text className='text-lg'>{r.setNr}</Text>
                     <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.id, text, 'weightKG')} placeholder='0' keyboardType="numeric"/>
                     <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.id, text, 'repetitions')} placeholder='0' keyboardType="numeric"/>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => ChangeVolumeHandler(r.setNr, r.exerciseId, !r.isCompleted ?? false)}>
                       <View>
                         <Text className='text-lg'>{r.isCompleted ? '✓' : 'X'}</Text>
                       </View>

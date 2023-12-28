@@ -1,10 +1,10 @@
 import { TNote } from '@/types/note.type';
 
 export class Note {
-    readonly id: string;
+    readonly id: number;
     readonly note: string;
-    readonly workoutId: string;
-    readonly exerciseId: string;
+    readonly workoutId: number;
+    readonly exerciseId: number;
 
     constructor({ id, note, workoutId, exerciseId }: TNote) {
         this.id = id;
