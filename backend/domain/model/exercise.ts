@@ -4,7 +4,7 @@ import { Note } from './note';
 import { Workout } from '@prisma/client';
 
 export class Exercise {
-    readonly id: string;
+    readonly id: number;
     readonly name: string;
     readonly type: string;
     readonly equipment: string;

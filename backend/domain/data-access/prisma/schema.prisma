@@ -21,17 +21,16 @@ model WorkoutComment {
 }
 
 model Exercise {
-  id          Int           @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   type        String
   equipment   String
   description String
 
-  ExerciseNote   ExerciseNote[]
-  ExerciseSet ExerciseSet[]
-  Workout     Workout[]
+  ExerciseNote ExerciseNote[]
+  ExerciseSet  ExerciseSet[]
+  Workout      Workout[]
 }
-
 
 model Profile {
   id             Int              @id @default(autoincrement())
@@ -74,10 +73,10 @@ model Workout {
 }
 
 model ExerciseNote {
-  id          Int      @id @default(autoincrement())
-  workoutId   Int
-  exerciseId  Int
-  note        String
-  workout     Workout  @relation(fields: [workoutId], references: [id])
-  exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  id         Int      @id @default(autoincrement())
+  workoutId  Int
+  exerciseId Int
+  note       String
+  workout    Workout  @relation(fields: [workoutId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
 }
