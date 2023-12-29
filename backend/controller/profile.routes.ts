@@ -28,10 +28,16 @@ router.get("/:profileId", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+	var { search } = req.query;
 	try {
-		const profiles = await profileService.getAllProfiles();
-		const profilesWithoutPassword = profiles.map(({ password, ...rest }) => rest);
-		res.json({status: 200, profiles: profilesWithoutPassword});
+		if (typeof search === "string" && search.length > 0) {
+			const profiles = await profileService.searchAllProfiles(search);
+			res.json({ status: 200, profiles });
+		} else {
+			const profiles = await profileService.getAllProfiles();
+			const profilesWithoutPassword = profiles.map(({ password, ...rest }) => rest);
+			res.json({status: 200, profiles: profilesWithoutPassword});
+		}
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}
@@ -64,6 +70,7 @@ router.post("/register", async (req, res) => {
 		res.status(403).json({ status: "error", errorMessage: error.message });
 	}
 });
+
 
 router.put('/follow', async (req, res) => {
     const { id, followingId } = req.body;

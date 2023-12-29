@@ -77,6 +77,9 @@ const unfollowProfile = async ({
 	return await profileDb.unfollowProfile(parseInt(id), parseInt(followingId));
 };
 
+const searchAllProfiles = async (search: string): Promise<Profile[]> => await profileDb.getAllProfilesWithName(search);
+	
+
 export default {
 	createProfile,
 	login,
@@ -84,6 +87,7 @@ export default {
 	getProfileByIdIncludeAll,
 	getProfileById,
 	getAllProfiles,
+	searchAllProfiles,
 	followProfile,
 	unfollowProfile,
 };

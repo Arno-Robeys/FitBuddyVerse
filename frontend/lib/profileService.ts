@@ -20,8 +20,11 @@ const getProfileByIdEmbedAll = async (id: number) => {
 	return (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}?embed=all`)).data;
 }
 
+const searchProfiles = async (search: string) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/?search=${search}`)).data;
+
 export default {
 	createProfile,
 	loginProfile,
 	getProfileByIdEmbedAll,
+	searchProfiles,
 };

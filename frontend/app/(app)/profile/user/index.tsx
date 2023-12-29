@@ -4,18 +4,17 @@ import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
-import { TProfile, TProfileAll } from "@/types/profile.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TProfileAll } from "@/types/profile.type";
 import { useEffect, useState } from "react";
 import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
 
-export default function ProfilePage() {
+export default function ProfileUserPage({route, navigation}: {route: any, navigation: any}) {
 	const [profile, setProfile] = useState<TProfileAll>();
 
 	const fetchData = async() => {
 		try {
-			const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
-			var res = await profileService.getProfileByIdEmbedAll(p?.id ?? 0);
+			var res = await profileService.getProfileByIdEmbedAll(route.params.id ?? 0);
+            navigation.setOptions({ title: "Profile "+ res?.profile.username ?? "Profile" });
 			setProfile(res.profile);
 		}catch(err) {
 			console.log(err);
@@ -37,10 +36,10 @@ export default function ProfilePage() {
 				ListHeaderComponent={() => (
 					<View>
 						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-							Your Profile
+							{profile?.username}
 						</Text>
 						<Text className="mt-2 text-lg text-gray-600 mb-4">
-							Your information and workouts are listed below.
+							Information and workouts of {profile?.username} are listed below.
 						</Text>
 						<Text>Username: {profile?.username}</Text>
 						<Text>Email: {profile?.email}</Text>
@@ -50,7 +49,7 @@ export default function ProfilePage() {
                 ListEmptyComponent={() => (
                     <View>
                         <Text className="mt-12 text-lg text-center text-gray-600 mb-4">
-							You didn't work out yet! What are you waiting for?
+							This user hasn't worked out yet
 						</Text>
                     </View>
 				)}

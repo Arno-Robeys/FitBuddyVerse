@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import ExerciseInfoPage from "./exercise";
 import SettingsPage from "./settings";
 import SearchPage from "./search";
+import ProfileUserPage from "./(app)/profile/user";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function Root() {
 				<Stack.Screen name="ExerciseInfo" component={ExerciseInfoPage} options={{title: 'Exercise Info'}}/>
 				<Stack.Screen name="Settings" component={SettingsPage}/>
 				<Stack.Screen name="Search" component={SearchPage}/>
+				<Stack.Screen name="ProfileUser" component={ProfileUserPage}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

@@ -72,6 +72,17 @@ const getAllProfiles = async (): Promise<Profile[]> => {
 	return await database.profile.findMany();
 };
 
+const getAllProfilesWithName = async (name: string): Promise<Profile[]> => {
+	return await database.profile.findMany({
+		where: {
+			username: {
+				contains: name,
+				mode: "insensitive",
+			},
+		},
+	});
+};
+
 const followProfile = async (id: number, followingId: number) => {
 	return await database.profile.update({
 		where: { id },
@@ -102,6 +113,7 @@ export default {
 	getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments,
 	getProfileByIdIncludeAll,
 	getAllProfiles,
+	getAllProfilesWithName,
 	followProfile,
     unfollowProfile,
 };
