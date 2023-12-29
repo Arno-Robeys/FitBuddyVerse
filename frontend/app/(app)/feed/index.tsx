@@ -7,7 +7,7 @@ import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useState } from "react";
-import { RefreshControl, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
 
 export default function FeedPage() {
 
@@ -34,34 +34,38 @@ export default function FeedPage() {
 
 	return (
 		<>
-			<ScrollView className="bg-white p-6 h-screen" refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchData()}/>}>
-				<View>
-					<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-						Your Feed
-					</Text>
-					<Text className="mt-2 text-lg text-gray-600 mb-4">
-						Workouts of all your following will appear here.
-					</Text>
-				</View>
-				<View className="h-[400px]">
-					{/* <Search /> */}
-						<FlashList
-							renderItem={({ item }) => {
-								return (
-									<Workout
-										key={item.id}
-										workout={item}
-										workoutInfo={<WorkoutInfo />}
-										exercises={<WorkoutExercises />}
-										likes={<WorkoutLikes />}
-									/>
-								);
-							}}
-							data={profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[]}
-							estimatedItemSize={100}
-						/>
-				</View>
-			</ScrollView>
+			<FlatList 
+				className="bg-white p-6"
+				refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchData()}/>}
+				data={profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[]}
+				nestedScrollEnabled={true}
+				keyExtractor={(item) => (item.id as number).toString()}
+				ListHeaderComponent={() => (
+					<View>
+						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+							Your Feed
+						</Text>
+						<Text className="mt-2 text-lg text-gray-600 mb-4">
+							Workouts of all your following will appear here.
+						</Text>
+					</View>)}
+                ListEmptyComponent={() => (
+                    <View>
+                        <Text className="mt-12 text-lg text-center text-gray-600 mb-4">
+							All the people that you follow haven't worked out yet so you can't see anything here.
+						</Text>
+                    </View>
+				)}
+				renderItem={({ item }) => (
+					<Workout
+						key={item.id}
+						workout={item}
+						workoutInfo={<WorkoutInfo />}
+						exercises={<WorkoutExercises />}
+						likes={<WorkoutLikes />}
+					/>
+				)}
+			/>
 		</>
 	);
 }
