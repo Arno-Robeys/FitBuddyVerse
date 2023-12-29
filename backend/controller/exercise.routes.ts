@@ -22,12 +22,10 @@ router.get("/:id/:profileId", async (req, res) => {
 	const profileId = parseInt(profileIdParam); // Convert to number
 
 	if (isNaN(exerciseId) || isNaN(profileId)) {
-		res
-			.status(400)
-			.json({
-				status: "error",
-				errorMessage: "Invalid exerciseId or profileId",
-			});
+		res.status(400).json({
+			status: "error",
+			errorMessage: "Invalid exerciseId or profileId",
+		});
 		return;
 	}
 
@@ -50,12 +48,10 @@ router.get("/:id/:profileId/workout-graph", async (req, res) => {
 	const profileId = parseInt(profileIdParam); // Convert to number
 
 	if (isNaN(exerciseId) || isNaN(profileId)) {
-		res
-			.status(400)
-			.json({
-				status: "error",
-				errorMessage: "Invalid exerciseId or profileId",
-			});
+		res.status(400).json({
+			status: "error",
+			errorMessage: "Invalid exerciseId or profileId",
+		});
 		return;
 	}
 	try {
@@ -77,12 +73,10 @@ router.get("/:id/:profileId/personal-best", async (req, res) => {
 	const profileId = parseInt(profileIdParam); // Convert to number
 
 	if (isNaN(exerciseId) || isNaN(profileId)) {
-		res
-			.status(400)
-			.json({
-				status: "error",
-				errorMessage: "Invalid exerciseId or profileId",
-			});
+		res.status(400).json({
+			status: "error",
+			errorMessage: "Invalid exerciseId or profileId",
+		});
 		return;
 	}
 	try {
@@ -96,4 +90,28 @@ router.get("/:id/:profileId/personal-best", async (req, res) => {
 	}
 });
 
+router.get("/:id/:profileId/exercise-history", async (req, res) => {
+	const exerciseIdParam = req.params.id;
+	const profileIdParam = req.params.profileId;
+
+	const exerciseId = parseInt(exerciseIdParam); // Convert to number
+	const profileId = parseInt(profileIdParam); // Convert to number
+
+	if (isNaN(exerciseId) || isNaN(profileId)) {
+		res.status(400).json({
+			status: "error",
+			errorMessage: "Invalid exerciseId or profileId",
+		});
+		return;
+	}
+	try {
+		const exercise_details = await exerciseService.getExerciseHistory(
+			exerciseId,
+			profileId
+		);
+		res.status(200).json({ status: "success", exercise_details });
+	} catch (error) {
+		res.status(404).json({ status: "error", errorMessage: error.message });
+	}
+});
 export default router;

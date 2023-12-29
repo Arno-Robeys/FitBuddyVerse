@@ -83,10 +83,51 @@ const getPersonalBestForExercise = async (
       "ExerciseSet".repetitions
     order by repetitions, "weightKG") as sub
     where rn = 1`;
-    
+
+const getExerciseHistory = async (
+	exerciseId: number,
+	profileId: number
+) => database.$queryRaw`SELECT
+  w.id AS "workoutId",
+  w.name AS "workoutName",
+  w."createdAt" AS "workoutCreatedAt",
+  w."durationSec" AS "workoutDurationSec",
+  w."volumeKG" AS "workoutVolumeKG",
+  w."profileId" AS "workoutProfileId",
+  e.name AS "exerciseName",
+  e.type AS "exerciseType",
+  e.equipment AS "exerciseEquipment",
+  e.description AS "exerciseDescription",
+  JSON_AGG(JSON_BUILD_OBJECT('setId',s.id,'setNr',s."setNr",'repetitions',s.repetitions,'weightKG',s."weightKG") ORDER BY "setNr") AS sets
+  FROM
+  "Exercise" e
+  LEFT JOIN "ExerciseSet" s ON e.id = s."exerciseId"
+  LEFT JOIN "Workout" w ON s."workoutId" = w.id
+  WHERE
+  s."exerciseId" = ${exerciseId}
+  AND w."profileId" = ${profileId}
+  GROUP BY
+  w.id,
+  w.name,
+  "workoutCreatedAt",
+  e.name,
+  e.type,
+  w.name,
+  w."createdAt",
+  w."durationSec",
+  w."volumeKG",
+  w."profileId",
+  e.name,
+  w.id,
+  e.equipment,
+  e.description
+  ORDER BY
+  "workoutCreatedAt"`;
+
 export default {
 	getExerciseById,
 	getExerciseByIdFromUser,
 	getWorkoutGraphForExercise,
 	getPersonalBestForExercise,
+	getExerciseHistory,
 };
