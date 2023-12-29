@@ -2,6 +2,16 @@ import express from "express";
 const router = express.Router();
 import exerciseService from "../service/exercise.service";
 
+
+router.get("/", async (req, res) => {
+	try {
+		const exercises = await exerciseService.getAllExercises();
+		res.status(200).json({ status: "success", exercises });
+	} catch (error) {
+		res.status(404).json({ status: "error", errorMessage: error.message });
+	}
+});
+
 router.get("/:id", async (req, res) => {
 	const exerciseIdParam = req.params.id;
 	const exerciseId = parseInt(exerciseIdParam); // Convert to number

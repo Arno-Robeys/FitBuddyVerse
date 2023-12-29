@@ -8,11 +8,7 @@ const createProfile = async (profile: Profile): Promise<Profile> => {
 	return profileDb.createProfile(profile);
 };
 
-const login = async (
-	username: string,
-	email: string,
-	password: string
-): Promise<Profile> => {
+const login = async (username: string, email: string, password: string): Promise<Profile> => {
 	const profile = await profileDb.getProfileByEmailOrName(username, email);
 	if (!profile) throw new Error("Profile not found");
 	if (profile.password !== password) throw new Error("Password incorrect");
@@ -30,44 +26,21 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 		);
 	return profile;
 };
-const getProfileByIdIncludeFollowing = async (
-	profileId: string
-): Promise<Profile | null> => {
-	if (!Number.isInteger(parseInt(profileId)))
-		throw new Error("Id must be numeric and whole");
-	const profile = await profileDb.getProfileByIdIncludeFollowing(profileId);
-	return profile;
+
+const getProfileByIdIncludeAll = async (profileId: string): Promise<Profile | null> => {
+	if (!Number.isInteger(parseInt(profileId))) throw new Error("Id must be numeric and whole");
+	return await profileDb.getProfileByIdIncludeAll(profileId);
 };
-const getProfileByIdIncludeAll = async (
-	profileId: string
-): Promise<Profile | null> => {
-	if (!Number.isInteger(parseInt(profileId)))
-		throw new Error("Id must be numeric and whole");
-	const profile = await profileDb.getProfileByIdIncludeAll(profileId);
-	return profile;
-};
+
 const getProfileById = async (profileId: string): Promise<Profile | null> => {
 	if (!Number.isInteger(parseInt(profileId)))
 		throw new Error("Id must be numeric and whole");
 	const profile = await profileDb.getProfileById(profileId);
 	return profile;
 };
-const getAllProfilesIncludeAll = async (): Promise<Profile[]> => {
-	const profiles = await profileDb.getAllProfilesIncludeAll();
-	return profiles;
-};
-const getAllProfiles = async (): Promise<Profile[]> => {
-	const profiles = await profileDb.getAllProfiles();
-	return profiles;
-};
-const getProfileByIdIncludeFollowers = async (
-	profileId: string
-): Promise<Profile | null> => {
-	if (!Number.isInteger(parseInt(profileId)))
-		throw new Error("Id must be numeric and whole");
-	const profile = await profileDb.getProfileByIdIncludeFollowers(profileId);
-	return profile;
-};
+
+const getAllProfiles = async (): Promise<Profile[]> => await profileDb.getAllProfiles();
+
 const followProfile = async ({
 	id,
 	followingId,
@@ -108,12 +81,9 @@ export default {
 	createProfile,
 	login,
 	getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments,
-	getProfileByIdIncludeFollowing,
 	getProfileByIdIncludeAll,
 	getProfileById,
-	getAllProfilesIncludeAll,
 	getAllProfiles,
-	getProfileByIdIncludeFollowers,
 	followProfile,
 	unfollowProfile,
 };

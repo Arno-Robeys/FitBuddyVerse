@@ -3,21 +3,21 @@ import { ExerciseSet } from "@/domain/model/set";
 import { Profile } from "@/domain/model/profile";
 
 export type TWorkout = {
-	id?: string;
+	id?: number;
 	name: string;
 	createdAt: Date;
 	durationSec: number;
 	volumeKG: number;
-	profileId: string;
+	profileId: number;
 	workoutComments?: WorkoutComment[];
 	exerciseSets?: ExerciseSet[];
 	likedBy?: Profile[];
 };
 export type TInputWorkout = {
-	id: string;
+	id: number;
 	name: string;
 	createdAt: string;
 	durationSec: number;
 	volumeKG: number;
-	profileId: string;
+	profileId: number;
 };

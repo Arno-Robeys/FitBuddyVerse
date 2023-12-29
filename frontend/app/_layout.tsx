@@ -5,6 +5,7 @@ import AppLayout from "./(app)/_layout";
 import { NavigationContainer } from "@react-navigation/native";
 import ExerciseInfoPage from "./exercise";
 import SettingsPage from "./settings";
+import SearchPage from "./search";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function Root() {
 				<Stack.Screen name="Register" component={RegisterPage} />
 				<Stack.Screen name="ExerciseInfo" component={ExerciseInfoPage} options={{title: 'Exercise Info'}}/>
 				<Stack.Screen name="Settings" component={SettingsPage}/>
+				<Stack.Screen name="Search" component={SearchPage}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

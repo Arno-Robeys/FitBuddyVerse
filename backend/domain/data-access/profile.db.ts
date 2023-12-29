@@ -1,5 +1,5 @@
 import database from "./prisma/db";
-import { Profile } from "@/model/profile";
+import { Profile } from "../model/profile";
 
 const createProfile = async (profile: Profile): Promise<Profile> => {
 	return await database.profile.create({
@@ -33,6 +33,7 @@ const getProfileByEmailOrName = async (
 		},
 	});
 };
+
 const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 	profileId: string
 ): Promise<Profile | null> => {
@@ -50,55 +51,25 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 	});
 };
 
-const getProfileByIdIncludeFollowing = async (
-	profileId: string
-): Promise<Profile | null> => {
-	return await database.profile.findUnique({
-		where: {
-			id: Number.parseInt(profileId),
-		},
-		include: {
-			following: true,
-		},
-	});
-};
 const getProfileByIdIncludeAll = async (
 	profileId: string
 ): Promise<Profile | null> => {
-	return await database.profile.findUnique({
+	const profile = await database.profile.findUnique({
 		where: {
 			id: Number.parseInt(profileId),
 		},
 		include: {
 			Workout: { include: { ExerciseSet: true, WorkoutComment: true } },
-			WorkoutComment: true,
 			followedBy: true,
 			following: true,
 		},
 	});
+	return Profile.From({workouts: profile.Workout, ...profile});
 };
-const getAllProfilesIncludeAll = async (): Promise<Profile[]> => {
-	return await database.profile.findMany({
-		include: {
-			Workout: { include: { ExerciseSet: true, WorkoutComment: true } },
-			WorkoutComment: true,
-			followedBy: true,
-			following: true,
-		},
-	});
-};
+
+
 const getAllProfiles = async (): Promise<Profile[]> => {
 	return await database.profile.findMany();
-};
-const getProfileByIdIncludeFollowers = async (
-	profileId: string
-): Promise<Profile | null> => {
-	return await database.profile.findUnique({
-		where: {
-			id: Number.parseInt(profileId),
-		},
-		include: { followedBy: true },
-	});
 };
 
 const followProfile = async (id: number, followingId: number) => {
@@ -129,11 +100,8 @@ export default {
 	getProfileById,
 	getProfileByEmailOrName,
 	getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments,
-	getProfileByIdIncludeFollowing,
 	getProfileByIdIncludeAll,
-	getAllProfilesIncludeAll,
 	getAllProfiles,
-	getProfileByIdIncludeFollowers,
 	followProfile,
     unfollowProfile,
 };

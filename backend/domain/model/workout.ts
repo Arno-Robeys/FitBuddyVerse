@@ -5,13 +5,12 @@ import { Profile } from '@/model/profile';
 import { Exercise } from '@/model/exercise';
 
 export class Workout {
-    readonly id: string;
+    readonly id: number;
     readonly name: string;
     readonly createdAt: Date;
     readonly durationSec: number;
-    readonly likeCount: number;
     readonly volumeKG: number;
-    readonly profileId: string;
+    readonly profileId: number;
     readonly workoutComments?: WorkoutComment[];
     readonly exercise?: Exercise[];
     readonly exerciseSets?: ExerciseSet[];

@@ -5,20 +5,13 @@ import profileService from "../service/profile.service";
 router.get("/:profileId/following", async (req, res) => {
 	const id = req.params.profileId;
 	try {
-		if (req.query.embed === "all") {
-			const profile =
-				await profileService.getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments(
-					id
-				);
-			res.json({ status: 200, profile });
-		} else {
-			const profile = await profileService.getProfileByIdIncludeFollowing(id);
-			res.json({ status: 200, profile });
-		}
+		const profile = await profileService.getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments(id);
+		res.json({ status: 200, profile });
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}
 });
+
 router.get("/:profileId", async (req, res) => {
 	const id = req.params.profileId;
 	try {
@@ -33,33 +26,12 @@ router.get("/:profileId", async (req, res) => {
 		res.status(500).send({ status: 500, message: err.message });
 	}
 });
+
 router.get("/", async (req, res) => {
 	try {
-		if (req.query.embed === "all") {
-			const profiles = await profileService.getAllProfilesIncludeAll();
-			const profilesWithoutPassword = profiles.map((profile) => {
-				const { password, ...profileWithoutPassword } = profile;
-				return profileWithoutPassword;
-			});
-			res.json(profilesWithoutPassword);
-		} else {
-			const profiles = await profileService.getAllProfiles();
-			const profilesWithoutPassword = profiles.map((profile) => {
-				const { password, ...profileWithoutPassword } = profile;
-				return profileWithoutPassword;
-			});
-			res.json(profilesWithoutPassword);
-		}
-	} catch (err) {
-		res.status(500).send({ status: 500, message: err.message });
-	}
-});
-
-router.get("/:profileId/followers", async (req, res) => {
-	const id = req.params.profileId;
-	try {
-		const profile = await profileService.getProfileByIdIncludeFollowers(id);
-		res.json({ status: 200, profile });
+		const profiles = await profileService.getAllProfiles();
+		const profilesWithoutPassword = profiles.map(({ password, ...rest }) => rest);
+		res.json({status: 200, profiles: profilesWithoutPassword});
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}
@@ -93,8 +65,8 @@ router.post("/register", async (req, res) => {
 	}
 });
 
-router.put('/follow/:id/:followingId', async (req, res) => {
-    const { id, followingId } = req.params;
+router.put('/follow', async (req, res) => {
+    const { id, followingId } = req.body;
     try {
         const profile = await profileService.followProfile({ id, followingId });
         res.status(200).json({ status: 200, profile});
@@ -103,8 +75,8 @@ router.put('/follow/:id/:followingId', async (req, res) => {
     }
 });
 
-router.put('/unfollow/:id/:followingId', async (req, res) => {
-    const { id, followingId } = req.params;
+router.put('/unfollow', async (req, res) => {
+    const { id, followingId } = req.body;
     try {
         const profile = await profileService.unfollowProfile({ id, followingId });
         res.status(200).json({ status: 200, profile});

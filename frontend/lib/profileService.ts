@@ -16,7 +16,12 @@ const loginProfile = async (userEmailOrName: string, userPassword: string) => {
 	}, {headers: {"Content-Type": "application/json"}});
 }
 
+const getProfileByIdEmbedAll = async (id: number) => {
+	return (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}?embed=all`)).data;
+}
+
 export default {
 	createProfile,
 	loginProfile,
+	getProfileByIdEmbedAll,
 };

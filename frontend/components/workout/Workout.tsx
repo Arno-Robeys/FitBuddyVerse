@@ -45,25 +45,12 @@ const Workout: FC<Props> = ({
 	return (
 		<WorkoutContext.Provider value={{ workout, profile }}>
 			<View className="w-full max-w-sm bg-gray-700 border border-gray-500 shadow dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
-				<View className="flex justify-end px-4 pt-4">
-					<TouchableOpacity
-						className="items-end"
-						onPress={() => router.push(`/profile/${workout.profileId}`)}
-					>
-						<EvilIcons
-							className="w-5 h-5"
-							name="pencil"
-							size={32}
-							color="white"
-						/>
-					</TouchableOpacity>
-				</View>
 				<View className="w-full flex flex-col items-center px-20">
-					<Text className="">{workoutInfo}</Text>
-					<Text className="">{exercises}</Text>
-					<Text className="">{likes}</Text>
-					<Text className="">{action}</Text>
-					<Text className="">{comments}</Text>
+					<Text>{workoutInfo}</Text>
+					<Text>{exercises}</Text>
+					<Text>{likes}</Text>
+					<Text>{action}</Text>
+					<Text>{comments}</Text>
 				</View>
 			</View>
 		</WorkoutContext.Provider>

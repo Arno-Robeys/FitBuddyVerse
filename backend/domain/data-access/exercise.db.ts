@@ -9,6 +9,10 @@ const getExerciseById = async (id: number): Promise<Exercise> => {
 	});
 };
 
+const getAllExercises = async (): Promise<Exercise[]> => {
+  return await database.exercise.findMany();
+}
+
 const getExerciseByIdFromUser = async (
 	id: number,
 	profileId: number
@@ -31,6 +35,7 @@ const getExerciseByIdFromUser = async (
 		},
 	});
 };
+
 const getWorkoutGraphForExercise = async (
 	exerciseId: number,
 	profileId: number
@@ -130,4 +135,5 @@ export default {
 	getWorkoutGraphForExercise,
 	getPersonalBestForExercise,
 	getExerciseHistory,
+  getAllExercises
 };

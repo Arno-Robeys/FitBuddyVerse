@@ -1,9 +1,7 @@
 import { TExercise } from '@/types/exercise.type';
-import { TProfile } from '@/types/profile.type';
 import { TExerciseSet } from '@/types/set.type';
 import { TWorkoutExercise } from '@/types/workout.type';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { FC } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 

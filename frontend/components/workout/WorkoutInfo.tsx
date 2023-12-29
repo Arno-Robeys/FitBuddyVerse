@@ -22,7 +22,7 @@ export default function WorkoutInfo() {
 			<View className="w-full flex flex-col items-center pb-10">
 				<TouchableHighlight
 					className="flex flex-row items-center"
-					onPress={() => router.push(`/profile/${profile?.id}`)}
+					onPress={() => null/*router.push(`/profile/${profile?.id}`)*/}
 				>
 					<View className="items-center">
 						<AntDesign name="user" size={32} color="white" />
