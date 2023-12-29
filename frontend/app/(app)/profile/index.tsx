@@ -8,27 +8,28 @@ import { TProfile, TProfileAll } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 
 export default function ProfilePage() {
 	const [profile, setProfile] = useState<TProfileAll>();
 
-	useEffect(() => {
-		var fetchData = async() => {
-			try {
-				const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
-				var res = await profileService.getProfileByIdEmbedAll(p?.id ?? 0);
-				setProfile(res.profile);
-			}catch(err) {
-				console.log(err);
-			}
+	const fetchData = async() => {
+		try {
+			const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
+			var res = await profileService.getProfileByIdEmbedAll(p?.id ?? 0);
+			setProfile(res.profile);
+		}catch(err) {
+			console.log(err);
 		}
+	}
+
+	useEffect(() => {
 		fetchData();
 	}, []);
 	
 	return (
 		<>
-			<ScrollView className="bg-white p-6 h-screen">
+			<ScrollView className="bg-white p-6 h-screen" refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchData()}/>}>
 				<View>
 					<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
 						Your Profile

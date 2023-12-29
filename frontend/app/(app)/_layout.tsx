@@ -25,7 +25,7 @@ export default function AppLayout({navigation}: {navigation: any}) {
 						</TouchableOpacity>
 					),
 					headerRight: () => (
-						<TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => {}}>
+						<TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => {navigation.reset({routes: [{name: "Profile"}]})}}>
 							<Text className="text-center font-bold">Finish</Text>
 						</TouchableOpacity>
 					)}}/>

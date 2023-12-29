@@ -7,25 +7,26 @@ import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 
 export default function FeedPage() {
 
 	const [profile, setProfile] = useState<TProfileAll>();
 
-	useEffect(() => {
-		var fetchData = async() => {
-			try {
-				var profile = await AsyncStorage.getItem("profile");
-				profile = JSON.parse(profile!);
-				//@ts-ignore
-				//var res = await profileService.getProfileWithFollowingEmbedAll({ id: profile.id, accessToken: profile.accessToken });
-				//@ts-ignore
-				//setProfile(res.data);
-			}catch(err) {
-				console.log(err);
-			}
+	var fetchData = async() => {
+		try {
+			var profile = await AsyncStorage.getItem("profile");
+			profile = JSON.parse(profile!);
+			//@ts-ignore
+			//var res = await profileService.getProfileWithFollowingEmbedAll({ id: profile.id, accessToken: profile.accessToken });
+			//@ts-ignore
+			//setProfile(res.data);
+		}catch(err) {
+			console.log(err);
 		}
+	}
+
+	useEffect(() => {
 		fetchData();
 	}, []);
 	
@@ -33,7 +34,7 @@ export default function FeedPage() {
 
 	return (
 		<>
-			<View className="bg-white p-6 h-screen">
+			<ScrollView className="bg-white p-6 h-screen" refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchData()}/>}>
 				<View>
 					<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
 						Your Feed
@@ -60,7 +61,7 @@ export default function FeedPage() {
 							estimatedItemSize={100}
 						/>
 				</View>
-			</View>
+			</ScrollView>
 		</>
 	);
 }
