@@ -4,7 +4,7 @@ import Workout from "@/components/workout/Workout";
 import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
-import { TProfile } from "@/types/profile.type";
+import { TProfileAll } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
@@ -15,7 +15,7 @@ export default function ProfilePage() {
 	const { id } = useLocalSearchParams();
 	if (typeof id !== "string") return;
 
-	const [profile, setProfile] = useState<TProfile>();
+	const [profile, setProfile] = useState<TProfileAll>();
 
 	useEffect(() => {
 		var fetchData = async() => {

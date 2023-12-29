@@ -1,12 +1,25 @@
-import { Stack } from "expo-router";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginPage from "./index";
+import RegisterPage from "./signUp/index";
+import AppLayout from "./(app)/_layout";
+import { NavigationContainer } from "@react-navigation/native";
+import ExerciseInfoPage from "./exercise";
+import SettingsPage from "./settings";
+
+const Stack = createNativeStackNavigator();
+
 
 export default function Root() {
 	// Set up the auth context and render our layout inside of it.
 	return (
-		<Stack screenOptions={{ headerStyle: { backgroundColor: "#374151" }, headerTintColor: "#fff", headerTitleStyle: { fontWeight: "bold" }, }}>
-			<Stack.Screen name="(app)" options={{ title: "FitBuddyVerse" }} />
-			<Stack.Screen name="index" options={{ title: "Sign in" }} />
-			<Stack.Screen name="signUp/index" options={{ title: 'Sign Up' }} />
-		</Stack>
+		<NavigationContainer independent={true}>
+			<Stack.Navigator initialRouteName="FitBuddyVerse">
+				<Stack.Screen name="Login" component={LoginPage} />
+				<Stack.Screen name="FitBuddyVerse" component={AppLayout} options={{headerShown: false}}/>
+				<Stack.Screen name="Register" component={RegisterPage} />
+				<Stack.Screen name="ExerciseInfo" component={ExerciseInfoPage} options={{title: 'Exercise Info'}}/>
+				<Stack.Screen name="Settings" component={SettingsPage}/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }

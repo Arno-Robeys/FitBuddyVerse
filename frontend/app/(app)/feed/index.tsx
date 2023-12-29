@@ -2,7 +2,7 @@ import Workout from "@/components/workout/Workout";
 import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
-import { TProfile } from "@/types/profile.type";
+import { TProfileAll } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
@@ -11,7 +11,7 @@ import { Text, View } from "react-native";
 
 export default function FeedPage() {
 
-	const [profile, setProfile] = useState<TProfile>();
+	const [profile, setProfile] = useState<TProfileAll>();
 
 	useEffect(() => {
 		var fetchData = async() => {
@@ -33,34 +33,32 @@ export default function FeedPage() {
 
 	return (
 		<>
-			<View className="bg-white py-24 h-screen">
-				<View className="px-6">
-					<View className="mx-auto max-w-2xl lg:mx-0">
-						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-							Your Feed
-						</Text>
-						<Text className="mt-2 text-lg text-gray-600 mb-4">
-							Workouts of all your following will appear here.
-						</Text>
-					</View>
-					<View className="h-[400px]">
-						{/* <Search /> */}
-							<FlashList
-								renderItem={({ item }) => {
-									return (
-										<Workout
-											key={item.id}
-											workout={item}
-											workoutInfo={<WorkoutInfo />}
-											exercises={<WorkoutExercises />}
-											likes={<WorkoutLikes />}
-										/>
-									);
-								}}
-								data={profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[]}
-								estimatedItemSize={100}
-							/>
-					</View>
+			<View className="bg-white p-6 h-screen">
+				<View>
+					<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+						Your Feed
+					</Text>
+					<Text className="mt-2 text-lg text-gray-600 mb-4">
+						Workouts of all your following will appear here.
+					</Text>
+				</View>
+				<View className="h-[400px]">
+					{/* <Search /> */}
+						<FlashList
+							renderItem={({ item }) => {
+								return (
+									<Workout
+										key={item.id}
+										workout={item}
+										workoutInfo={<WorkoutInfo />}
+										exercises={<WorkoutExercises />}
+										likes={<WorkoutLikes />}
+									/>
+								);
+							}}
+							data={profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[]}
+							estimatedItemSize={100}
+						/>
 				</View>
 			</View>
 		</>

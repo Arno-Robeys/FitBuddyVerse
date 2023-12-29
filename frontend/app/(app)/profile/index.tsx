@@ -4,14 +4,14 @@ import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
-import { TProfile } from "@/types/profile.type";
+import { TProfileAll } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 export default function ProfilePage() {
-	const [profile, setProfile] = useState<TProfile>();
+	const [profile, setProfile] = useState<TProfileAll>();
 
 	useEffect(() => {
 		var fetchData = async() => {

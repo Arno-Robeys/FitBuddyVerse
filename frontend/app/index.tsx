@@ -1,18 +1,23 @@
 import Errors from "@/components/Errors";
-import {Stack, router } from "expo-router";
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import {ActivityIndicator, Text, TextInput, TouchableOpacity, View} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileService from "@/lib/profileService";
-import { set } from "date-fns";
 
-export default function LoginPage() {
+export default function LoginPage({navigation}: {navigation: any}) {
 	const [emailOrUsername, setEmailOrUsername] = useState("");
 	const [password, setPassword] = useState("");
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<any[]>([]);
 
+	useEffect(() => {
+		AsyncStorage.getItem("profile").then((profile) => {
+			if (profile) {
+				navigation.navigate("FitBuddyVerse");
+			}
+		});
+	}, []);
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
@@ -20,7 +25,7 @@ export default function LoginPage() {
 			if (res.status === 200) {
 				AsyncStorage.setItem("profile", JSON.stringify(res.data.profile));
 				setErrors([]);
-				router.push("/feed");
+				navigation.navigate("FitBuddyVerse");
 			} else {
 				setErrors(['Invalid username or password']);
 			}
@@ -70,7 +75,7 @@ export default function LoginPage() {
 					)}
 				</View>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => router.push("/signUp")}>
+			<TouchableOpacity onPress={() => navigation.navigate("Register")}>
 				<View className="bg-gray-800 rounded p-3 items-center mt-4">
 					<Text className="text-white text-lg">No account yet? Sign up</Text>
 				</View>

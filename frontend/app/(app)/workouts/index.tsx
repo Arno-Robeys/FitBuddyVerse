@@ -1,8 +1,7 @@
 "use client";
 import Exercise from "@/components/exercise/Exercise";
 import { TWorkoutExercise } from "@/types/workout.type";
-import { set } from "date-fns";
-import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
@@ -79,14 +78,21 @@ const exerciseDummy = [
     }
 ]
 
-export default function WorkoutPage() {
+export default function WorkoutPage({ navigation }: { navigation: any }) {
 
-    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: new Date().toISOString(), durationSec: 0, volumeKG: 0, profileId: '', exercise: exerciseDummy });
+    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: new Date().toISOString(), durationSec: 0, volumeKG: 0, profileId: 0, exercise: exerciseDummy });
     const [opened, setOpened] = useState(false);
 
     const FinishHandler = async () => {
         // Implement your finish logic
     };
+
+    useEffect(() => {
+        AsyncStorage.getItem("profile").then((res) => {
+            const profile = JSON.parse(res!);
+            workout.profileId = profile.id;
+        })
+    }, []);
 
     const AddExerciseHandler = () => {
         // Implement your add exercise logic
@@ -123,7 +129,7 @@ export default function WorkoutPage() {
                     <Text className="text-base">Time: {formatDuration(workout.durationSec)}</Text>
                     <Text className="text-base">Total Volume: {workout.volumeKG}</Text>
                 </View>
-                <Exercise workout={workout} setWorkout={setWorkout} />
+                <Exercise workout={workout} setWorkout={setWorkout} navigation={navigation} />
             </View>
 
             {/* Modal AddExercise*/}

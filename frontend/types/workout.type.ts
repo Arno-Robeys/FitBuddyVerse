@@ -21,6 +21,6 @@ export type TWorkoutExercise = {
     createdAt: string;
     durationSec: number;
     volumeKG: number;
-    profileId: string;
+    profileId: number;
     exercise?: TExercise[];
 };

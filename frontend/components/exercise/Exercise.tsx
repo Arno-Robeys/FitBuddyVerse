@@ -1,23 +1,20 @@
 import { TExercise } from '@/types/exercise.type';
+import { TProfile } from '@/types/profile.type';
 import { TExerciseSet } from '@/types/set.type';
 import { TWorkoutExercise } from '@/types/workout.type';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { FC } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { router } from "expo-router";
 
 
 interface Props {
   workout: TWorkoutExercise;
   setWorkout: any;
+  navigation: any;
 }
 
-const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
-
-  function navigateToExerciseInfo(exerciseId: number) {
-    router.push(`/exerciseInfo/${exerciseId}`)
-    console.log(exerciseId)
-  }
+const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
   function ChangeInputHandler(setNr: number, exerciseId: number, target: string, type: string): void {
     var number = Number(target);
@@ -111,7 +108,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout }: Props) => {
       {workout.exercise ? (
         workout.exercise.map((row: TExercise) => (
           <View key={row.name}>
-            <TouchableOpacity onPress={() => navigateToExerciseInfo(row.id)}>
+            <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.id, userid: workout.profileId})}>
               <Text className='font-bold text-2xl'>{row.name}</Text>
             </TouchableOpacity>
             <TextInput placeholder='Add Exercise Note...'></TextInput>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Errors from "@/components/Errors";
-import { router } from "expo-router";
-import { Stack } from 'expo-router';
 
-export default function RegistrationForm() {
+export default function RegistrationForm({navigation}: {navigation: any}) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -18,14 +16,9 @@ export default function RegistrationForm() {
             password,
         });
 
-        router.push("/");
+        navigation.goBack()
         // You can send the registration details to your backend or perform any other actions
     };
-
-    const goBack = async () => {
-        router.push("/")
-    }
-
     return (
         <View className="bg-white flex-1 justify-center p-4">
             <Text className="text-center text-2xl font-bold mb-4">
@@ -70,11 +63,6 @@ export default function RegistrationForm() {
             <TouchableOpacity onPress={handleRegistration}>
                 <View className="bg-gray-800 rounded p-2 items-center">
                     <Text className="text-white text-lg">Register</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity className="items-center" onPress={goBack}>
-                <View className="text-gray-700 mt-2.5">
-                    <Text className="border-b-2 font-bold">Go back</Text>
                 </View>
             </TouchableOpacity>
         </View>
