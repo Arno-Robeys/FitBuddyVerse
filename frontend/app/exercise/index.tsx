@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Text, View} from "react-native";
+import { Text, View } from "react-native";
 
-export default function ExerciseInfoPage({route, navigation}: {route: any, navigation: any}) {
+export default function ExerciseInfoPage({ route, navigation }: { route: any, navigation: any }) {
 
     const { id, userid } = route.params;
 
@@ -11,16 +11,16 @@ export default function ExerciseInfoPage({route, navigation}: {route: any, navig
         console.log('id: ', id);
         console.log('userid: ', userid);
     }, []);
-        
 
-	return (
-		<View className="bg-white flex-1 justify-center p-4">
-			<Text className="text-center text-2xl font-bold mb-4">
+
+    return (
+        <View className="bg-white flex-1 justify-center p-4">
+            <Text className="text-center text-2xl font-bold mb-4">
                 Exercise Info met id {id}
             </Text>
             <Text className="text-center text-2xl font-bold mb-4">
                 van user id {userid}
             </Text>
-		</View>
-	);
+        </View>
+    );
 }
