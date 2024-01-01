@@ -1,23 +1,25 @@
 import database from "./prisma/db";
-import { Exercise } from "@/model/exercise";
+import { Exercise } from "../model/exercise";
 
 const getExerciseById = async (id: number): Promise<Exercise> => {
-	return await database.exercise.findUnique({
+	const exercise = await database.exercise.findUnique({
 		where: {
 			id: id,
 		},
 	});
+	return Exercise.From(exercise);
 };
 
 const getAllExercises = async (): Promise<Exercise[]> => {
-  return await database.exercise.findMany();
-}
+	const exercises = await database.exercise.findMany();
+	return exercises.map(Exercise.From);
+};
 
 const getExerciseByIdFromUser = async (
 	id: number,
 	profileId: number
 ): Promise<Exercise | null> => {
-	return await database.exercise.findUnique({
+	const exercise = await database.exercise.findUnique({
 		where: {
 			id: id,
 		},
@@ -34,6 +36,7 @@ const getExerciseByIdFromUser = async (
 			},
 		},
 	});
+	return exercise ? Exercise.From(exercise) : null;
 };
 
 const getWorkoutGraphForExercise = async (
@@ -135,5 +138,5 @@ export default {
 	getWorkoutGraphForExercise,
 	getPersonalBestForExercise,
 	getExerciseHistory,
-  getAllExercises
+	getAllExercises,
 };

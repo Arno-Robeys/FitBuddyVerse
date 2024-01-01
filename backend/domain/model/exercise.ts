@@ -1,4 +1,4 @@
-import { ExerciseSet } from "@/model/set";
+import { ExerciseSet } from "../model/set";
 import { TExercise } from "@/types/exercise.type";
 import { Note } from "./note";
 import {
@@ -43,9 +43,9 @@ export class Exercise {
 	): Exercise {
 		return new Exercise({
 			...exercise,
-			exerciseSets: exercise.ExerciseSet,
-			notes: exercise.ExerciseNote,
-			workouts: exercise.Workout,
+			exerciseSets: exercise?.ExerciseSet?.map(ExerciseSet.From),
+			notes: exercise?.ExerciseNote?.map(Note.From),
+			workouts: exercise?.Workout?.map(Workout.From),
 		});
 	}
 }

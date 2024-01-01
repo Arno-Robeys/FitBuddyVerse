@@ -1,30 +1,32 @@
 import database from "./prisma/db";
 import { Profile } from "../model/profile";
 
-const createProfile = async (profile: Profile): Promise<Profile> => {
-	return await database.profile.create({
+const createProfile = async (profileData: Profile): Promise<Profile> => {
+	const profile = await database.profile.create({
 		data: {
-			email: profile.email,
-			username: profile.username,
-			password: profile.password,
-			profilePicture: profile.profilePicture || null,
+			email: profileData.email,
+			username: profileData.username,
+			password: profileData.password,
+			profilePicture: profileData.profilePicture || null,
 		},
 	});
+	return Profile.From(profile);
 };
 
 const getProfileById = async (id: string): Promise<Profile> => {
-	return await database.profile.findUnique({
+	const profile = await database.profile.findUnique({
 		where: {
 			id: Number.parseInt(id),
 		},
 	});
+	return Profile.From(profile);
 };
 
 const getProfileByEmailOrName = async (
 	username: string,
 	email: string
 ): Promise<Profile> => {
-	return await database.profile.findFirst({
+	const profile = await database.profile.findFirst({
 		where: {
 			OR: [
 				{ email: { equals: email, mode: "insensitive" } },
@@ -32,12 +34,13 @@ const getProfileByEmailOrName = async (
 			],
 		},
 	});
+	return Profile.From(profile);
 };
 
 const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 	profileId: string
 ): Promise<Profile | null> => {
-	return await database.profile.findUnique({
+	const profile = await database.profile.findUnique({
 		where: {
 			id: Number.parseInt(profileId),
 		},
@@ -49,6 +52,7 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 			},
 		},
 	});
+	return profile ? Profile.From(profile) : null;
 };
 
 const getProfileByIdIncludeAll = async (
@@ -64,16 +68,16 @@ const getProfileByIdIncludeAll = async (
 			following: true,
 		},
 	});
-	return Profile.From({workouts: profile.Workout, ...profile});
+	return Profile.From(profile);
 };
 
-
 const getAllProfiles = async (): Promise<Profile[]> => {
-	return await database.profile.findMany();
+	const profiles = await database.profile.findMany();
+	return profiles.map(Profile.From);
 };
 
 const getAllProfilesWithName = async (name: string): Promise<Profile[]> => {
-	return await database.profile.findMany({
+	const profiles = await database.profile.findMany({
 		where: {
 			username: {
 				contains: name,
@@ -81,10 +85,14 @@ const getAllProfilesWithName = async (name: string): Promise<Profile[]> => {
 			},
 		},
 	});
+	return profiles.map(Profile.From);
 };
 
-const followProfile = async (id: number, followingId: number) => {
-	return await database.profile.update({
+const followProfile = async (
+	id: number,
+	followingId: number
+): Promise<Profile> => {
+	const profile = await database.profile.update({
 		where: { id },
 		data: {
 			following: {
@@ -93,9 +101,14 @@ const followProfile = async (id: number, followingId: number) => {
 		},
 		include: { following: true },
 	});
+	return Profile.From(profile);
 };
-const unfollowProfile = async (id: number, followingId: number) => {
-	return await database.profile.update({
+
+const unfollowProfile = async (
+	id: number,
+	followingId: number
+): Promise<Profile> => {
+	const profile = await database.profile.update({
 		where: { id },
 		data: {
 			following: {
@@ -104,6 +117,7 @@ const unfollowProfile = async (id: number, followingId: number) => {
 		},
 		include: { following: true },
 	});
+	return Profile.From(profile);
 };
 
 export default {
@@ -115,5 +129,5 @@ export default {
 	getAllProfiles,
 	getAllProfilesWithName,
 	followProfile,
-    unfollowProfile,
+	unfollowProfile,
 };

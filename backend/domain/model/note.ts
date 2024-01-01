@@ -25,10 +25,14 @@ export class Note {
 	}
 
 	static From(
-		note: PrismaNote & { workout: PrismaWorkout } & {
-			exercise: PrismaExercise;
+		note: PrismaNote & { workout?: PrismaWorkout } & {
+			exercise?: PrismaExercise;
 		}
 	): Note {
-		return new Note(note);
+		return new Note({
+			...note,
+			workout: note?.workout ? Workout.From(note.workout) : null,
+			exercise: note?.exercise ? Exercise.From(note.exercise) : null,
+		});
 	}
 }

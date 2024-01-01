@@ -1,4 +1,4 @@
-import { TExerciseSet } from "@/types/set.type";
+import { TExerciseSet } from "../../types/set.type";
 import {
 	WorkoutComment as PrismaWorkoutComment,
 	ExerciseSet as PrismaExerciseSet,
@@ -47,8 +47,10 @@ export class ExerciseSet {
 	): ExerciseSet {
 		return new ExerciseSet({
 			...exerciseSet,
-			workout: exerciseSet.workout,
-			exercise: exerciseSet.exercise,
+			workout: exerciseSet.workout ? Workout.From(exerciseSet.workout) : null,
+			exercise: exerciseSet.exercise
+				? Exercise.From(exerciseSet.exercise)
+				: null,
 		});
 	}
 }

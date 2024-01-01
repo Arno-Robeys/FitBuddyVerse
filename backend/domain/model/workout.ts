@@ -1,8 +1,8 @@
-import { TWorkout } from "@/types/workout.type";
-import { WorkoutComment } from "@/model/comment";
-import { ExerciseSet } from "@/model/set";
-import { Profile } from "@/model/profile";
-import { Exercise } from "@/model/exercise";
+import { TWorkout } from "../../types/workout.type";
+import { WorkoutComment } from "../model/comment";
+import { ExerciseSet } from "../model/set";
+import { Profile } from "../model/profile";
+import { Exercise } from "../model/exercise";
 import { Note } from "./note";
 import {
 	WorkoutComment as PrismaWorkoutComment,
@@ -64,12 +64,12 @@ export class Workout {
 	): Workout {
 		return new Workout({
 			...workout,
-			workoutComments: workout.WorkoutComment,
-			exerciseSets: workout.ExerciseSet,
-			likedBy: workout.LikedBy,
-			exercises: workout.Exercise,
-			profile: workout.Profile,
-			exerciseNotes: workout.ExerciseNote,
+			workoutComments: workout?.WorkoutComment?.map(WorkoutComment.From),
+			exerciseSets: workout?.ExerciseSet?.map(ExerciseSet.From),
+			likedBy: workout?.LikedBy?.map(Profile.From),
+			exercises: workout?.Exercise?.map(Exercise.From),
+			profile: workout.Profile ? Profile.From(workout.Profile) : null,
+			exerciseNotes: workout?.ExerciseNote?.map(Note.From),
 		});
 	}
 }

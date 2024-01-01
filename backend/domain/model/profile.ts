@@ -1,6 +1,6 @@
-import { TProfile } from "@/types/profile.type";
-import { WorkoutComment } from "@/model/comment";
-import { Workout } from "@/model/workout";
+import { TProfile } from "../../types/profile.type";
+import { WorkoutComment } from "../model/comment";
+import { Workout } from "../model/workout";
 import {
 	Profile as PrismaProfile,
 	Workout as PrismaWorkout,
@@ -56,9 +56,11 @@ export class Profile {
 	): Profile {
 		return new Profile({
 			...profile,
-			workouts: profile.Workout,
-			workoutComments: profile.WorkoutComment,
-			likedWorkouts: profile.LikedWorkouts,
+			following: profile?.following?.map(Profile.From),
+			followedBy: profile?.followedBy?.map(Profile.From),
+			workouts: profile?.Workout?.map(Workout.From),
+			workoutComments: profile?.WorkoutComment?.map(WorkoutComment.From),
+			likedWorkouts: profile?.LikedWorkouts?.map(Workout.From),
 		});
 	}
 }

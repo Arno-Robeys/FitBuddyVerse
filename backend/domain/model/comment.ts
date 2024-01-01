@@ -2,6 +2,7 @@ import { TWorkoutComment } from "@/types/comment.type";
 import {
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
+	WorkoutComment as PrismaWorkoutComment,
 } from "@prisma/client";
 import { Profile } from "./profile";
 import { Workout } from "./workout";
@@ -34,10 +35,18 @@ export class WorkoutComment {
 	}
 
 	static From(
-		workoutComment: TWorkoutComment & { profile: PrismaProfile } & {
-			workout: PrismaWorkout;
+		workoutComment: PrismaWorkoutComment & { profile?: PrismaProfile } & {
+			workout?: PrismaWorkout;
 		}
 	): WorkoutComment {
-		return new WorkoutComment(workoutComment);
+		return new WorkoutComment({
+			...workoutComment,
+			profile: workoutComment?.profile
+				? Profile.From(workoutComment.profile)
+				: null,
+			workout: workoutComment?.workout
+				? Workout.From(workoutComment.workout)
+				: null,
+		});
 	}
 }
