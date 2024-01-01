@@ -1,39 +1,64 @@
-import { TProfile } from '@/types/profile.type';
-import { WorkoutComment } from '@/model/comment';
-import { Workout } from '@/model/workout';
+import { TProfile } from "@/types/profile.type";
+import { WorkoutComment } from "@/model/comment";
+import { Workout } from "@/model/workout";
+import {
+	Profile as PrismaProfile,
+	Workout as PrismaWorkout,
+	WorkoutComment as PrismaWorkoutComment,
+} from "@prisma/client";
 
 export class Profile {
-    readonly id?: number;
-    readonly email: string;
-    readonly username: string;
-    readonly password: string;
-    readonly workouts?: Workout[]
-    readonly workoutComments?: WorkoutComment[]
-    readonly followedBy?: Profile[]
-    readonly following?: Profile[]
-    readonly profilePicture?: string
+	readonly id?: number;
+	readonly email: string;
+	readonly username: string;
+	readonly password: string;
+	readonly workouts?: Workout[];
+	readonly workoutComments?: WorkoutComment[];
+	readonly followedBy?: Profile[];
+	readonly following?: Profile[];
+	readonly profilePicture?: string;
+	readonly likedWorkouts?: Workout[];
 
-    constructor({
-        id,
-        email,
-        username,
-        password,
-        workouts,
-        workoutComments,
-        followedBy,
-        following
-    }: TProfile) {
-        this.id = id;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.workouts = workouts;
-        this.workoutComments = workoutComments;
-        this.followedBy = followedBy;
-        this.following = following;
-    }
+	constructor({
+		id,
+		email,
+		username,
+		password,
+		workouts,
+		workoutComments,
+		followedBy,
+		following,
+		likedWorkouts,
+	}: TProfile) {
+		this.id = id;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.workouts = workouts;
+		this.workoutComments = workoutComments;
+		this.followedBy = followedBy;
+		this.following = following;
+		this.likedWorkouts = likedWorkouts;
+	}
 
-    static From(profile: TProfile): Profile {
-        return new Profile(profile)
-    }
+	static From(
+		profile: PrismaProfile & {
+			Workout?: PrismaWorkout[];
+		} & {
+			WorkoutComment?: PrismaWorkoutComment[];
+		} & {
+			following?: PrismaProfile[];
+		} & {
+			followedBy?: PrismaProfile[];
+		} & {
+			LikedWorkouts?: PrismaWorkout[];
+		}
+	): Profile {
+		return new Profile({
+			...profile,
+			workouts: profile.Workout,
+			workoutComments: profile.WorkoutComment,
+			likedWorkouts: profile.LikedWorkouts,
+		});
+	}
 }

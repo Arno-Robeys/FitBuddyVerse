@@ -1,27 +1,43 @@
 import { TWorkoutComment } from "@/types/comment.type";
+import {
+	Workout as PrismaWorkout,
+	Profile as PrismaProfile,
+} from "@prisma/client";
+import { Profile } from "./profile";
+import { Workout } from "./workout";
 
-export class WorkoutComment{
-    readonly id: string;
-    readonly workoutId: string;
-    readonly profileId: string;
-    readonly message: string;
-    readonly createdAt: Date;
+export class WorkoutComment {
+	readonly id: number;
+	readonly workoutId: number;
+	readonly profileId: number;
+	readonly message: string;
+	readonly createdAt: Date;
+	readonly profile?: Profile;
+	readonly workout?: Workout;
 
-    constructor({
-        id,
-        workoutId,
-        profileId,
-        message,
-        createdAt,
-    }: TWorkoutComment) {
-        this.id = id;
-        this.workoutId = workoutId;
-        this.profileId = profileId;
-        this.message = message;
-        this.createdAt = createdAt;
-    }
+	constructor({
+		id,
+		workoutId,
+		profileId,
+		message,
+		createdAt,
+		profile,
+		workout,
+	}: TWorkoutComment) {
+		this.id = id;
+		this.workoutId = workoutId;
+		this.profileId = profileId;
+		this.message = message;
+		this.createdAt = createdAt;
+		this.profile = profile;
+		this.workout = workout;
+	}
 
-    static From(workoutComment: TWorkoutComment): WorkoutComment {
-        return new WorkoutComment(workoutComment)
-    }
+	static From(
+		workoutComment: TWorkoutComment & { profile: PrismaProfile } & {
+			workout: PrismaWorkout;
+		}
+	): WorkoutComment {
+		return new WorkoutComment(workoutComment);
+	}
 }

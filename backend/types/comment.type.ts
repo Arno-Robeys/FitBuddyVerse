@@ -1,9 +1,14 @@
+import { Profile } from "@/domain/model/profile";
+import { Workout } from "@/domain/model/workout";
+
 export type TWorkoutComment = {
-    id?: string;
-    workoutId: string;
-    profileId: string;
+    id?: number;
+    workoutId: number;
+    profileId: number;
     message: string;
     createdAt: Date;
+    profile?: Profile;
+    workout?: Workout;
 };
 
 export type TInputWorkoutComment = {

@@ -12,6 +12,7 @@ export type TProfile = {
     followedBy?: Profile[];
     following?: Profile[];
     profilePicture?: string;
+    likedWorkouts?: Workout[];
 };
 
 export type TResponseProfile = {
