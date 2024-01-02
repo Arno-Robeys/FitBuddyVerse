@@ -1,7 +1,4 @@
 import Workout from "@/components/workout/Workout";
-import WorkoutExercises from "@/components/workout/WorkoutExercises";
-import WorkoutInfo from "@/components/workout/WorkoutInfo";
-import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
 import { TProfile, TProfileAll } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
@@ -54,13 +51,7 @@ export default function FeedPage() {
                     </View>
 				)}
 				renderItem={({ item }) => (
-					<Workout
-						key={item.id}
-						workout={item}
-						workoutInfo={<WorkoutInfo />}
-						exercises={<WorkoutExercises />}
-						likes={<WorkoutLikes />}
-					/>
+					<Workout key={item.id} workout={item}/>
 				)}
 			/>
 		</>

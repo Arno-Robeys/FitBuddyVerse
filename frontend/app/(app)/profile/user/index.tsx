@@ -1,8 +1,5 @@
 "use client";
 import Workout from "@/components/workout/Workout";
-import WorkoutExercises from "@/components/workout/WorkoutExercises";
-import WorkoutInfo from "@/components/workout/WorkoutInfo";
-import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
 import { TProfileAll } from "@/types/profile.type";
 import { useEffect, useState } from "react";
@@ -54,13 +51,7 @@ export default function ProfileUserPage({route, navigation}: {route: any, naviga
                     </View>
 				)}
 				renderItem={({ item }) => (
-					<Workout
-						key={item.id}
-						workout={item}
-						workoutInfo={<WorkoutInfo />}
-						exercises={<WorkoutExercises />}
-						likes={<WorkoutLikes />}
-					/>
+					<Workout key={item.id} workout={item}/>
 				)}
 			/>
 		</>

@@ -1,8 +1,5 @@
 "use client";
 import Workout from "@/components/workout/Workout";
-import WorkoutExercises from "@/components/workout/WorkoutExercises";
-import WorkoutInfo from "@/components/workout/WorkoutInfo";
-import WorkoutLikes from "@/components/workout/WorkoutLikes";
 import profileService from "@/lib/profileService";
 import { TProfile, TProfileAll } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -55,13 +52,7 @@ export default function ProfilePage() {
                     </View>
 				)}
 				renderItem={({ item }) => (
-					<Workout
-						key={item.id}
-						workout={item}
-						workoutInfo={<WorkoutInfo />}
-						exercises={<WorkoutExercises />}
-						likes={<WorkoutLikes />}
-					/>
+					<Workout key={item.id} workout={item}/>
 				)}
 			/>
 		</>

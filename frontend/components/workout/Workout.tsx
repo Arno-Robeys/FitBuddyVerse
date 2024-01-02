@@ -1,57 +1,33 @@
-import WorkoutContext from "@/components/workout/context/WorkoutContext";
-import profileService from "@/lib/profileService";
-import { TProfile } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import { EvilIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
-import React, { FC, ReactNode, useEffect, useState } from "react";
-import {Text, TouchableOpacity, View } from "react-native";
+import moment from "moment";
+import React, { FC } from "react";
+import {Text, View } from "react-native";
+import { format, isYesterday } from "date-fns";
 
-interface Props {
-	workout: TWorkout;
-	workoutInfo?: ReactNode;
-	exercises?: ReactNode;
-	likes?: ReactNode;
-	action?: ReactNode;
-	comments?: ReactNode;
-}
-const Workout: FC<Props> = ({
-	workout,
-	workoutInfo,
-	exercises,
-	likes,
-	comments,
-	action
-}: Props) => {
-	const [profile, setProfile] = useState<TProfile>();
+const Workout: FC<{workout: TWorkout}> = ({workout}) => {
 
-	useEffect(() => {
-		var fetchData = async() => {
-			try {
-				const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
-				var res = await profileService.getProfilesFollowing(p?.id ?? 0);
-				setProfile(res.profile);
-			}catch(err) {
-				console.log(err);
-			}
-		}
-		fetchData();
-	}, []);
+	const formatDuration = (durationSec: number) => {
+        const duration = moment.duration(durationSec, 'seconds');
+        return `${duration.hours()}h ${duration.minutes()}m`;
+    };
 
+	const publishDate: Date = new Date(workout.createdAt);
+	const createdAtDateString = isYesterday(publishDate)
+		? `Yesterday at ${format(publishDate, "h:mmaaa")}`
+		: format(publishDate, "dd MMM yyyy HH:mm");
+	
 	return (
-		<WorkoutContext.Provider value={{ workout, profile }}>
-			<View className="w-full max-w-sm bg-gray-700 border border-gray-500 shadow dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
-				<View className="w-full flex flex-col items-center px-20">
-					<Text>{workoutInfo}</Text>
-					<Text>{exercises}</Text>
-					<Text>{likes}</Text>
-					<Text>{action}</Text>
-					<Text>{comments}</Text>
-				</View>
-			</View>
-		</WorkoutContext.Provider>
+		<View className="mt-2 border-y-2">
+			<Text>Workout</Text>
+			<Text>{workout.name}</Text>
+			<Text>Volume: {workout.volumeKG}</Text>
+			<Text>Duration: {formatDuration(workout.durationSec)}</Text>
+			<Text>{createdAtDateString}</Text>
+			<Text>{workout.likedBy?.length ?? 0} likes</Text>
+			<EvilIcons name="like" size={24}/>
+		</View>
 	);
 };
 
-export default React.memo(Workout);
+export default Workout;
