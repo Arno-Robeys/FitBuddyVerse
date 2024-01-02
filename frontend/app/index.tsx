@@ -13,6 +13,7 @@ export default function LoginPage({navigation}: {navigation: any}) {
 
 	useEffect(() => {
 		AsyncStorage.getItem("profile").then((profile) => {
+			console.log(profile);
 			if (profile) {
 				navigation.navigate("FitBuddyVerse");
 			}

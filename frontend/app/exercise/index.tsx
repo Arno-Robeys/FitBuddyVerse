@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
 export default function ExerciseInfoPage({ route, navigation }: { route: any, navigation: any }) {
 
@@ -21,6 +21,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any, na
             <Text className="text-center text-2xl font-bold mb-4">
                 van user id {userid}
             </Text>
+            <Button title="Go to Exercise History" onPress={() => navigation.navigate('ExerciseHistory', { id: id, userid: userid })} />
         </View>
     );
 }

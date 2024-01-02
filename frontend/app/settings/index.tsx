@@ -12,7 +12,7 @@ export default function SettingsPage({navigation}: {navigation: any}) {
                 AsyncStorage.removeItem("profile");
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: "Login" }],
+                    routes: [{ name: "Login" }]
                 });
                 }} />
 		</View>

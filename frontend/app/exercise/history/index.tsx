@@ -1,25 +1,17 @@
 "use client";
 
 import exerciseService from "@/lib/exerciseService";
-import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import History from "./history";
+import History from "../../../components/exercise/History";
+import { View, Text } from "react-native";
 
-export default function HistoryPage() {
-	const { id, profileId } = useLocalSearchParams();
+export default function ExerciseHistoryPage({ route, navigation }: { route: any, navigation: any }) {
+	const { id, profileId } = route.params;
 	const [exerciseHistory, setExerciseHistory] = useState<any>();
-
-	if (typeof id !== "string" || typeof profileId !== "string") return;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				// Check if profileId is available
-				if (!profileId || !id) {
-					console.error("Profile ID or Exercise ID not available.");
-					return;
-				}
-
 				// Fetch exercise details using the exerciseService
 				const exerciseHistory = await exerciseService.getExerciseHistory(
 					id,
@@ -35,11 +27,12 @@ export default function HistoryPage() {
 				console.error("Error fetching exercise details:", error);
 			}
 		};
-
-		// Fetch data when both id and profileId are available
-		if (id && profileId) {
-			fetchData();
-		}
-	}, [id, profileId]);
-	return <History workouts={exerciseHistory} />;
+		fetchData();
+	}, []);
+	return <>
+		<View>
+			<Text>Exercise History</Text>
+			<History workouts={exerciseHistory} />
+		</View>
+	</>;
 }

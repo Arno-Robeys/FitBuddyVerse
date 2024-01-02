@@ -99,6 +99,8 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
             AsyncStorage.getItem("profile").then((res) => {
                 const profile = JSON.parse(res!);
                 workout.profileId = profile.id;
+            }).catch((err) => {
+                console.log(err);
             });
         }
         fetchData();
