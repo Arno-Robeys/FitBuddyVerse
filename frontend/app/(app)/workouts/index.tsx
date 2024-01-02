@@ -10,7 +10,7 @@ import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'reac
 
 export default function WorkoutPage({route, navigation }: {route: any, navigation: any }) {
 
-    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: new Date().toISOString(), durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
+    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
     const [opened, setOpened] = useState(false);
     const [exercises, setExercises] = useState<TExercise[]>([]);
     const [selectedExercise, setSelectedExercise] = useState<TExercise[]>([]);
@@ -56,22 +56,25 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
             };
             workout.exercise?.push(newExercise);
         });
+
+        //If workout is new, set createdAt when adding first exercise
+        if(workout.createdAt === '' && selectedExercise.length !== 0) workout.createdAt = moment().format();
         setSelectedExercise([]);
         setOpened(false);
     };
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setWorkout(prevWorkout => ({
-                ...prevWorkout,
-                durationSec: prevWorkout.createdAt
-                    ? Math.floor((Date.now() - Date.parse(prevWorkout.createdAt)) / 1000)
-                    : 0
+        if (workout.createdAt) {
+          const interval = setInterval(() => {
+            setWorkout((prevWorkout) => ({
+              ...prevWorkout,
+              durationSec: prevWorkout.createdAt ? moment().diff(moment(prevWorkout.createdAt), 'seconds') : 0
             }));
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [workout.createdAt]);
+          }, 1000);
+      
+          return () => clearInterval(interval);
+        }
+      }, [workout.createdAt]);
 
     const formatDuration = (durationSec: number) => {
         const duration = moment.duration(durationSec, 'seconds');
