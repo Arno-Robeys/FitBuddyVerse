@@ -2,12 +2,12 @@ import Workout from "@/components/workout/Workout";
 import WorkoutExercises from "@/components/workout/WorkoutExercises";
 import WorkoutInfo from "@/components/workout/WorkoutInfo";
 import WorkoutLikes from "@/components/workout/WorkoutLikes";
-import { TProfileAll } from "@/types/profile.type";
+import profileService from "@/lib/profileService";
+import { TProfile, TProfileAll } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FlashList } from "@shopify/flash-list";
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, Text, View } from "react-native";
 
 export default function FeedPage() {
 
@@ -15,12 +15,9 @@ export default function FeedPage() {
 
 	var fetchData = async() => {
 		try {
-			var profile = await AsyncStorage.getItem("profile");
-			profile = JSON.parse(profile!);
-			//@ts-ignore
-			//var res = await profileService.getProfileWithFollowingEmbedAll({ id: profile.id, accessToken: profile.accessToken });
-			//@ts-ignore
-			//setProfile(res.data);
+			const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
+			var res = await profileService.getProfilesFollowing(p?.id ?? 0);
+			setProfile(res.profile);
 		}catch(err) {
 			console.log(err);
 		}

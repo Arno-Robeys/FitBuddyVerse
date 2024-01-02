@@ -31,34 +31,6 @@ const main = async () => {
     ]
   });
 
-  await prisma.workout.createMany({
-    data: [{
-      name: "Nino's Beste Workout!",
-      durationSec: 2530,
-      volumeKG: 10300,
-      profileId: 1,
-    },
-    {
-      name: "Epische Workout",
-      durationSec: 2398,
-      volumeKG: 9230,
-      profileId: 2,
-    },
-    {
-      name: "Zware Workout",
-      durationSec: 1290,
-      volumeKG: 5302,
-      profileId: 3,
-    },
-    {
-      name: "Beste Workout",
-      durationSec: 1943,
-      volumeKG: 12309,
-      profileId: 4,
-    }
-    ]
-  });
-
   await prisma.exercise.createMany({
     data: [{
       name: "Bench Press",
@@ -83,6 +55,34 @@ const main = async () => {
       type: "Back",
       equipment: "Machine",
       description: "Seated row is an exercise for the back muscles. Sit on the machine and grip the handles. Pull the handles towards you and push them back out.",
+    }
+    ]
+  });
+
+  await prisma.workout.createMany({
+    data: [{
+      name: "Nino's Beste Workout!",
+      durationSec: 2530,
+      volumeKG: 10300,
+      profileId: 1,
+    },
+    {
+      name: "Epische Workout",
+      durationSec: 2398,
+      volumeKG: 9230,
+      profileId: 2,
+    },
+    {
+      name: "Zware Workout",
+      durationSec: 1290,
+      volumeKG: 5302,
+      profileId: 3,
+    },
+    {
+      name: "Beste Workout",
+      durationSec: 1943,
+      volumeKG: 12309,
+      profileId: 4,
     }
     ]
   });
@@ -194,6 +194,29 @@ const main = async () => {
     ]
   });
 
+  await prisma.workoutComment.createMany({
+    data: [{
+      message: "Leuke workout!",
+      profileId: 1,
+      workoutId: 1,
+    },
+    {
+      message: "Leuke workout!",
+      profileId: 2,
+      workoutId: 2,
+    },
+    {
+      message: "Leuke workout!",
+      profileId: 3,
+      workoutId: 3,
+    },
+    {
+      message: "Leuke workout!",
+      profileId: 4,
+      workoutId: 4,
+    }
+    ]
+  });
 };
 
 main()

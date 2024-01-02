@@ -29,12 +29,9 @@ const Workout: FC<Props> = ({
 	useEffect(() => {
 		var fetchData = async() => {
 			try {
-				var profile = await AsyncStorage.getItem("profile");
-				profile = JSON.parse(profile!);
-				//@ts-ignore
-				//var res = await profileService.getProfileEmbedAll({ id: profile.id, accessToken: profile.accessToken });
-				//@ts-ignore
-				//setProfile(res.data);
+				const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
+				var res = await profileService.getProfilesFollowing(p?.id ?? 0);
+				setProfile(res.profile);
 			}catch(err) {
 				console.log(err);
 			}

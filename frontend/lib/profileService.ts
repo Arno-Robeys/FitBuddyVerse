@@ -20,6 +20,8 @@ const getProfileByIdEmbedAll = async (id: number) => {
 	return (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}?embed=all`)).data;
 }
 
+const getProfilesFollowing = async (id: number) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}/following`)).data;
+
 const searchProfiles = async (search: string) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/?search=${search}`)).data;
 
 export default {
@@ -27,4 +29,5 @@ export default {
 	loginProfile,
 	getProfileByIdEmbedAll,
 	searchProfiles,
+	getProfilesFollowing,
 };
