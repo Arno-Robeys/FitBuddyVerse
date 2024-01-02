@@ -8,6 +8,7 @@ import moment from "moment";
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
+
 export default function WorkoutPage({route, navigation }: {route: any, navigation: any }) {
 
     const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
@@ -17,10 +18,12 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
 
     const FinishHandler = async () => {
         // Implement your finish logic
+        console.log("finish")
     };
+ 
 
     useEffect(() => {
-        async function fetchData() {
+        (async () => {
             const exercises = await exerciseService.getAllExercises();
             setExercises(exercises);
 
@@ -30,12 +33,10 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
             }).catch((err) => {
                 console.log(err);
             });
-        }
-        fetchData();
+        })();
     }, []);
 
     const AddSelectedExerciseHandler = (exercise: TExercise) => {
-        // Implement your add exercise logic
         if(selectedExercise.includes(exercise)) {
             setSelectedExercise(selectedExercise.filter((item) => item.id !== exercise.id));
             
@@ -43,7 +44,6 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
     };
 
     const AddExerciseHandler = () => {
-        // Implement your add exercise logic
         selectedExercise.forEach((exercise) => {
             //Check if exercise already exists
             if(workout.exercise?.find((item) => item.id === exercise.id)) return;
@@ -58,7 +58,24 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
         });
 
         //If workout is new, set createdAt when adding first exercise
-        if(workout.createdAt === '' && selectedExercise.length !== 0) workout.createdAt = moment().format();
+        if(workout.createdAt === '' && selectedExercise.length !== 0) {
+            workout.createdAt = moment().format();
+            
+            //Add Cancel & Finish button to header
+            navigation.setOptions({
+                headerLeft: () => (
+                    <TouchableOpacity className="ml-2 p-2 bg-red-400 rounded" onPress={() => navigation.reset({routes: [{name: "Feed"}]})}>
+                        <Text className="text-center font-bold">Cancel</Text>
+                    </TouchableOpacity>
+                ),
+                headerRight: () => (
+                    <TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => FinishHandler()}>
+                        <Text className="text-center font-bold">Finish</Text>
+                    </TouchableOpacity>
+                )
+            });
+        }
+        
         setSelectedExercise([]);
         setOpened(false);
     };
@@ -111,7 +128,7 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
                         ))}
                     </ScrollView>
                     {selectedExercise.length > 0 ? (
-                            <TouchableOpacity onPress={() => AddExerciseHandler()} className="bg-gray-700 py-4 absolute bottom-0 w-full">
+                            <TouchableOpacity onPress={() => AddExerciseHandler()} className="bg-gray-700 py-4 absolute inset-x-6 rounded bottom-10">
                                 <Text className="text-center text-white font-bold">Add</Text>
                             </TouchableOpacity>
                         ) : null}

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WorkoutPage from "./workouts";
 import FeedPage from "./feed";
 import ProfilePage from "./profile";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,17 +17,7 @@ export default function AppLayout({navigation}: {navigation: any}) {
 							<Ionicons name="ios-search" size={30} color={'black'} />
 						</TouchableOpacity>
 					)}} />
-			<Tab.Screen name="Workouts" component={WorkoutPage} options={{tabBarIcon: ({ size, color }) => (<Ionicons name="ios-barbell" size={size} color={color} />),
-					headerLeft: () => (
-						<TouchableOpacity className="ml-2 p-2 bg-red-400 rounded" onPress={() => {navigation.reset({routes: [{name: "Feed"}]})}}>
-							<Text className="text-center font-bold">Cancel</Text>
-						</TouchableOpacity>
-					),
-					headerRight: () => (
-						<TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => {navigation.reset({routes: [{name: "Profile"}]})}}>
-							<Text className="text-center font-bold">Finish</Text>
-						</TouchableOpacity>
-					)}}/>
+			<Tab.Screen name="Workouts" component={WorkoutPage} options={{title: 'Workout Tracker', tabBarIcon: ({ size, color }) => (<Ionicons name="ios-barbell" size={size} color={color} />)}}/>
 			<Tab.Screen name="Profile" component={ProfilePage} options={{tabBarIcon: ({ size, color }) => (<Ionicons name="ios-person" size={size} color={color} />), 
 					headerRight: () => (
 						<TouchableOpacity className="mr-2 p-2"

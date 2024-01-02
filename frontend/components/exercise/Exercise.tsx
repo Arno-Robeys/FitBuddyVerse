@@ -67,6 +67,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
           set.setNr = index + 1;
         });
       }
+      newTableData.volumeKG = calculateVolume(); // Recalculate volume
     }
     setWorkout(newTableData);
   }
