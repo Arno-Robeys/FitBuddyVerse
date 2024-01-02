@@ -2,7 +2,7 @@ import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
 import { set } from "date-fns";
 import { useState } from "react";
-import { Button, FlatList, Text, TextInput, View} from "react-native";
+import { Button, FlatList, Text, TextInput, TouchableOpacity, View} from "react-native";
 
 export default function SearchPage({navigation}: {navigation: any}) {
 	const [searchText, setSearchText] = useState('');
@@ -27,8 +27,9 @@ export default function SearchPage({navigation}: {navigation: any}) {
 				keyExtractor={(item) => (item.id as number).toString()}
 				renderItem={({ item }) => (
 					<View>
-						<Text style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ccc' }}>{item.username}</Text>
-						<Button title="View Profile" onPress={() => {navigation.navigate("ProfileUser", {id: item.id})}}/>
+						<TouchableOpacity onPress={() => {navigation.navigate("ProfileUser", {id: item.id})}}>
+							<Text style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ccc' }}>{item.username}</Text>
+						</TouchableOpacity>
 						<Button title="Follow" onPress={() => {}}/>
 					</View>
 				  )}
