@@ -69,7 +69,12 @@ const getProfileByIdIncludeAll = async (
 			id: Number.parseInt(profileId),
 		},
 		include: {
-			Workout: { include: { ExerciseSet: true, WorkoutComment: true } },
+			Workout: {
+				include: {
+					ExerciseSet: { include: { workout: true, exercise: true } },
+					WorkoutComment: { include: { profile: true } },
+				},
+			},
 			followedBy: true,
 			following: true,
 		},
