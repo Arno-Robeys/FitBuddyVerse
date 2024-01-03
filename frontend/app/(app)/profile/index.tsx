@@ -6,28 +6,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
 
-export default function ProfilePage() {
+export default function ProfilePage({ navigation }: { navigation: any }) {
 	const [profile, setProfile] = useState<TProfileAll>();
 
-	const fetchData = async() => {
+	const fetchData = async () => {
 		try {
-			const p = JSON.parse(await AsyncStorage.getItem("profile") ?? "{}") as TProfile;
+			const p = JSON.parse(
+				(await AsyncStorage.getItem("profile")) ?? "{}"
+			) as TProfile;
 			var res = await profileService.getProfileByIdEmbedAll(p?.id ?? 0);
 			setProfile(res.profile);
-		}catch(err) {
+		} catch (err) {
 			console.log(err);
 		}
-	}
+	};
 
 	useEffect(() => {
 		fetchData();
 	}, []);
-	
+
 	return (
 		<>
-			<FlatList 
+			<FlatList
 				className="bg-white p-6"
-				refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchData()}/>}
+				refreshControl={
+					<RefreshControl refreshing={false} onRefresh={() => fetchData()} />
+				}
 				data={profile?.workouts}
 				nestedScrollEnabled={true}
 				keyExtractor={(item) => (item.id as number).toString()}
@@ -43,16 +47,17 @@ export default function ProfilePage() {
 						<Text>Email: {profile?.email}</Text>
 						<Text>Followers: {profile?.followedBy?.length ?? 0}</Text>
 						<Text>Following: {profile?.following?.length ?? 0}</Text>
-					</View>)}
-                ListEmptyComponent={() => (
-                    <View>
-                        <Text className="mt-12 text-lg text-center text-gray-600 mb-4">
+					</View>
+				)}
+				ListEmptyComponent={() => (
+					<View>
+						<Text className="mt-12 text-lg text-center text-gray-600 mb-4">
 							You didn't work out yet! What are you waiting for?
 						</Text>
-                    </View>
+					</View>
 				)}
 				renderItem={({ item }) => (
-					<Workout key={item.id} workout={item}/>
+					<Workout key={item.id} workout={item} navigation={navigation} />
 				)}
 			/>
 		</>

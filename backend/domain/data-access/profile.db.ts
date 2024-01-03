@@ -56,7 +56,9 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 					Workout: {
 						include: {
 							ExerciseSet: { include: { exercise: true } },
-							WorkoutComment: true,
+							WorkoutComment: { include: { profile: true } },
+							LikedBy: true,
+							ExerciseNote: true,
 						},
 					},
 				},
@@ -78,6 +80,8 @@ const getProfileByIdIncludeAll = async (
 				include: {
 					ExerciseSet: { include: { workout: true, exercise: true } },
 					WorkoutComment: { include: { profile: true } },
+					LikedBy: true,
+					ExerciseNote: true,
 				},
 			},
 			followedBy: true,

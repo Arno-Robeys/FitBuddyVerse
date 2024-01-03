@@ -16,7 +16,15 @@ const getWorkoutById = async ({ id }: { id: string }): Promise<Workout> => {
 		throw new Error("Id must be numeric and whole");
 	return workoutDB.getWorkoutById(parseInt(id));
 };
+
+const getWorkoutByIdForWorkoutPage = async ({ id }: { id: string }) => {
+	if (!Number.isInteger(parseInt(id)))
+		throw new Error("Id must be numeric and whole");
+	const workout = await workoutDB.getWorkoutByIdForWorkoutPage(parseInt(id));
+	return workout;
+};
 export default {
 	getWorkoutByIdIncludeAll,
 	getWorkoutById,
+	getWorkoutByIdForWorkoutPage,
 };

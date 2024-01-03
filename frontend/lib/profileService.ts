@@ -19,6 +19,7 @@ const loginProfile = async (userEmailOrName: string, userPassword: string) => {
 const getProfileByIdEmbedAll = async (id: number) => {
 	return (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}?embed=all`)).data;
 }
+const getProfileById = async (id: number) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}`)).data.profile;
 
 const getProfilesFollowing = async (id: number) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}/following`)).data;
 
@@ -30,4 +31,5 @@ export default {
 	getProfileByIdEmbedAll,
 	searchProfiles,
 	getProfilesFollowing,
+	getProfileById
 };
