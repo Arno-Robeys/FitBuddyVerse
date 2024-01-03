@@ -2,15 +2,21 @@ import database from "./prisma/db";
 import { Profile } from "../model/profile";
 
 const createProfile = async (profileData: Profile): Promise<Profile> => {
-	const profile = await database.profile.create({
-		data: {
-			email: profileData.email,
-			username: profileData.username,
-			password: profileData.password,
-			profilePicture: profileData.profilePicture || null,
-		},
-	});
-	return Profile.From(profile);
+	try {
+		const profile = await database.profile.create({
+			data: {
+				email: profileData.email.toLowerCase(),
+				username: profileData.username.toLowerCase(),
+				password: profileData.password,
+				profilePicture: profileData.profilePicture || null,
+			},
+		});
+		return Profile.From(profile);
+	} catch (err) {
+		if(err.code === "P2002") {
+			throw new Error("Email or username already exists");
+		} else throw new Error("Something went wrong");
+	}
 };
 
 const getProfileById = async (id: string): Promise<Profile> => {

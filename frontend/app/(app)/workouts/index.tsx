@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
 
-export default function WorkoutPage({route, navigation }: {route: any, navigation: any }) {
+export default function WorkoutPage({ route, navigation }: { route: any, navigation: any }) {
 
     const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
     const [opened, setOpened] = useState(false);
@@ -20,7 +20,7 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
         // Implement your finish logic
         console.log("finish")
     };
- 
+
 
     useEffect(() => {
         (async () => {
@@ -37,34 +37,34 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
     }, []);
 
     const AddSelectedExerciseHandler = (exercise: TExercise) => {
-        if(selectedExercise.includes(exercise)) {
+        if (selectedExercise.includes(exercise)) {
             setSelectedExercise(selectedExercise.filter((item) => item.id !== exercise.id));
-            
+
         } else setSelectedExercise([...selectedExercise, exercise]);
     };
 
     const AddExerciseHandler = () => {
         selectedExercise.forEach((exercise) => {
             //Check if exercise already exists
-            if(workout.exercise?.find((item) => item.id === exercise.id)) return;
+            if (workout.exercise?.find((item) => item.id === exercise.id)) return;
             const newExercise = {
                 id: exercise.id,
                 name: exercise.name,
                 type: exercise.type,
                 equipment: exercise.equipment,
-                exerciseSets: [{exerciseId: exercise.id, setNr: 1, repetitions: 0, weightKG: 0}]
+                exerciseSets: [{ exerciseId: exercise.id, setNr: 1, repetitions: 0, weightKG: 0 }]
             };
             workout.exercise?.push(newExercise);
         });
 
         //If workout is new, set createdAt when adding first exercise
-        if(workout.createdAt === '' && selectedExercise.length !== 0) {
+        if (workout.createdAt === '' && selectedExercise.length !== 0) {
             workout.createdAt = moment().format();
-            
+
             //Add Cancel & Finish button to header
             navigation.setOptions({
                 headerLeft: () => (
-                    <TouchableOpacity className="ml-2 p-2 bg-red-400 rounded" onPress={() => navigation.reset({routes: [{name: "Feed"}]})}>
+                    <TouchableOpacity className="ml-2 p-2 bg-red-400 rounded" onPress={() => navigation.reset({ routes: [{ name: "Feed" }] })}>
                         <Text className="text-center font-bold">Cancel</Text>
                     </TouchableOpacity>
                 ),
@@ -75,23 +75,23 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
                 )
             });
         }
-        
+
         setSelectedExercise([]);
         setOpened(false);
     };
 
     useEffect(() => {
         if (workout.createdAt) {
-          const interval = setInterval(() => {
-            setWorkout((prevWorkout) => ({
-              ...prevWorkout,
-              durationSec: prevWorkout.createdAt ? moment().diff(moment(prevWorkout.createdAt), 'seconds') : 0
-            }));
-          }, 1000);
-      
-          return () => clearInterval(interval);
+            const interval = setInterval(() => {
+                setWorkout((prevWorkout) => ({
+                    ...prevWorkout,
+                    durationSec: prevWorkout.createdAt ? moment().diff(moment(prevWorkout.createdAt), 'seconds') : 0
+                }));
+            }, 1000);
+
+            return () => clearInterval(interval);
         }
-      }, [workout.createdAt]);
+    }, [workout.createdAt]);
 
     const formatDuration = (durationSec: number) => {
         const duration = moment.duration(durationSec, 'seconds');
@@ -115,9 +115,9 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
             </View>
 
             {/* Modal AddExercise*/}
-            <Modal visible={opened} onRequestClose={() => {setOpened(false); setSelectedExercise([])}} animationType="slide">
+            <Modal visible={opened} onRequestClose={() => { setOpened(false); setSelectedExercise([]) }} animationType="slide">
                 <View className="flex-col justify-between h-screen">
-                    <TouchableOpacity onPress={() => {setOpened(false); setSelectedExercise([])}} className="bg-gray-700 py-4">
+                    <TouchableOpacity onPress={() => { setOpened(false); setSelectedExercise([]) }} className="bg-gray-700 py-4">
                         <Text className="text-center text-white font-bold">Cancel</Text>
                     </TouchableOpacity>
                     <ScrollView>
@@ -128,10 +128,10 @@ export default function WorkoutPage({route, navigation }: {route: any, navigatio
                         ))}
                     </ScrollView>
                     {selectedExercise.length > 0 ? (
-                            <TouchableOpacity onPress={() => AddExerciseHandler()} className="bg-gray-700 py-4 absolute inset-x-6 rounded bottom-10">
-                                <Text className="text-center text-white font-bold">Add</Text>
-                            </TouchableOpacity>
-                        ) : null}
+                        <TouchableOpacity onPress={() => AddExerciseHandler()} className="bg-gray-700 py-4 absolute inset-x-6 rounded bottom-10">
+                            <Text className="text-center text-white font-bold">Add</Text>
+                        </TouchableOpacity>
+                    ) : null}
                 </View>
             </Modal>
         </ScrollView>
