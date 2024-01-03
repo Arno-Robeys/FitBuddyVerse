@@ -12,7 +12,16 @@ const getExerciseHistory = async (id: string, profileId: string) => {
 	return (
 		await axios.get(
 			process.env.EXPO_PUBLIC_URL +
-				`/exercises/${id}/${profileId}/exercise-history`
+			`/exercises/${id}/${profileId}/exercise-history`
+		)
+	).data.exercise_details;
+};
+
+const getExerciseGraph = async (id: string, profileId: string) => {
+	return (
+		await axios.get(
+			process.env.EXPO_PUBLIC_URL +
+			`/exercises/${id}/${profileId}/workout-graph`
 		)
 	).data.exercise_details;
 };
@@ -23,4 +32,5 @@ export default {
 	getExerciseByIdFromUser,
 	getExerciseHistory,
 	getAllExercises,
+	getExerciseGraph,
 };

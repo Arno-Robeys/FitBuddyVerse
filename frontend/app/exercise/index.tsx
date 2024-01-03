@@ -1,5 +1,21 @@
-import { useEffect } from "react";
+import exerciseService from "@/lib/exerciseService";
+import { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
+
+interface ApiResponse {
+    status: string;
+    graph: GraphItem[];
+}
+
+interface GraphItem {
+    id: number;
+    volumeKG: number;
+    createdAt: string;
+    one_rep_max: number;
+    max_weight: number;
+    total_reps: number;
+    best_set_volume: number;
+}
 
 export default function ExerciseInfoPage({ route, navigation }: { route: any, navigation: any }) {
 
@@ -11,6 +27,33 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any, na
         console.log('id: ', id);
         console.log('userid: ', userid);
     }, []);
+
+    const [exerciseGraph, setExerciseGraph] = useState<any>();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch exercise details using the exerciseService
+                const exerciseGraph = await exerciseService.getExerciseGraph(
+                    id,
+                    userid
+                );
+                setExerciseGraph(exerciseGraph);
+
+                // Log the exercise details (replace this with the desired logic)
+                console.log("Exercise Graph:", JSON.stringify(exerciseGraph));
+
+                // Now you can use exerciseDetails to update the component state or perform other actions
+            } catch (error) {
+                console.error("Error fetching exercise graph:", error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        console.log('exerciseGraph: ', exerciseGraph);
+    }, [exerciseGraph]);
 
 
     return (
