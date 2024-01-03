@@ -13,7 +13,7 @@ const createProfile = async (profileData: Profile): Promise<Profile> => {
 		});
 		return Profile.From(profile);
 	} catch (err) {
-		if(err.code === "P2002") {
+		if (err.code === "P2002") {
 			throw new Error("Email or username already exists");
 		} else throw new Error("Something went wrong");
 	}
@@ -53,7 +53,12 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 		include: {
 			following: {
 				include: {
-					Workout: { include: { ExerciseSet: true, WorkoutComment: true } },
+					Workout: {
+						include: {
+							ExerciseSet: { include: { exercise: true } },
+							WorkoutComment: true,
+						},
+					},
 				},
 			},
 		},

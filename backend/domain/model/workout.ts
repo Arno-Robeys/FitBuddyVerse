@@ -60,7 +60,7 @@ export class Workout {
 			ExerciseSet?: PrismaExerciseSet[];
 		} & { LikedBy?: PrismaProfile[] } & {
 			ExerciseNote?: PrismaExerciseNote[];
-		} & { Exercise?: PrismaExercise[] } & { Profile?: PrismaProfile }
+		} & { Exercise?: PrismaExercise[] } & { profile?: PrismaProfile }
 	): Workout {
 		return new Workout({
 			...workout,
@@ -68,7 +68,7 @@ export class Workout {
 			exerciseSets: workout?.ExerciseSet?.map(ExerciseSet.From),
 			likedBy: workout?.LikedBy?.map(Profile.From),
 			exercises: workout?.Exercise?.map(Exercise.From),
-			profile: workout.Profile ? Profile.From(workout.Profile) : null,
+			profile: workout.profile ? Profile.From(workout.profile) : null,
 			exerciseNotes: workout?.ExerciseNote?.map(Note.From),
 		});
 	}
