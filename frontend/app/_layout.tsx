@@ -8,7 +8,7 @@ import SettingsPage from "./settings";
 import SearchPage from "./search";
 import ProfileUserPage from "./(app)/profile/user";
 import ExerciseHistoryPage from "./exercise/history";
-import WorkoutPage from "./workout";
+import WorkoutDetailsPage from "./workout";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +25,7 @@ export default function Root() {
 				<Stack.Screen name="Search" component={SearchPage}/>
 				<Stack.Screen name="ProfileUser" component={ProfileUserPage}/>
 				<Stack.Screen name="ExerciseHistory" component={ExerciseHistoryPage} options={{title: 'History'}}/>
-				<Stack.Screen name="Workout" component={WorkoutPage} options={{title: 'Workout'}}/>
+				<Stack.Screen name="Workout" component={WorkoutDetailsPage} options={{title: 'Workout'}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

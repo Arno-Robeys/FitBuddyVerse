@@ -44,12 +44,10 @@ const formatDuration = (durationSec: number) => {
 	return `${duration.hours()}h ${duration.minutes()}m`;
 };
 
-export default function WorkoutPage({
-	route,
-	navigation,
+export default function WorkoutDetailsPage({
+	route
 }: {
 	route: any;
-	navigation: any;
 }) {
 	const { id } = route.params;
 	const [workout, setWorkout] = React.useState<Workout>();
@@ -82,23 +80,17 @@ export default function WorkoutPage({
 	}, []);
 
 	return (
-		<ScrollView className="bg-white">
-			<View className="h-full bg-white flex justify-center items-center m-2">
-				<View className="px-4 py-2 flex items-center justify-between rounded-md  shadow-sm shadow-gray-200 w-10/12">
-					<View className="w-full">
-						<View>
-							<View>
-								<Text className="text-lg">{profile?.username}</Text>
-								<Text className="text-sm">
-									{workout?.workoutCreatedAt
-										? format(
-												new Date(workout.workoutCreatedAt),
-												"dd MMMM yyyy, kk:mm"
-										  )
-										: null}
-								</Text>
-							</View>
-						</View>
+		<ScrollView className="bg-white px-4">
+					<View>
+						<Text className="text-lg">{profile?.username}</Text>
+						<Text className="text-sm">
+							{workout?.workoutCreatedAt
+								? format(
+										new Date(workout.workoutCreatedAt),
+										"dd MMMM yyyy, kk:mm"
+									)
+								: null}
+						</Text>
 					</View>
 
 					<View className="my-2 w-full">
@@ -154,8 +146,6 @@ export default function WorkoutPage({
 							))}
 						</View>
 					</View>
-				</View>
-			</View>
 		</ScrollView>
 	);
 }
