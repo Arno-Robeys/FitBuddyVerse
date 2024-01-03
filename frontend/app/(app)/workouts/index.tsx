@@ -3,10 +3,11 @@ import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
 import { TExercise } from "@/types/exercise.type";
 import { TWorkoutExercise } from "@/types/workout.type";
+import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, Button } from 'react-native';
 
 
 export default function WorkoutPage({ route, navigation }: { route: any, navigation: any }) {
@@ -122,14 +123,19 @@ export default function WorkoutPage({ route, navigation }: { route: any, navigat
                     </TouchableOpacity>
                     <ScrollView>
                         {exercises.map((exercise) => (
-                            <TouchableOpacity key={exercise.id} onPress={() => AddSelectedExerciseHandler(exercise)} className={`p-2 ${selectedExercise.includes(exercise) ? 'bg-cyan-300' : ''}`}>
-                                <Text className="text-center text-black font-bold text-lg">{exercise.name} - {exercise.type}</Text>
+                            <TouchableOpacity key={exercise.id} onPress={() => AddSelectedExerciseHandler(exercise)}>
+                                <View className="border-b-2 border-gray-400 p-2">
+                                    <View className={`${selectedExercise.includes(exercise) ? 'border-l-4 border-slate-600' : ''}`}>
+                                        <Text className="text-black font-bold text-lg ml-2">{exercise.name} ({exercise.equipment})</Text>
+                                        <Text className="text-black ml-2">{exercise.type}</Text>
+                                    </View>
+                                </View>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
                     {selectedExercise.length > 0 ? (
                         <TouchableOpacity onPress={() => AddExerciseHandler()} className="bg-gray-700 py-4 absolute inset-x-6 rounded bottom-10">
-                            <Text className="text-center text-white font-bold">Add</Text>
+                            <Text className="text-center text-white font-bold">Add {selectedExercise.length > 1 ? selectedExercise.length + " exercises" : '1 exercise'} </Text>
                         </TouchableOpacity>
                     ) : null}
                 </View>

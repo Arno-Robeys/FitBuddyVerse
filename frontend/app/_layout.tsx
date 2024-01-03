@@ -17,7 +17,7 @@ export default function Root() {
 	return (
 		<NavigationContainer independent={true}>
 			<Stack.Navigator initialRouteName="Login">
-				<Stack.Screen name="Login" component={LoginPage} />
+				<Stack.Screen name="Login" component={LoginPage} options={{headerShown: false}}/>
 				<Stack.Screen name="Register" component={RegisterPage} />
 				<Stack.Screen name="FitBuddyVerse" component={AppLayout} options={{headerShown: false}}/>
 				<Stack.Screen name="ExerciseInfo" component={ExerciseInfoPage} options={{title: 'Exercise Info'}}/>

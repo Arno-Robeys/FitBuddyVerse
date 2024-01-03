@@ -8,7 +8,7 @@ interface ErrorProps {
 
 const Alert = ({ errors, clear }: ErrorProps) => {
 	return (
-		<View className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2">
+		<View className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
 			<Text className="font-bold">Oops!</Text>
 			<Text className="block sm:inline sm:ml-2">
 				{errors.map((error, index) => (

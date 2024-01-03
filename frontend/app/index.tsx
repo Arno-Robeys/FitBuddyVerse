@@ -1,6 +1,6 @@
 import Errors from "@/components/Errors";
 import React, { useEffect, useState } from "react";
-import {ActivityIndicator, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileService from "@/lib/profileService";
 
@@ -22,7 +22,6 @@ export default function LoginPage({navigation}: {navigation: any}) {
 	const handleSubmit = async () => {
 		setIsLoading(true);
 		profileService.loginProfile(emailOrUsername, password).then((res) => {
-			console.log(res);
 			if (res.status === 200) {
 				AsyncStorage.setItem("profile", JSON.stringify(res.data.profile));
 				setErrors([]);
@@ -40,46 +39,50 @@ export default function LoginPage({navigation}: {navigation: any}) {
 	};
 
 	return (
-		<View className="bg-white flex-1 justify-center p-4">
-			<Text className="text-center text-2xl font-bold mb-4">
-				Sign in to your account
-			</Text>
-			{errors.length > 0 && (
-				<Errors errors={errors} clear={() => setErrors([])} />
-			)}
-
-			<View className="mb-4">
-				<TextInput
-					onChangeText={(text) => setEmailOrUsername(text)}
-					placeholder="Email or username"
-					className="border border-gray-500 rounded p-2 mb-2"
-					cursorColor={"#000"}
-					value={emailOrUsername}
-				/>
-				<TextInput
-					onChangeText={(text) => setPassword(text)}
-					placeholder="Password"
-					secureTextEntry
-					className="border border-gray-500 rounded p-2"
-					cursorColor={"#000"}
-					autoCapitalize="none"
-					value={password}
-				/>
+		<View className="bg-white justify-between p-2 h-full">
+			<View className="mx-auto flex-row items-center mt-16">
+				<Image source={require("../assets/Logo.jpeg")} className="h-12 w-12 rounded-full"/>
+				<Text className="text-4xl font-bold ml-2">FitBuddyVerse</Text>
 			</View>
+			<View>
+				<Text className="text-center text-2xl font-bold mb-4">
+					Sign in to your account
+				</Text>
+				{errors.length > 0 && (
+					<Errors errors={errors} clear={() => setErrors([])} />
+				)}
 
-			<TouchableOpacity onPress={handleSubmit}>
-				<View className="bg-gray-800 rounded p-3 items-center">
-					{!isLoading ? (
-						<Text className="text-white text-lg">Sign in</Text>
-					) : (
-						<ActivityIndicator color="white" />
-					)}
+				<View className="mb-4 space-y-2">
+					<TextInput
+						onChangeText={(text) => setEmailOrUsername(text)}
+						placeholder="Email or username"
+						className="border-b-2 border-gray-500 p-2 mb-2"
+						cursorColor={"#000"}
+						value={emailOrUsername}
+					/>
+					<TextInput
+						onChangeText={(text) => setPassword(text)}
+						placeholder="Password"
+						secureTextEntry
+						className="border-b-2 border-gray-500 p-2"
+						cursorColor={"#000"}
+						autoCapitalize="none"
+						value={password}
+					/>
 				</View>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={() => navigation.navigate("Register")}>
-				<View className="bg-gray-800 rounded p-3 items-center mt-4">
-					<Text className="text-white text-lg">No account yet? Sign up</Text>
-				</View>
+
+				<TouchableOpacity onPress={handleSubmit}>
+					<View className="bg-gray-800 rounded py-3 items-center">
+						{!isLoading ? (
+							<Text className="text-white text-lg">Sign in</Text>
+						) : (
+							<ActivityIndicator color="white" />
+						)}
+					</View>
+				</TouchableOpacity>
+			</View>
+			<TouchableOpacity onPress={() => navigation.navigate("Register")} className="items-center p-2">
+					<Text className="text-gray-500 font-bold text-lg">No account yet? Sign up</Text>
 			</TouchableOpacity>
 		</View>
 	);
