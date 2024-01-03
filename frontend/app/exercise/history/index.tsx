@@ -44,6 +44,7 @@ export default function ExerciseHistoryPage({
 					<History workouts={exerciseHistory} />
 				</>
 				) : (
+					// Shown when there is no available data
 					<Text className="font-bold text-xl">No history data is currently available.</Text>
 				)}
 			</View>

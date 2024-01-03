@@ -141,6 +141,7 @@ export default function ExerciseInfoPage({
                 </TouchableOpacity>
             </>
             ) : (
+                // Shown when there is no available data 
                 <Text className="font-bold text-xl">No graph data is currently available.</Text>
             )}
 
