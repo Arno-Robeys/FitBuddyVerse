@@ -58,7 +58,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
       const newExerciseSets = exercise.exerciseSets?.filter((set) => set.setNr !== setNr);
       exercise.exerciseSets = newExerciseSets;
       if (!newExerciseSets?.length) {
-        
+
         newTableData.exercise = newTableData.exercise?.filter((exercise) => exercise.id !== exerciseId);
       }
       //Reassign set numbers
