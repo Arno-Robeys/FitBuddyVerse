@@ -25,6 +25,10 @@ export default function ExerciseHistoryPage({
 				);
 				setExerciseHistory(exerciseHistory);
 
+				navigation.setOptions({
+					title: exerciseHistory[0].exerciseName + " History",
+				});
+
 				// Log the exercise details (replace this with the desired logic)
 				console.log("Exercise History:", JSON.stringify(exerciseHistory));
 
@@ -37,8 +41,7 @@ export default function ExerciseHistoryPage({
 	}, []);
 	return (
 		<>
-			<View>
-				<Text>Exercise History</Text>
+			<View className="bg-white h-full">
 				<History workouts={exerciseHistory} />
 			</View>
 		</>

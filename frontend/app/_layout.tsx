@@ -23,7 +23,7 @@ export default function Root() {
 				<Stack.Screen name="Settings" component={SettingsPage}/>
 				<Stack.Screen name="Search" component={SearchPage}/>
 				<Stack.Screen name="ProfileUser" component={ProfileUserPage}/>
-				<Stack.Screen name="ExerciseHistory" component={ExerciseHistoryPage} options={{title: 'Exercise History'}}/>
+				<Stack.Screen name="ExerciseHistory" component={ExerciseHistoryPage} options={{title: 'History'}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

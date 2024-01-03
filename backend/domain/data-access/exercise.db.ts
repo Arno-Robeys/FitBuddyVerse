@@ -106,11 +106,14 @@ const getExerciseHistory = async (
   e.type AS "exerciseType",
   e.equipment AS "exerciseEquipment",
   e.description AS "exerciseDescription",
+  n.note AS "exerciseNote",
   JSON_AGG(JSON_BUILD_OBJECT('setId',s.id,'setNr',s."setNr",'repetitions',s.repetitions,'weightKG',s."weightKG") ORDER BY "setNr") AS sets
   FROM
   "Exercise" e
   LEFT JOIN "ExerciseSet" s ON e.id = s."exerciseId"
   LEFT JOIN "Workout" w ON s."workoutId" = w.id
+  LEFT JOIN "ExerciseNote" n ON e.id = n."exerciseId"
+    AND w.id = n."workoutId"
   WHERE
   s."exerciseId" = ${exerciseId}
   AND w."profileId" = ${profileId}
@@ -128,7 +131,8 @@ const getExerciseHistory = async (
   e.name,
   w.id,
   e.equipment,
-  e.description
+  e.description,
+  n.note
   ORDER BY
   "workoutCreatedAt"`;
 
