@@ -19,7 +19,7 @@ export default function History({ workouts }: any) {
 			<ScrollView>
 				{workouts?.map((workout: any) => (
 					<View
-						key={workout.id}
+						key={workout.workoutId}
 						className="bg-white px-4 pt-4 rounded-lg shadow-md"
 					>
 						<View className="mb-4">
