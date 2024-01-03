@@ -80,75 +80,77 @@ export default function WorkoutPage({
 	}, []);
 
 	return (
-		<View className="min-h-screen bg-white flex justify-center items-center">
-			<View className="px-4 py-2 flex items-center justify-between rounded-md  shadow-sm shadow-gray-200 w-10/12">
-				<View className="w-full">
-					<View>
+		<ScrollView className="bg-white">
+			<View className="h-full bg-white flex justify-center items-center m-2">
+				<View className="px-4 py-2 flex items-center justify-between rounded-md  shadow-sm shadow-gray-200 w-10/12">
+					<View className="w-full">
 						<View>
-							<Text className="text-lg">{profile?.username}</Text>
-							<Text className="text-sm">
-								{workout?.workoutCreatedAt
-									? format(
-											new Date(workout.workoutCreatedAt),
-											"dd MMMM yyyy, kk:mm"
-									  )
-									: null}
-							</Text>
-						</View>
-					</View>
-				</View>
-
-				<View className="my-2 w-full">
-					<Text className="text-xl font-bold">{workout?.workoutName}</Text>
-					<View className="flex flex-row justify-between border-t-2 border-b-2 border-gray-200 py-2">
-						<View>
-							<Text>Time</Text>
-							<Text>{formatDuration(workout?.workoutDurationSec ?? 0)}</Text>
-						</View>
-						<View>
-							<Text>Volume</Text>
-							<Text>{workout?.workoutVolumeKG} kg</Text>
-						</View>
-						<View>
-							<Text>Sets</Text>
-							<Text>
-								{exercises?.map((exercise) => exercise.sets).flat().length}
-							</Text>
-						</View>
-					</View>
-				</View>
-
-				<View className="w-full">
-					<Text>Workout</Text>
-					<View className="my-2">
-						{exercises?.map((exercise) => (
-							<View className="mb-2">
-								<View className="mb-2">
-									<Text className="text-lg font-extrabold">
-										{exercise.exerciseName}
-									</Text>
-									{exercise.exerciseNote ? (
-										<Text>{exercise.exerciseNote}</Text>
-									) : null}
-								</View>
-								<View className="flex flex-row justify-between">
-									<Text>SET</Text>
-									<Text>WEIGHT & REPS</Text>
-								</View>
-
-								{exercise.sets.map((set) => (
-									<View className="flex flex-row justify-between">
-										<Text>{set.setNr}</Text>
-										<Text>
-											{set.weightKG} kg x {set.repetitions} reps
-										</Text>
-									</View>
-								))}
+							<View>
+								<Text className="text-lg">{profile?.username}</Text>
+								<Text className="text-sm">
+									{workout?.workoutCreatedAt
+										? format(
+												new Date(workout.workoutCreatedAt),
+												"dd MMMM yyyy, kk:mm"
+										  )
+										: null}
+								</Text>
 							</View>
-						))}
+						</View>
+					</View>
+
+					<View className="my-2 w-full">
+						<Text className="text-xl font-bold">{workout?.workoutName}</Text>
+						<View className="flex flex-row justify-between border-t-2 border-b-2 border-gray-200 py-2">
+							<View>
+								<Text>Time</Text>
+								<Text>{formatDuration(workout?.workoutDurationSec ?? 0)}</Text>
+							</View>
+							<View>
+								<Text>Volume</Text>
+								<Text>{workout?.workoutVolumeKG} kg</Text>
+							</View>
+							<View>
+								<Text>Sets</Text>
+								<Text>
+									{exercises?.map((exercise) => exercise.sets).flat().length}
+								</Text>
+							</View>
+						</View>
+					</View>
+
+					<View className="w-full">
+						<Text>Workout</Text>
+						<View className="my-2">
+							{exercises?.map((exercise) => (
+								<View className="mb-2">
+									<View className="mb-2">
+										<Text className="text-lg font-extrabold">
+											{exercise.exerciseName}
+										</Text>
+										{exercise.exerciseNote ? (
+											<Text>{exercise.exerciseNote}</Text>
+										) : null}
+									</View>
+									<View className="flex flex-row justify-between">
+										<Text>SET</Text>
+										<Text>WEIGHT & REPS</Text>
+									</View>
+
+									{exercise.sets.map((set) => (
+										<View className="flex flex-row justify-between">
+											<Text>{set.setNr}</Text>
+											<Text>
+												{set.weightKG} kg x {set.repetitions} reps
+											</Text>
+										</View>
+									))}
+								</View>
+							))}
+						</View>
 					</View>
 				</View>
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
