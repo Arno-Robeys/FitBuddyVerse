@@ -39,7 +39,13 @@ export default function ExerciseHistoryPage({
 		<>
 			<View>
 				<Text className="font-bold text-2xl">Exercise History</Text>
-				<History workouts={exerciseHistory} />
+				{/* Verify if there is data available to show in history. */}
+				{exerciseHistory && exerciseHistory.length > 0 ? (<>
+					<History workouts={exerciseHistory} />
+				</>
+				) : (
+					<Text className="font-bold text-xl">No history data is currently available.</Text>
+				)}
 			</View>
 		</>
 	);
