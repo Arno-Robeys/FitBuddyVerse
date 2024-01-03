@@ -6,12 +6,14 @@ import React, { useEffect } from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 
 interface ExerciseSet {
+	setId: number;
 	setNr: number;
 	repetitions: number;
 	weightKG: number;
 }
 
 interface Exercise {
+	exerciseId: number;
 	exerciseDescription: string;
 	exerciseEquipment: string;
 	exerciseName: string;
@@ -123,7 +125,7 @@ export default function WorkoutPage({
 						<Text>Workout</Text>
 						<View className="my-2">
 							{exercises?.map((exercise) => (
-								<View className="mb-2">
+								<View className="mb-2" key={exercise.exerciseId}>
 									<View className="mb-2">
 										<Text className="text-lg font-extrabold">
 											{exercise.exerciseName}
@@ -138,7 +140,10 @@ export default function WorkoutPage({
 									</View>
 
 									{exercise.sets.map((set) => (
-										<View className="flex flex-row justify-between">
+										<View
+											className="flex flex-row justify-between"
+											key={set.setId}
+										>
 											<Text>{set.setNr}</Text>
 											<Text>
 												{set.weightKG} kg x {set.repetitions} reps
