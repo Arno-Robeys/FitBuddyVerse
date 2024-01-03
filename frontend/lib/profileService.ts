@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const createProfile = async ({userUsername, userEmail, userPassword}: {userUsername: string, userEmail: string, userPassword: string}) => {
+const createProfile = async (username: string, email: string, password: string) => {
 	return await axios.post(process.env.EXPO_PUBLIC_URL + "/profiles/register", {
-		username: userUsername,
-		email: userEmail,
-		password: userPassword,
+		username: username,
+		email: email,
+		password: password,
 	}, {headers: {"Content-Type": "application/json"}});
 };
 

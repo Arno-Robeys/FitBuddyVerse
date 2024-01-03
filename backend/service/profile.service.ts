@@ -5,6 +5,9 @@ const createProfile = async (profile: Profile): Promise<Profile> => {
 	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 	if (!emailRegex.test(profile.email)) throw new Error("Email must be valid");
+	if (profile.username.trim().length == 0) throw new Error("Username must be provided");
+	if (profile.password.trim().length == 0) throw new Error("Password must be provided");
+	
 	return profileDb.createProfile(profile);
 };
 

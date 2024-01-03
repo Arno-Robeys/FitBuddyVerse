@@ -22,12 +22,13 @@ export default function LoginPage({navigation}: {navigation: any}) {
 	const handleSubmit = async () => {
 		setIsLoading(true);
 		profileService.loginProfile(emailOrUsername, password).then((res) => {
+			console.log(res);
 			if (res.status === 200) {
 				AsyncStorage.setItem("profile", JSON.stringify(res.data.profile));
 				setErrors([]);
 				navigation.navigate("FitBuddyVerse");
 			} else {
-				setErrors(['Invalid username or password']);
+				setErrors(['Something went wrong! Please try again']);
 			}
 		}).catch((err) => {
 			setErrors(['Invalid username or password']);

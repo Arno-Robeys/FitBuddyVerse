@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Errors from "@/components/Errors";
+import profileService from '@/lib/profileService';
 
 export default function RegistrationForm({navigation}: {navigation: any}) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState<any[]>([]);
 
-    const handleRegistration = () => {
-        // Implement your registration logic here
-        console.log('Registration details:', {
-            email,
-            username,
-            password,
+    const handleRegistration = async () => {
+        profileService.createProfile(username, email, password).then((res) => {
+            if (res.status === 201) {
+                setErrors([]);
+                navigation.navigate('Login');
+            } else {
+                setErrors(['Error creating profile. Please try again']);
+            }
+        }).catch((err) => {
+            setErrors([err.response.data.errorMessage]);
+            console.log(err.response.data);
         });
-
-        navigation.goBack()
-        // You can send the registration details to your backend or perform any other actions
     };
     return (
         <View className="bg-white flex-1 justify-center p-4">
