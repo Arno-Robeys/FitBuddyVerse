@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, ToastAndroid} from 'react-native';
 import Errors from "@/components/Errors";
 import profileService from '@/lib/profileService';
 
@@ -14,6 +14,7 @@ export default function RegistrationForm({navigation}: {navigation: any}) {
             if (res.status === 201) {
                 setErrors([]);
                 navigation.navigate('Login');
+                ToastAndroid.show("Profile Created!", ToastAndroid.SHORT);
             } else {
                 setErrors(['Error creating profile. Please try again']);
             }
