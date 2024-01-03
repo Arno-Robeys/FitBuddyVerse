@@ -5,46 +5,41 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 export default function History({ workouts }: any) {
 	if (!workouts) return null;
 	return (
-		<View style={styles.container}>
-			<ScrollView>
-				{workouts.map((workout: any) => (
-					<View key={workout.workoutId} style={styles.workoutContainer}>
-						<Text style={styles.workoutTitle}>{workout.workoutName}</Text>
-						<Text style={styles.workoutDate}>{workout.workoutCreatedAt}</Text>
-
-						<View style={styles.exerciseContainer}>
-							<FontAwesome5 name="dumbbell" size={24} color="black" />
-							<Text style={styles.exerciseName}>{workout.exerciseName}</Text>
-							<Text style={styles.sets}>{`${workout.sets.length} sets`}</Text>
-							<Entypo name="chevron-right" size={24} color="black" />
-						</View>
-
-						<View style={styles.setsContainer}>
-							<View style={styles.setColumn}>
-								<Text>SET</Text>
-								<Text>WEIGHT & REPS</Text>
+		<>
+			<View>
+				<ScrollView>
+					{workouts.map((workout: any) => (
+						<View key={workout.workoutId} style={styles.workoutContainer}>
+							<Text style={styles.workoutTitle}>{workout.workoutName}</Text>
+							<Text style={styles.workoutDate}>{workout.workoutCreatedAt}</Text>
+							<View style={styles.exerciseContainer}>
+								<FontAwesome5 name="dumbbell" size={24} color="black" />
+								<Text style={styles.exerciseName}>{workout.exerciseName}</Text>
+								<Text style={styles.sets}>{`${workout.sets.length} sets`}</Text>
+								<Entypo name="chevron-right" size={24} color="black" />
 							</View>
 
-							{workout.sets.map((set: any) => (
-								<View key={set.setId} style={styles.setRow}>
-									<Text>{set.setNr}</Text>
-									<Text>{`${set.weightKG}kg x ${set.repetitions} reps`}</Text>
+							<View style={styles.setsContainer}>
+								<View style={styles.setColumn}>
+									<Text>SET</Text>
+									<Text>WEIGHT & REPS</Text>
 								</View>
-							))}
+
+								{workout.sets.map((set: any) => (
+									<View key={set.setId} style={styles.setRow}>
+										<Text>{set.setNr}</Text>
+										<Text>{`${set.weightKG}kg x ${set.repetitions} reps`}</Text>
+									</View>
+								))}
+							</View>
 						</View>
-					</View>
-				))}
-			</ScrollView>
-		</View>
+					))}
+				</ScrollView>
+			</View>
+		</>
 	);
 }
-
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "white", // Change to a light background color
-		color: "black", // Change to a dark text color
-	},
 	workoutContainer: {
 		padding: 16,
 		borderBottomWidth: 1,

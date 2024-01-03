@@ -5,8 +5,14 @@ import { useEffect, useState } from "react";
 import History from "../../../components/exercise/History";
 import { View, Text } from "react-native";
 
-export default function ExerciseHistoryPage({ route, navigation }: { route: any, navigation: any }) {
-	const { id, profileId } = route.params;
+export default function ExerciseHistoryPage({
+	route,
+	navigation,
+}: {
+	route: any;
+	navigation: any;
+}) {
+	const { id, userid } = route.params;
 	const [exerciseHistory, setExerciseHistory] = useState<any>();
 
 	useEffect(() => {
@@ -15,7 +21,7 @@ export default function ExerciseHistoryPage({ route, navigation }: { route: any,
 				// Fetch exercise details using the exerciseService
 				const exerciseHistory = await exerciseService.getExerciseHistory(
 					id,
-					profileId
+					userid
 				);
 				setExerciseHistory(exerciseHistory);
 
@@ -29,10 +35,12 @@ export default function ExerciseHistoryPage({ route, navigation }: { route: any,
 		};
 		fetchData();
 	}, []);
-	return <>
-		<View>
-			<Text>Exercise History</Text>
-			<History workouts={exerciseHistory} />
-		</View>
-	</>;
+	return (
+		<>
+			<View>
+				<Text>Exercise History</Text>
+				<History workouts={exerciseHistory} />
+			</View>
+		</>
+	);
 }

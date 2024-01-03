@@ -23,7 +23,7 @@ const getExerciseGraph = async (id: string, profileId: string) => {
 			process.env.EXPO_PUBLIC_URL +
 			`/exercises/${id}/${profileId}/workout-graph`
 		)
-	).data.exercise_details;
+	).data;
 };
 
 const getAllExercises = async () => (await axios.get(process.env.EXPO_PUBLIC_URL + "/exercises")).data.exercises;
