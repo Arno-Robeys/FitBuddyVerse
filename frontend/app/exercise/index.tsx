@@ -29,8 +29,8 @@ const changeToUserView = {
     volumeKG: "Volume (KG)",
     one_rep_max: "Single Rep Max (KG)",
     max_weight: "Max Weight (KG)",
-    total_reps: "Total Reps",
-    best_set_volume: "Best Set Volume",
+    total_reps: "Total Reps (Amount)",
+    best_set_volume: "Best Set Volume (kg)",
 };
 
 export default function ExerciseInfoPage({
