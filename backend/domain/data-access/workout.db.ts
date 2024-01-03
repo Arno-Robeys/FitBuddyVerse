@@ -81,8 +81,21 @@ const getWorkoutById = async (id: number): Promise<Workout> => {
 	return Workout.From(workout);
 };
 
+const createWorkout = async (workout: Workout) => {
+	return await database.workout.create({
+		data: {
+			name: workout.name,
+			createdAt: workout.createdAt,
+			durationSec: workout.durationSec,
+			volumeKG: workout.volumeKG,
+			profileId: workout.profileId,
+		},
+	});
+};
+
 export default {
 	getWorkoutByIdIncludeAll,
 	getWorkoutById,
 	getWorkoutByIdForWorkoutPage,
+	createWorkout,
 };

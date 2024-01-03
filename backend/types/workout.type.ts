@@ -19,7 +19,7 @@ export type TWorkout = {
 	profile?: Profile;
 };
 export type TInputWorkout = {
-	id: number;
+	id?: number;
 	name: string;
 	createdAt: string;
 	durationSec: number;

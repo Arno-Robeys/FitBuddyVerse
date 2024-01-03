@@ -3,14 +3,13 @@ import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
 import { TExercise } from "@/types/exercise.type";
 import { TWorkoutExercise } from "@/types/workout.type";
-import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
 
-export default function WorkoutPage({ route, navigation }: { route: any, navigation: any }) {
+export default function WorkoutPage({ navigation }: { route: any, navigation: any }) {
 
     const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
     const [opened, setOpened] = useState(false);
@@ -19,9 +18,9 @@ export default function WorkoutPage({ route, navigation }: { route: any, navigat
 
     const FinishHandler = async () => {
         // Implement your finish logic
-        console.log("finish")
+        console.log("Finish")
+        console.log(await workout);
     };
-
 
     useEffect(() => {
         (async () => {

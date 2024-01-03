@@ -58,8 +58,8 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
       const newExerciseSets = exercise.exerciseSets?.filter((set) => set.setNr !== setNr);
       exercise.exerciseSets = newExerciseSets;
       if (!newExerciseSets?.length) {
-        const newExercises = newTableData.exercise?.filter((exercise) => exercise.id !== exerciseId);
-        newTableData.exercise = newExercises;
+        
+        newTableData.exercise = newTableData.exercise?.filter((exercise) => exercise.id !== exerciseId);
       }
       //Reassign set numbers
       if (newExerciseSets?.length) {
@@ -82,11 +82,10 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
         if (set) {
           set.isCompleted = value;
-          updatedWorkout.volumeKG = calculateVolume(); // Recalculate volume
         }
       }
 
-      return { ...updatedWorkout };
+      return { ...updatedWorkout, volumeKG: calculateVolume() };
     });
   }
 
