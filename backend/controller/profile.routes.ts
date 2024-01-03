@@ -60,14 +60,10 @@ router.post("/register", async (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 	try {
-		const profile = await profileService.createProfile({
-			email,
-			username,
-			password,
-		});
+		const profile = await profileService.createProfile({email, username, password});
 		res.status(201).json({ status: "Registration Succesful", profile });
 	} catch (error) {
-		res.status(403).json({ status: "error", errorMessage: error.message });
+		res.status(500).json({ status: "error", errorMessage: error.message });
 	}
 });
 
