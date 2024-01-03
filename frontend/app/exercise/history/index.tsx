@@ -38,7 +38,7 @@ export default function ExerciseHistoryPage({
 	return (
 		<>
 			<View>
-				<Text>Exercise History</Text>
+				<Text className="font-bold text-2xl">Exercise History</Text>
 				<History workouts={exerciseHistory} />
 			</View>
 		</>
