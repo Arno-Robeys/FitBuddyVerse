@@ -68,29 +68,50 @@ const getPersonalBestForExercise = async (
 	exerciseId: number,
 	profileId: number
 ) =>
-	database.$queryRaw`select workout_id,set_id,repetitions,"weightKG",set_volume,set_volume_string
-    from
-        (select
-      "Workout".id as workout_id,
-      "ExerciseSet".id as set_id,
+	database.$queryRaw`WITH exercise_set_data AS (
+    SELECT
       "ExerciseSet".repetitions::integer,
       "ExerciseSet"."weightKG",
-      max("ExerciseSet"."weightKG" * "ExerciseSet".repetitions) as set_volume,
-      "ExerciseSet"."weightKG" || ' x ' || "ExerciseSet".repetitions as set_volume_string,
-      ROW_NUMBER() OVER (PARTITION BY "ExerciseSet".repetitions ORDER BY repetitions,"weightKG" DESC) AS rn
-    from
+      "ExerciseSet"."weightKG" * "ExerciseSet".repetitions AS set_volume,
+      "ExerciseSet"."weightKG" || ' x ' || "ExerciseSet".repetitions AS set_volume_string
+    FROM
       "Workout"
-      join "ExerciseSet" on "Workout".id = "ExerciseSet"."workoutId"
-    where
+      JOIN "ExerciseSet" ON "Workout".id = "ExerciseSet"."workoutId"
+    WHERE
       "ExerciseSet"."exerciseId" = ${exerciseId}
-      and "Workout"."profileId" = ${profileId}
-    group by
+      AND "Workout"."profileId" = ${profileId}
+    GROUP BY
       "Workout".id,
       "ExerciseSet".id,
       "ExerciseSet"."weightKG",
       "ExerciseSet".repetitions
-    order by repetitions, "weightKG") as sub
-    where rn = 1`;
+    ORDER BY
+      "Workout".id
+  ),
+  max_values AS (
+    SELECT
+      ROUND(MAX("weightKG" * (1 + repetitions / 30::float))::numeric, 2) AS best_one_rep_max,
+      MAX("weightKG")::int AS heaviest_weight,
+      MAX("set_volume")::int AS best_set_volume,
+      (
+        SELECT
+          "set_volume_string"
+        FROM
+          exercise_set_data
+        ORDER BY
+          "set_volume" DESC
+        LIMIT 1
+      ) AS set_volume_string
+    FROM
+      exercise_set_data
+  )
+  SELECT
+    best_one_rep_max,
+    heaviest_weight,
+    best_set_volume,
+    set_volume_string
+  FROM
+    max_values;`;
 
 const getExerciseHistory = async (
 	exerciseId: number,
