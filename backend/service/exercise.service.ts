@@ -12,10 +12,6 @@ const getAllExercises = async (): Promise<Exercise[]> => {
     return exercises;
 }
 
-const getExerciseByIdFromUser = async (exerciseId: number, profileId: number): Promise<Exercise | null> => {
-    const exercise = await exerciseDb.getExerciseByIdFromUser(exerciseId, profileId);
-    return exercise;
-}
 const getWorkoutGraphForExercise = async (exerciseId: number, profileId: number) => {
     const graph = await exerciseDb.getWorkoutGraphForExercise(exerciseId, profileId);
     return graph;
@@ -31,7 +27,6 @@ const getExerciseHistory = async (exerciseId: number, profileId: number) => {
 
 export default {
     getExerciseById,
-    getExerciseByIdFromUser,
     getWorkoutGraphForExercise,
     getPersonalBestForExercise,
     getExerciseHistory,

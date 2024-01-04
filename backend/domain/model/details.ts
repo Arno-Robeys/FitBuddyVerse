@@ -1,4 +1,4 @@
-import {WorkoutDetails as PrismaWorkoutDetails, Exercise as PrismaExercise, ExerciseSet as PrismaExerciseSet} from "@prisma/client";
+import {WorkoutDetails as PrismaWorkoutDetails, Exercise as PrismaExercise, ExerciseSet as PrismaExerciseSet, Workout as PrismaWorkout} from "@prisma/client";
 import { Exercise } from "./exercise";
 import { Workout } from "./workout";
 import { ExerciseSet } from "./set";
@@ -24,7 +24,7 @@ export class WorkoutDetails {
 		this.exerciseSets = exerciseSets;
 	}
 
-	static From(workoutDetails: PrismaWorkoutDetails & { exercise?: PrismaExercise} & { ExerciseSet?: PrismaExerciseSet[]} ): WorkoutDetails {
+	static From(workoutDetails: PrismaWorkoutDetails & { exercise?: PrismaExercise} & { workout?: PrismaWorkout} & { ExerciseSet?: PrismaExerciseSet[]} ): WorkoutDetails {
 		return new WorkoutDetails({
 			...workoutDetails,
 			exerciseSets: workoutDetails?.ExerciseSet?.map(ExerciseSet.From),

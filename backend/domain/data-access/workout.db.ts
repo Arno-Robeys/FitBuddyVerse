@@ -40,6 +40,7 @@ const getWorkoutByIdForWorkoutPage = async (id: number): Promise<Workout> => {
 }
 
 const createWorkout = async (workout: Workout): Promise<Workout> => {
+	console.log(workout.workoutDetails);
 	const w = await database.workout.create({
 		data: {
 			name: workout.name,
@@ -60,6 +61,7 @@ const createWorkout = async (workout: Workout): Promise<Workout> => {
 							}),
 						},
 						exerciseId: wd.exerciseId,
+						note: wd.note ?? null,
 					};
 				}),
 			},

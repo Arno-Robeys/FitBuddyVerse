@@ -24,11 +24,11 @@ export default function History({ workouts }: any) {
 					>
 						<View className="mb-4">
 							<Text className="text-lg font-semibold">
-								{workout.workoutName}
+								{workout.workout.name}
 							</Text>
 							<Text className="text-sm text-gray-500 block">
 								{format(
-									new Date(workout.workoutCreatedAt),
+									new Date(workout.workout.createdAt),
 									"dd MMMM yyyy, kk:mm"
 								)}
 							</Text>
@@ -37,13 +37,13 @@ export default function History({ workouts }: any) {
 							<View className="flex flex-row items-center justify-between mb-2 bg-slate-400/20 p-2 rounded-md">
 								<View>
 									<Text className="text-md font-semibold">
-										{workout.exerciseName}
+										{workout.exercise.name}
 									</Text>
-									{workout.exerciseNote ? (
-										<Text className="text-md">{workout.exerciseNote}</Text>
+									{workout.note ? (
+										<Text className="text-md">{workout.note}</Text>
 									) : null}
 								</View>
-								<Text className="text-sm">{`${workout.sets.length} sets`}</Text>
+								<Text className="text-sm">{`${workout.ExerciseSet.length} sets`}</Text>
 							</View>
 
 							<View className="flex flex-row items-center justify-between p-2">
@@ -51,9 +51,9 @@ export default function History({ workouts }: any) {
 								<Text className="text-sm">WEIGHT & REPS</Text>
 							</View>
 							<View className="space-y-2 p-2">
-								{workout.sets.map((set: any) => (
+								{workout.ExerciseSet.map((set: any) => (
 									<View
-										key={set.setId}
+										key={set.id}
 										className="flex flex-row justify-between"
 									>
 										<Text>{set.setNr}</Text>

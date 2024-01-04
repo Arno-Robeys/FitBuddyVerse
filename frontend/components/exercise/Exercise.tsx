@@ -100,16 +100,25 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
     return volume;
   }
 
+  function addExerciseNote(exerciseId: number, note: string): void {
+    const newTableData = { ...workout };
+    const exercise = newTableData.workoutDetails?.find((exercise) => exercise.exerciseId === exerciseId);
+    if (exercise) {
+      exercise.note = note;
+    }
+    setWorkout(newTableData);
+  }
+
   return (
     <View className='mt-2'>
       {workout.workoutDetails ? (
         workout.workoutDetails.map((row: TWorkoutDetails) => (
           <View key={row.exercise?.name}>
             {/* ExerciseInfoPage receives exercise-id and userid */}
-            <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.id, userid: workout.profileId })}>
+            <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.exerciseId, userid: workout.profileId })}>
               <Text className='font-bold text-2xl'>{row.exercise?.name}</Text>
             </TouchableOpacity>
-            <TextInput placeholder='Add Exercise Note...'></TextInput>
+            <TextInput placeholder='Add Exercise Note...' onChangeText={text => addExerciseNote(row.exerciseId, text)}></TextInput>
             <View className='flex-row justify-between'>
               <Text className='font-bold text-lg'>{row.exercise?.type}</Text>
               <Text className='font-bold text-lg'>{row.exercise?.equipment}</Text>

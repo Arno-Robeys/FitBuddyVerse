@@ -1,13 +1,5 @@
 import axios from "axios";
 
-const getExerciseByIdFromUser = async (id: string, profileId: number) => {
-	return (
-		await axios.get(
-			process.env.EXPO_PUBLIC_URL + `/exercises/${id}/${profileId}`
-		)
-	).data;
-};
-
 const getExerciseHistory = async (id: string, profileId: string) => {
 	return (
 		await axios.get(
@@ -38,7 +30,6 @@ const getExerciseBest = async (id: string, profileId: string) => {
 const getAllExercises = async () => (await axios.get(process.env.EXPO_PUBLIC_URL + "/exercises")).data.exercises;
 
 export default {
-	getExerciseByIdFromUser,
 	getExerciseHistory,
 	getAllExercises,
 	getExerciseGraph,

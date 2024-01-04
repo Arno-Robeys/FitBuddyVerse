@@ -26,7 +26,7 @@ export default function ExerciseHistoryPage({
 				setExerciseHistory(exerciseHistory);
 
 				navigation.setOptions({
-					title: exerciseHistory[0].exerciseName + " History",
+					title: exerciseHistory[0].exercise.name + " History",
 				});
 			} catch (error) {
 				console.error("Error fetching exercise details:", error);

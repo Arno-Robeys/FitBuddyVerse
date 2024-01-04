@@ -38,7 +38,6 @@ const unfollowProfile = async (id: number, followingId: number) => (await axios.
 })).data;
 
 const updateProfile = async (id: number, username: string, email: string, password: string) => {
-	console.log("updateProfile", id, username, email, password);
 	
 	return await axios.put(process.env.EXPO_PUBLIC_URL + `/profiles/${id}`, {
 		username: username,
