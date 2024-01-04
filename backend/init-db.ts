@@ -136,273 +136,45 @@ const main = async () => {
   });
 
 
-  await prisma.exerciseSet.createMany({
-    data: [
-      // Workout 1
-      {
-        weightKG: 27,
-        setNr: 1,
-        repetitions: 10,
-        exerciseId: 1,
-        workoutId: 1,
-      },
-      {
-        weightKG: 21,
-        setNr: 2,
-        repetitions: 9,
-        exerciseId: 1,
-        workoutId: 1,
-      },
-      {
-        weightKG: 20,
-        setNr: 3,
-        repetitions: 10,
-        exerciseId: 1,
-        workoutId: 1,
-      },
-      // Workout 2
-      {
-        weightKG: 30,
-        setNr: 1,
-        repetitions: 5,
-        exerciseId: 2,
-        workoutId: 2,
-      },
-      {
-        weightKG: 23,
-        setNr: 2,
-        repetitions: 12,
-        exerciseId: 2,
-        workoutId: 2,
-      },
-      {
-        weightKG: 25,
-        setNr: 3,
-        repetitions: 10,
-        exerciseId: 2,
-        workoutId: 2,
-      },
-      // Workout 3
-      {
-        weightKG: 15,
-        setNr: 1,
-        repetitions: 8,
-        exerciseId: 3,
-        workoutId: 3,
-      },
-      {
-        weightKG: 11,
-        setNr: 2,
-        repetitions: 9,
-        exerciseId: 3,
-        workoutId: 3,
-      },
-      // Workout 4
-      {
-        weightKG: 30,
-        setNr: 1,
-        repetitions: 15,
-        exerciseId: 1,
-        workoutId: 4,
-      },
-      {
-        weightKG: 34,
-        setNr: 2,
-        repetitions: 12,
-        exerciseId: 1,
-        workoutId: 4,
-      },
-      // Workout 5
-      {
-        weightKG: 23,
-        setNr: 1,
-        repetitions: 12,
-        exerciseId: 2,
-        workoutId: 5,
-      },
-      {
-        weightKG: 25,
-        setNr: 2,
-        repetitions: 10,
-        exerciseId: 2,
-        workoutId: 5,
-      },
-      {
-        weightKG: 20,
-        setNr: 3,
-        repetitions: 15,
-        exerciseId: 2,
-        workoutId: 5,
-      },
-      {
-        weightKG: 22,
-        setNr: 4,
-        repetitions: 10,
-        exerciseId: 2,
-        workoutId: 5,
-      },
-      // Workout 6
-      {
-        weightKG: 18,
-        setNr: 1,
-        repetitions: 15,
-        exerciseId: 4,
-        workoutId: 6,
-      },
-      // Workout 7
-      {
-        weightKG: 27,
-        setNr: 1,
-        repetitions: 8,
-        exerciseId: 2,
-        workoutId: 7,
-      },
-      {
-        weightKG: 23,
-        setNr: 2,
-        repetitions: 12,
-        exerciseId: 2,
-        workoutId: 7,
-      },
-      {
-        weightKG: 25,
-        setNr: 3,
-        repetitions: 10,
-        exerciseId: 2,
-        workoutId: 7,
-      },
-      // Workout 8
-      {
-        weightKG: 30,
-        setNr: 1,
-        repetitions: 15,
-        exerciseId: 3,
-        workoutId: 8,
-      },
-      {
-        weightKG: 28,
-        setNr: 2,
-        repetitions: 12,
-        exerciseId: 3,
-        workoutId: 8,
-      },
-      {
-        weightKG: 26,
-        setNr: 3,
-        repetitions: 10,
-        exerciseId: 3,
-        workoutId: 8,
-      },
-      // Workout 9
-      {
-        weightKG: 20,
-        setNr: 1,
-        repetitions: 12,
-        exerciseId: 4,
-        workoutId: 9,
-      },
-      {
-        weightKG: 22,
-        setNr: 2,
-        repetitions: 15,
-        exerciseId: 4,
-        workoutId: 9,
-      },
-      {
-        weightKG: 18,
-        setNr: 3,
-        repetitions: 10,
-        exerciseId: 4,
-        workoutId: 9,
-      },
-      // Workout 10
-      {
-        weightKG: 22,
-        setNr: 1,
-        repetitions: 10,
-        exerciseId: 1,
-        workoutId: 10,
-      },
-      {
-        weightKG: 24,
-        setNr: 2,
-        repetitions: 12,
-        exerciseId: 1,
-        workoutId: 10,
-      },
-      {
-        weightKG: 26,
-        setNr: 3,
-        repetitions: 15,
-        exerciseId: 1,
-        workoutId: 10,
-      },
-      // Workout 11
-      {
-        weightKG: 18,
-        setNr: 1,
-        repetitions: 15,
-        exerciseId: 3,
-        workoutId: 11,
-      },
-      {
-        weightKG: 20,
-        setNr: 2,
-        repetitions: 10,
-        exerciseId: 3,
-        workoutId: 11,
-      },
-      {
-        weightKG: 22,
-        setNr: 3,
-        repetitions: 12,
-        exerciseId: 3,
-        workoutId: 11,
-      },
-      // Workout 12
-      {
-        weightKG: 25,
-        setNr: 1,
-        repetitions: 10,
-        exerciseId: 4,
-        workoutId: 12,
-      },
-      {
-        weightKG: 28,
-        setNr: 2,
-        repetitions: 15,
-        exerciseId: 4,
-        workoutId: 12,
-      },
-      {
-        weightKG: 30,
-        setNr: 3,
-        repetitions: 12,
-        exerciseId: 4,
-        workoutId: 12,
-      },
-    ],
-  });
-
-
-  await prisma.exerciseNote.createMany({
+  await prisma.exerciseWorkout.createMany({
     data: [{
+      id: 1,
       workoutId: 1,
       exerciseId: 1,
-      note: "1e opwarming",
+      note: "Dit was een zware workout",
     },
     {
-      workoutId: 2,
+      id: 2,
+      workoutId: 1,
       exerciseId: 2,
-      note: "2e opwarming",
+    }]});
+
+  await prisma.exerciseSet.createMany({
+    data: [{
+      id: 1,
+      workoutId: 1,
+      exerciseWorkoutId: 1,
+      setNr: 1,
+      repetitions: 10,
+      weightKG: 10,
     },
     {
-      workoutId: 3,
-      exerciseId: 3,
-      note: "3e opwarming",
+      id: 2,
+      workoutId: 1,
+      exerciseWorkoutId: 1,
+      setNr: 2,
+      repetitions: 10,
+      weightKG: 10,
     },
-    ]
-  });
+    {
+      id: 3,
+      workoutId: 1,
+      exerciseWorkoutId: 2,
+      setNr: 1,
+      repetitions: 10,
+      weightKG: 10,
+    },
+  ]});
 
   await prisma.workoutComment.createMany({
     data: [{

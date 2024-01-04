@@ -1,4 +1,4 @@
-import { TExerciseSet } from "../../types/set.type";
+/*import { TExerciseSet } from "../../types/set.type";
 import {
 	ExerciseSet as PrismaExerciseSet,
 	Exercise as PrismaExercise,
@@ -45,3 +45,4 @@ export class ExerciseSet {
 		});
 	}
 }
+*/

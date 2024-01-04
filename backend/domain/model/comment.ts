@@ -1,4 +1,4 @@
-import { TWorkoutComment } from "@/types/comment.type";
+/*import { TWorkoutComment } from "@/types/comment.type";
 import {
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
@@ -49,4 +49,4 @@ export class WorkoutComment {
 				: null,
 		});
 	}
-}
+}*/

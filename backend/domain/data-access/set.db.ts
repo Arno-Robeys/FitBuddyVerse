@@ -1,8 +1,8 @@
-import database from "./prisma/db";
+/*import database from "./prisma/db";
 import { ExerciseSet } from "../model/set";
 
 
-const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
+/*const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
     const createdSets = await database.exerciseSet.create({
         data: {
             weightKG: set.weightKG,
@@ -18,4 +18,8 @@ const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
 
 export default {
     createSet
-};
+};*/
+
+export default {
+	
+}

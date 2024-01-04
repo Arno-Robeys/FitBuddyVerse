@@ -1,4 +1,4 @@
-import { TWorkout } from "../../types/workout.type";
+/*import { TWorkout } from "../../types/workout.type";
 import { WorkoutComment } from "../model/comment";
 import { ExerciseSet } from "../model/set";
 import { Profile } from "../model/profile";
@@ -66,4 +66,38 @@ export class Workout {
 			exerciseNotes: workout?.ExerciseNote?.map(Note.From),
 		});
 	}
+
+	static formatWorkout(workout) {
+        return {
+                id: workout.id,
+                name: workout.name,
+                createdAt: workout.createdAt,
+                durationSec: workout.durationSec,
+                volumeKG: workout.volumeKG,
+                exercises: workout.ExerciseSet.map((exerciseSet) => ({
+                    id: exerciseSet.exercise.id,
+                    name: exerciseSet.exercise.name,
+                    type: exerciseSet.exercise.type,
+                    equipment: exerciseSet.exercise.equipment,
+					description: exerciseSet.exercise.description,
+                    sets: [
+                        {
+                            id: exerciseSet.id,
+                            workoutId: exerciseSet.workoutId,
+                            exerciseId: exerciseSet.exerciseId,
+                            setNr: exerciseSet.setNr,
+                            repetitions: exerciseSet.repetitions,
+                            weightKG: exerciseSet.weightKG,
+                        },
+                    ],
+                    notes: exerciseSet.exercise.ExerciseNote.map((note) => ({
+                        id: note.id,
+                        note: note.note,
+                    })),
+                })),
+                likedBy: workout?.LikedBy?.map(Profile.From),
+                profile: Profile.From(workout.profile),
+        };
+    }
 }
+*/

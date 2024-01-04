@@ -1,7 +1,7 @@
-import database from "./prisma/db";
+/*import database from "./prisma/db";
 import { Profile } from "../model/profile";
 
-const createProfile = async (profileData: Profile): Promise<Profile> => {
+/*const createProfile = async (profileData: Profile): Promise<Profile> => {
 	try {
 		const profile = await database.profile.create({
 			data: {
@@ -166,3 +166,8 @@ export default {
 	unfollowProfile,
 	getProfileByIdIncludeFollowing
 };
+*/
+
+export default {
+	
+}

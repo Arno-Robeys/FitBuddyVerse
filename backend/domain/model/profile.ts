@@ -1,4 +1,4 @@
-import { TProfile } from "../../types/profile.type";
+/*import { TProfile } from "../../types/profile.type";
 import { WorkoutComment } from "../model/comment";
 import { Workout } from "../model/workout";
 import {
@@ -64,3 +64,4 @@ export class Profile {
 		});
 	}
 }
+*/

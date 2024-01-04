@@ -1,4 +1,4 @@
-import setDb from "../domain/data-access/set.db";
+/*import setDb from "../domain/data-access/set.db";
 import { ExerciseSet } from "../domain/model/set";
 
 
@@ -9,4 +9,4 @@ const createSet = async (sets: ExerciseSet): Promise<ExerciseSet> => {
 
 export default {
     createSet
-};
+};*/

@@ -1,4 +1,4 @@
-import { Exercise } from "@/domain/model/exercise";
+/*import { Exercise } from "@/domain/model/exercise";
 import { Workout } from "@/domain/model/workout";
 
 export type TNote = {
@@ -8,4 +8,4 @@ export type TNote = {
     note: string;
     workout?: Workout;
     exercise?: Exercise;
-};
+};*/

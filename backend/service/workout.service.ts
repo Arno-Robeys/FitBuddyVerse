@@ -1,4 +1,4 @@
-import { Workout } from "../domain/model/workout";
+/*import { Workout } from "../domain/model/workout";
 import workoutDB from "../domain/data-access/workout.db";
 import { TInputWorkout } from "@/types/workout.type";
 
@@ -34,4 +34,13 @@ export default {
 	getWorkoutById,
 	getWorkoutByIdForWorkoutPage,
 	createWorkout,
+};*/
+import workoutDB from "../domain/data-access/workout.db";
+
+const getAllWorkouts = async () => {
+	return await workoutDB.getAllWorkouts();
+};
+
+export default {
+	getAllWorkouts,
 };

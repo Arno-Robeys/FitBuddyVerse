@@ -2,7 +2,17 @@ import workoutService from "../service/workout.service";
 import express from "express";
 const router = express.Router();
 
-router.get("/:workoutId", async (req, res) => {
+
+router.get("/", async (req, res) => {
+	try {
+		const workouts = await workoutService.getAllWorkouts();
+		res.status(200).json({ status: "success", workouts });
+	} catch (error) {
+		res.status(404).json({ status: "error", errorMessage: error.message });
+	}
+});
+
+/*router.get("/:workoutId", async (req, res) => {
 	const id = req.params.workoutId;
 	try {
 		if (req.query.embed === "all") {
@@ -35,5 +45,5 @@ router.post("/create", async (req, res) => {
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}
-});
+});*/
 export default router;

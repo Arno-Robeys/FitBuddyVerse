@@ -1,4 +1,4 @@
-import { WorkoutComment } from "@/domain/model/comment";
+/*import { WorkoutComment } from "@/domain/model/comment";
 import { ExerciseSet } from "@/domain/model/set";
 import { Profile } from "@/domain/model/profile";
 import { Note } from "@/domain/model/note";
@@ -25,4 +25,4 @@ export type TInputWorkout = {
 	durationSec: number;
 	volumeKG: number;
 	profileId: number;
-};
+};*/

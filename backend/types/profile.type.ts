@@ -1,4 +1,4 @@
-import { WorkoutComment } from '@/domain/model/comment';
+/*import { WorkoutComment } from '@/domain/model/comment';
 import { Workout } from '@/domain/model/workout';
 import { Profile } from '@/domain/model/profile';
 
@@ -28,4 +28,4 @@ export type TInputProfile = {
     username: string;
     password: string;
     profilePicture?: string;
-};
+};*/

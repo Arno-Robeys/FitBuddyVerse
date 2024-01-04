@@ -1,4 +1,4 @@
-import exerciseDb from "../domain/data-access/exercise.db";
+/*import exerciseDb from "../domain/data-access/exercise.db";
 import { Exercise } from "../domain/model/exercise";
 
 const getExerciseById = async (exerciseId: number): Promise<Exercise> => {
@@ -37,3 +37,4 @@ export default {
     getExerciseHistory,
     getAllExercises,
 }
+*/

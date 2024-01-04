@@ -1,4 +1,4 @@
-import profileDb from "../domain/data-access/profile.db";
+/*import profileDb from "../domain/data-access/profile.db";
 import { Profile } from "../domain/model/profile";
 
 const createProfile = async (profile: Profile): Promise<Profile> => {
@@ -104,3 +104,4 @@ export default {
 	unfollowProfile,
 	getProfileByIdIncludeFollowing
 };
+*/

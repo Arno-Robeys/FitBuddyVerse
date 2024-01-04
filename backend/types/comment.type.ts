@@ -1,4 +1,4 @@
-import { Profile } from "@/domain/model/profile";
+/*import { Profile } from "@/domain/model/profile";
 import { Workout } from "@/domain/model/workout";
 
 export type TWorkoutComment = {
@@ -17,4 +17,4 @@ export type TInputWorkoutComment = {
     profileId: string;
     message: string;
     createdAt: string;
-};
+};*/

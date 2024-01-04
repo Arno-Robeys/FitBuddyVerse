@@ -1,4 +1,4 @@
-import { ExerciseSet } from '@/domain/model/set';
+/*import { ExerciseSet } from '@/domain/model/set';
 import { Note } from '@/domain/model/note';
 import { Workout } from '@/domain/model/workout';
 
@@ -18,4 +18,4 @@ export type TInputExercise = {
     type: string;
     equipment: string;
     muscleIds: string[];
-};
+};*/
