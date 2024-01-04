@@ -1,6 +1,6 @@
 import exerciseService from "@/lib/exerciseService";
 import React, { useEffect, useState } from "react";
-import { Dimensions, Text, TouchableOpacity, View, ScrollView } from "react-native";
+import { Dimensions, Text, TouchableOpacity, View, ScrollView, Image } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
 //Workout Graph
@@ -26,7 +26,7 @@ type GraphItemFilterType =
 
 const changeToUserView = {
     volumeKG: "Volume (kg)",
-    one_rep_max: "Single Rep Max (kg)",
+    one_rep_max: "One Rep Max (kg)",
     max_weight: "Max Weight (kg)",
     total_reps: "Total Reps (amount)",
     best_set_volume: "Best Set Volume (kg)",
@@ -134,7 +134,7 @@ export default function ExerciseInfoPage({
                         <TouchableOpacity
                             onPress={() => setUserSelected(userSelected === 'one_rep_max' ? 'volumeKG' : 'one_rep_max')}
                             className="bg-indigo-800 rounded mr-1 px-2 py-1">
-                            <Text className="text-center text-white font-bold">Single Rep Max</Text>
+                            <Text className="text-center text-white font-bold">One Rep Max</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -159,8 +159,9 @@ export default function ExerciseInfoPage({
             </>
             ) : (
                 // Shown when there is no available data 
-                <View className="bg-slate-400/20 p-4 rounded-md">
-                    <Text className="text-center font-bold text-lg">No graph data is currently available.</Text>
+                <View className="bg-slate-400/20 p-4 rounded-md items-center">
+                    <Image source={require("../../assets/bar-graph.png")} className="h-20 w-20" />
+                    <Text className="text-center font-bold text-lg">No graph data yet.</Text>
                 </View>
             )}
 
