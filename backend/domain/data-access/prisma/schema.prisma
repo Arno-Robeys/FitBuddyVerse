@@ -29,7 +29,6 @@ model Exercise {
 
   ExerciseNote ExerciseNote[]
   ExerciseSet  ExerciseSet[]
-  Workout      Workout[]
 }
 
 model Profile {
@@ -67,7 +66,6 @@ model Workout {
   WorkoutComment WorkoutComment[]
   ExerciseNote   ExerciseNote[]
   ExerciseSet    ExerciseSet[]
-  Exercise       Exercise[]
   LikedBy        Profile[]        @relation("WorkoutLikes")
 }
 

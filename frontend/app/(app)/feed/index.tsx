@@ -14,8 +14,8 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 			const p = JSON.parse(
 				(await AsyncStorage.getItem("profile")) ?? "{}"
 			) as TProfile;
-			var res = await profileService.getProfilesFollowing(p?.id ?? 0);
-			setProfile(res.profile);
+			var res = await profileService.getProfilesFollowingAll(p?.id ?? 0);
+			setProfile(res.profiles);
 		} catch (err) {
 			console.log(err);
 		}

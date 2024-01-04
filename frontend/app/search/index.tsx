@@ -7,23 +7,42 @@ import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native"
 export default function SearchPage({ navigation }: { navigation: any }) {
 	const [searchText, setSearchText] = useState('');
 	const [users, setUsers] = useState<TProfile[]>([]);
+	const [following, setFollowing] = useState<TProfile[]>([]);
+	const [currentProfile, setCurrentProfile] = useState<TProfile>();
 
 	const handleSearch = (text: string) => {
 		setSearchText(text);
 		if (text.length < 1) setUsers([]);
 		else {
-			AsyncStorage.getItem("profile").then((res) => {
-				const profile = JSON.parse(res!);
-				profileService.searchProfiles(text).then(res => {
-					setUsers(res.profiles.filter((user: { id: any; }) => user.id !== profile.id));
-				});
-			}).catch((err) => {
-				console.log(err);
+			profileService.searchProfiles(text).then(res => {
+				setUsers(res.profiles);
+			});
+		}
+	}
+
+	const followHandler = (id: number) => {
+		if(following.some((user) => user.id === id)) {
+			profileService.unfollowProfile(currentProfile?.id ?? 0, id).then((res) => {
+				setFollowing(res.profile.following);
+			});
+		}else {
+			profileService.followProfile(currentProfile?.id ?? 0, id).then((res) => {
+				setFollowing(res.profile.following);
 			});
 		}
 	}
 
 	useEffect(() => {
+
+		AsyncStorage.getItem("profile").then((res) => {
+			const profile = JSON.parse(res!);
+			profileService.getProfilesFollowing(profile.id).then((res) => {
+				setFollowing(res.profiles.following);
+			});
+			setCurrentProfile(profile);
+		}).catch((err) => {
+			console.log(err);
+		});
 		//Add search bar to navigation
 		navigation.setOptions({
 			headerTitle: () => (
@@ -45,9 +64,11 @@ export default function SearchPage({ navigation }: { navigation: any }) {
 						<TouchableOpacity className="w-3/4" onPress={() => { navigation.navigate("ProfileUser", { id: item.id }) }}>
 							<Text className="text-2xl font-bold">{item.username}</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => { }} className="bg-blue-400 rounded p-2">
-							<Text className="text-center text-white font-bold">FOLLOW</Text>
-						</TouchableOpacity>
+						{currentProfile?.id === item.id ? null : (
+							<TouchableOpacity onPress={() => followHandler(item.id ?? 0)} className="bg-blue-400 rounded p-2">
+								<Text className="text-center text-white font-bold">{following.map(profile => profile.id).includes(item.id) ? 'UNFOLLOW' : 'FOLLOW'}</Text>
+							</TouchableOpacity>
+						)}
 					</View>
 				)}
 			/>
