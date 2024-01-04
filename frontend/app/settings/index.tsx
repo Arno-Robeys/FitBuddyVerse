@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Button, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 
 export default function SettingsPage({ navigation }: { navigation: any }) {
@@ -7,6 +7,7 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
     const [email, setEmail] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSaveChanges = () => {
         // TODO: Implement logic to save changes
@@ -22,21 +23,21 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
-            <Text style={{ textAlign: "center", fontSize: 24, fontWeight: "bold", marginBottom: 16 }}>Settings</Text>
+        <View className="bg-white flex-1 justify-center p-4">
+            <Text className="text-center text-2xl font-bold mb-4">Settings</Text>
 
             <TextInput
                 placeholder="Username"
                 value={username}
                 onChangeText={(text) => setUsername(text)}
-                style={{ borderWidth: 1, borderColor: "gray", borderRadius: 4, padding: 8, marginBottom: 16 }}
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4"
             />
 
             <TextInput
                 placeholder="Email"
                 value={email}
                 onChangeText={(text) => setEmail(text)}
-                style={{ borderWidth: 1, borderColor: "gray", borderRadius: 4, padding: 8, marginBottom: 16 }}
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4"
             />
 
             <TextInput
@@ -44,7 +45,7 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
                 secureTextEntry
                 value={currentPassword}
                 onChangeText={(text) => setCurrentPassword(text)}
-                style={{ borderWidth: 1, borderColor: "gray", borderRadius: 4, padding: 8, marginBottom: 16 }}
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4"
             />
 
             <TextInput
@@ -52,12 +53,24 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
                 secureTextEntry
                 value={newPassword}
                 onChangeText={(text) => setNewPassword(text)}
-                style={{ borderWidth: 1, borderColor: "gray", borderRadius: 4, padding: 8, marginBottom: 16 }}
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4"
             />
 
-            <Button title="Save Changes" onPress={handleSaveChanges} />
+            <TouchableOpacity onPress={handleSaveChanges}>
+                <View className="bg-gray-800 rounded py-3 items-center">
+                    {!isLoading ? (
+                        <Text className="text-white text-lg">Save Changes</Text>
+                    ) : (
+                        <ActivityIndicator color="white" />
+                    )}
+                </View>
+            </TouchableOpacity>
 
-            <Button title="Logout" onPress={handleLogout} />
+            <TouchableOpacity className="mt-2" onPress={handleLogout}>
+                <View className="bg-gray-800 rounded py-3 items-center">
+                    <Text className="text-white text-lg">Logout</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }
