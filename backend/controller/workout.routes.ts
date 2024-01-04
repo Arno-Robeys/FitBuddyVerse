@@ -28,9 +28,8 @@ router.get("/:workoutId/workout-page", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-	const { name, createdAt, durationSec, volumeKG, profileId} = req.body;
 	try {
-		const workout = await workoutService.createWorkout({ name, createdAt, durationSec, volumeKG, profileId });
+		const workout = await workoutService.createWorkout(req.body);
 		res.json({ status: 200, workout });
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });

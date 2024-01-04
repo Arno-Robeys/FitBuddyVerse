@@ -3,7 +3,6 @@ import {ExerciseSet as PrismaExerciseSet} from "@prisma/client";
 
 export class ExerciseSet {
 	readonly id: number;
-	readonly workoutId: number;
 	readonly workoutDetailsId: number;
 	readonly setNr: number;
 	readonly repetitions: number;
@@ -11,14 +10,12 @@ export class ExerciseSet {
 
 	constructor({
 		id,
-		workoutId,
 		workoutDetailsId,
 		setNr,
 		repetitions,
 		weightKG,
 	}: ExerciseSet) {
 		this.id = id;
-		this.workoutId = workoutId;
 		this.workoutDetailsId = workoutDetailsId;
 		this.setNr = setNr;
 		this.repetitions = repetitions;

@@ -3,9 +3,9 @@ import { TExerciseSet } from "./set.type";
 
 export type TWorkoutDetails = {
     id?: number;
-    workoutId: string;
-    exerciseId: string;
-    note: string;
+    workoutId?: number;
+    exerciseId: number;
+    note?: string | null;
     exerciseSets?: TExerciseSet[];
     exercise?: TExercise;
 };

@@ -1,5 +1,6 @@
 import { Workout } from "../domain/model/workout";
 import workoutDB from "../domain/data-access/workout.db";
+import { WorkoutDetails } from "@/domain/model/details";
 
 type TInputWorkout = {
 	id?: number;
@@ -8,6 +9,7 @@ type TInputWorkout = {
 	createdAt: Date;
 	volumeKG: number;
 	profileId: number;
+	WorkoutDetails?: WorkoutDetails[];
 };
 
 const getWorkoutByIdIncludeAll = async ({
@@ -33,8 +35,8 @@ const getWorkoutByIdForWorkoutPage = async ({ id }: { id: string }) => {
 	return workout;
 };
 
-const createWorkout = async ({ name, durationSec, createdAt, volumeKG, profileId }: TInputWorkout) => {
-	return await workoutDB.createWorkout(new Workout({ name, durationSec, createdAt, volumeKG, profileId }));
+const createWorkout = async (workout: TInputWorkout) => {
+	return await workoutDB.createWorkout(new Workout(workout));
 };
 
 export default {

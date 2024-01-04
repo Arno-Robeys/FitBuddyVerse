@@ -43,12 +43,32 @@ const createWorkout = async (workout: Workout): Promise<Workout> => {
 	const w = await database.workout.create({
 		data: {
 			name: workout.name,
-			createdAt: workout.createdAt,
 			durationSec: workout.durationSec,
+			createdAt: workout.createdAt,
 			volumeKG: workout.volumeKG,
 			profileId: workout.profileId,
+			WorkoutDetails: {
+				create: workout.workoutDetails?.map((wd) => {
+					return {
+						ExerciseSet: {
+							create: wd.exerciseSets?.map((es) => {
+								return {
+									weightKG: es.weightKG,
+									setNr: es.setNr,
+									repetitions: es.repetitions,
+								};
+							}),
+						},
+						exerciseId: wd.exerciseId,
+					};
+				}),
+			},
+		},
+		include: {
+			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
 		},
 	});
+
 	return Workout.From(w);
 };
 

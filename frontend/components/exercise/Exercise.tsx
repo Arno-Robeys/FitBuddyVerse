@@ -1,4 +1,4 @@
-import { TExercise } from '@/types/exercise.type';
+import { TWorkoutDetails } from '@/types/details.type';
 import { TExerciseSet } from '@/types/set.type';
 import { TWorkoutExercise } from '@/types/workout.type';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,7 +20,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
       return;
     }
     const newTableData = { ...workout };
-    const exercise = newTableData.exercise?.find((exercise) => exercise.id === exerciseId);
+    const exercise = newTableData.workoutDetails?.find((exercise) => exercise.exerciseId === exerciseId);
     if (exercise) {
       const set = exercise.exerciseSets?.find((set) => set.setNr === setNr);
       if (set) {
@@ -37,7 +37,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
   function addSetHandler(exerciseId: number) {
     const newTableData = { ...workout };
-    const exercise = newTableData.exercise?.find((exercise) => exercise.id === exerciseId);
+    const exercise = newTableData.workoutDetails?.find((exercise) => exercise.exerciseId === exerciseId);
     if (exercise) {
       var newSetNr = exercise.exerciseSets?.length ? exercise.exerciseSets.length + 1 : 1
       const newSet = {
@@ -53,13 +53,12 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
   function deleteSetHandler(setNr: number, exerciseId: number): void {
     const newTableData = { ...workout };
-    const exercise = newTableData.exercise?.find((exercise) => exercise.id === exerciseId);
+    const exercise = newTableData.workoutDetails?.find((exercise) => exercise.exerciseId === exerciseId);
     if (exercise) {
       const newExerciseSets = exercise.exerciseSets?.filter((set) => set.setNr !== setNr);
       exercise.exerciseSets = newExerciseSets;
       if (!newExerciseSets?.length) {
-
-        newTableData.exercise = newTableData.exercise?.filter((exercise) => exercise.id !== exerciseId);
+        newTableData.workoutDetails = newTableData.workoutDetails?.filter((exercise) => exercise.exerciseId !== exerciseId);
       }
       //Reassign set numbers
       if (newExerciseSets?.length) {
@@ -75,7 +74,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
   function ChangeVolumeHandler(setNr: number, exerciseId: number, value: boolean): void {
     setWorkout((prevWorkout: any) => {
       const updatedWorkout = { ...prevWorkout };
-      const exercise = updatedWorkout.exercise?.find((exercise: { id: number; }) => exercise.id === exerciseId);
+      const exercise = updatedWorkout.workoutDetails?.find((exercise: { exerciseId: number; }) => exercise.exerciseId === exerciseId);
 
       if (exercise) {
         const set = exercise.exerciseSets?.find((set: { setNr: number; }) => set.setNr === setNr);
@@ -91,7 +90,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
   function calculateVolume(): number {
     var volume = 0;
-    workout.exercise?.forEach((exercise) => {
+    workout.workoutDetails?.forEach((exercise) => {
       exercise.exerciseSets?.forEach((set) => {
         if (set.isCompleted) {
           volume += set.weightKG * set.repetitions;
@@ -103,17 +102,17 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
 
   return (
     <View className='mt-2'>
-      {workout.exercise ? (
-        workout.exercise.map((row: TExercise) => (
-          <View key={row.name}>
+      {workout.workoutDetails ? (
+        workout.workoutDetails.map((row: TWorkoutDetails) => (
+          <View key={row.exercise?.name}>
             {/* ExerciseInfoPage receives exercise-id and userid */}
             <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.id, userid: workout.profileId })}>
-              <Text className='font-bold text-2xl'>{row.name}</Text>
+              <Text className='font-bold text-2xl'>{row.exercise?.name}</Text>
             </TouchableOpacity>
             <TextInput placeholder='Add Exercise Note...'></TextInput>
             <View className='flex-row justify-between'>
-              <Text className='font-bold text-lg'>{row.type}</Text>
-              <Text className='font-bold text-lg'>{row.equipment}</Text>
+              <Text className='font-bold text-lg'>{row.exercise?.type}</Text>
+              <Text className='font-bold text-lg'>{row.exercise?.equipment}</Text>
             </View>
 
             {/*Table*/}
@@ -129,14 +128,14 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
                 row.exerciseSets.map((r: TExerciseSet) => (
                   <View key={r.setNr} className={`flex-row justify-around border-b border-gray-300 py-2 ${r.isCompleted ? 'bg-green-300' : ''}`}>
                     <Text className='text-lg'>{r.setNr}</Text>
-                    <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.id, text, 'weightKG')} placeholder='0' keyboardType="numeric" />
-                    <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.id, text, 'repetitions')} placeholder='0' keyboardType="numeric" />
-                    <TouchableOpacity onPress={() => ChangeVolumeHandler(r.setNr, r.exerciseId, !r.isCompleted ?? false)}>
+                    <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.exerciseId, text, 'weightKG')} placeholder='0' keyboardType="numeric" />
+                    <TextInput className='text-lg' onChangeText={text => ChangeInputHandler(r.setNr, row.exerciseId, text, 'repetitions')} placeholder='0' keyboardType="numeric" />
+                    <TouchableOpacity onPress={() => ChangeVolumeHandler(r.setNr, row.exerciseId, !r.isCompleted ?? false)}>
                       <View>
                         <Text className='text-lg'>{r.isCompleted ? '✓' : 'X'}</Text>
                       </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => deleteSetHandler(r.setNr, row.id)}>
+                    <TouchableOpacity onPress={() => deleteSetHandler(r.setNr, row.exerciseId)}>
                       <View>
                         <Ionicons name="trash-outline" size={24} color="black" />
                       </View>
@@ -145,7 +144,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
                 ))
               ) : null}
             </View>
-            <TouchableOpacity onPress={() => addSetHandler(row.id)} className='bg-gray-700 rounded mt-4 py-2'>
+            <TouchableOpacity onPress={() => addSetHandler(row.exerciseId)} className='bg-gray-700 rounded mt-4 py-2'>
               <Text className='text-white text-center text-lg'>+ Add Set</Text>
             </TouchableOpacity>
             <View className='my-2 border' />

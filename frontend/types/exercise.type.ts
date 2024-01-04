@@ -1,4 +1,3 @@
-import { TNote } from './details.type';
 import { TExerciseSet } from './set.type';
 
 export type TExercise = {
@@ -7,5 +6,4 @@ export type TExercise = {
     type: string;
     equipment: string;
     exerciseSets?: TExerciseSet[];
-    notes?: TNote[];
 };

@@ -1,7 +1,6 @@
 "use client";
 import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
-import exerciseSetService from "@/lib/exerciseSetService";
 import workoutService from "@/lib/workoutService";
 import { TExercise } from "@/types/exercise.type";
 import { TWorkoutExercise } from "@/types/workout.type";
@@ -13,7 +12,7 @@ import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, ToastAndroi
 
 export default function WorkoutPage({ navigation }: { route: any, navigation: any }) {
 
-    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, exercise: [] });
+    const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, workoutDetails: [] });
     const [opened, setOpened] = useState(false);
     const [exercises, setExercises] = useState<TExercise[]>([]);
     const [selectedExercise, setSelectedExercise] = useState<TExercise[]>([]);
@@ -21,13 +20,13 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
     useEffect(() => {
         if (workout.completed) {
             //Finish workout
-            const completedSets = workout.exercise?.map((exercise) => exercise?.exerciseSets?.filter((set) => set.isCompleted && set.repetitions != 0 && set.weightKG != 0)).flat()
+            const completedSets = workout.workoutDetails?.map((exercise) => exercise?.exerciseSets?.filter((set) => set.isCompleted && set.repetitions != 0 && set.weightKG != 0)).flat()
             
             if(!workout.name.trim()) {
                 ToastAndroid.show('Please enter a workout name', ToastAndroid.SHORT);
                 setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
                 return;
-            } else if(!workout.exercise?.length) {
+            } else if(!workout.workoutDetails?.length) {
                 ToastAndroid.show('Please add at least 1 exercise', ToastAndroid.SHORT);
                 setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
                 return;
@@ -37,17 +36,15 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
                 return;
             }
 
+            //Remove not completed sets
+            workout.workoutDetails?.forEach((exercise) => {
+                exercise.exerciseSets = exercise.exerciseSets?.filter((set) => set.repetitions != 0 && set.weightKG != 0 && set.isCompleted);
+                if(!exercise.exerciseSets?.length) workout.workoutDetails = workout.workoutDetails?.filter((item) => item.exerciseId !== exercise.exerciseId);
+            });
+
             workoutService.createWorkout(workout).then((res) => {
-                completedSets?.forEach((set) => {
-                    if(set) {
-                        exerciseSetService.createExerciseSet({...set, workoutId: res.workout.id}).then((r) => {
-                            navigation.reset({ routes: [{ name: "Profile" }] });
-                            ToastAndroid.show('Workout completed', ToastAndroid.SHORT);
-                        }).catch((err) => {
-                            console.log(err);
-                        });
-                    }
-                });
+                navigation.reset({ routes: [{ name: "Profile" }] });
+                ToastAndroid.show('Workout completed', ToastAndroid.SHORT);
             }).catch((err) => {
                 console.log(err);
             });
@@ -78,15 +75,13 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
     const AddExerciseHandler = () => {
         selectedExercise.forEach((exercise) => {
             //Check if exercise already exists
-            if (workout.exercise?.find((item) => item.id === exercise.id)) return;
+            if (workout.workoutDetails?.find((item) => item.exerciseId === exercise.id)) return;
             const newExercise = {
-                id: exercise.id,
-                name: exercise.name,
-                type: exercise.type,
-                equipment: exercise.equipment,
-                exerciseSets: [{ exerciseId: exercise.id, setNr: 1, repetitions: 0, weightKG: 0 }]
+                exerciseId: exercise.id,
+                exercise: { ...exercise},
+                exerciseSets: [{ setNr: 1, repetitions: 0, weightKG: 0 }]
             };
-            workout.exercise?.push(newExercise);
+            workout.workoutDetails?.push(newExercise);
         });
 
         //If workout is new, set createdAt when adding first exercise

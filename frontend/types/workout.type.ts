@@ -1,6 +1,5 @@
 import { TWorkoutComment } from './comment.type';
 import { TWorkoutDetails } from './details.type';
-import { TExercise } from './exercise.type';
 import { TProfile } from './profile.type';
 
 export type TWorkout = {
@@ -24,5 +23,5 @@ export type TWorkoutExercise = {
     volumeKG: number;
     profileId: number;
     completed?: boolean;
-    exercise?: TExercise[];
+    workoutDetails?: TWorkoutDetails[];
 };
