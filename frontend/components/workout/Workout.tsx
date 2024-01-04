@@ -40,23 +40,23 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 
 
 	return (
-		<View className="mt-3">
+		<View className="mb-5 bg-gray-800 p-5 rounded-xl">
 			{/* clickable username to go to profile */}
 			<TouchableOpacity
 				onPress={() => navigation.navigate("Profile", { id: workout.profileId })}
 			>
-				<Text className="text-center text-lg">{username}</Text>
+				<Text className="text-center text-lg text-white">{username}</Text>
 			</TouchableOpacity>
 
 			<TouchableOpacity
 				onPress={() => navigation.navigate("Workout", { id: workout.id })}
 			>
-				<View className="border-y-2">
-					<Text className="text-center text-sm">{formateDate(workout.createdAt)}</Text>
-					<Text className="text-base">{workout.name}</Text>
-					<Text className="text-base">Volume: {workout.volumeKG} kg</Text>
-					<Text className="text-base">Duration: {formatDuration(workout.durationSec)}</Text>
-					<Text className="text-base">
+				<View className="border-y-2 border-gray-500">
+					<Text className="text-center text-xs text-white">{formateDate(workout.createdAt)}</Text>
+					<Text className="text-base text-white">{workout.name}</Text>
+					<Text className="text-base text-white">Volume: {workout.volumeKG} kg</Text>
+					<Text className="text-base text-white">Duration: {formatDuration(workout.durationSec)}</Text>
+					<Text className="text-base text-white">
 						<EvilIcons name="like" size={24} /> 
 						{workout.likedBy?.length ?? 0} likes
 					</Text>
