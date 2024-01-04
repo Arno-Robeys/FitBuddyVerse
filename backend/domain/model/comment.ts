@@ -1,4 +1,3 @@
-/*import { TWorkoutComment } from "@/types/comment.type";
 import {
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
@@ -24,7 +23,7 @@ export class WorkoutComment {
 		createdAt,
 		profile,
 		workout,
-	}: TWorkoutComment) {
+	}: WorkoutComment) {
 		this.id = id;
 		this.workoutId = workoutId;
 		this.profileId = profileId;
@@ -49,4 +48,4 @@ export class WorkoutComment {
 				: null,
 		});
 	}
-}*/
+}

@@ -1,4 +1,4 @@
-/*import express from "express";
+import express from "express";
 const router = express.Router();
 import profileService from "../service/profile.service";
 
@@ -93,4 +93,4 @@ router.put('/unfollow', async (req, res) => {
     }
 });
 
-export default router;*/
+export default router;

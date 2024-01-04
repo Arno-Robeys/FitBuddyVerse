@@ -26,7 +26,7 @@ model Exercise {
   type        String
   equipment   String
   description String
-  ExerciseWorkout ExerciseWorkout[]
+  WorkoutDetails WorkoutDetails[]
 }
 
 model Profile {
@@ -45,12 +45,12 @@ model Profile {
 model ExerciseSet {
   id          Int   @id @default(autoincrement())
   workoutId   Int
-  exerciseWorkoutId  Int
+  workoutDetailsId  Int
   setNr       Int
   repetitions Int
   weightKG    Float
 
-  exerciseWorkout ExerciseWorkout @relation(fields: [exerciseWorkoutId], references: [id])
+  WorkoutDetails WorkoutDetails @relation(fields: [workoutDetailsId], references: [id])
 }
 
 model Workout {
@@ -65,10 +65,10 @@ model Workout {
   LikedBy        Profile[]        @relation("WorkoutLikes")
   WorkoutComment WorkoutComment[]
 
-  ExerciseWorkout   ExerciseWorkout[]
+  WorkoutDetails   WorkoutDetails[]
 }
 
-model ExerciseWorkout {
+model WorkoutDetails {
   id         Int      @id @default(autoincrement())
   workoutId  Int
   exerciseId Int

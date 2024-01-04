@@ -1,36 +1,5 @@
-/*import { Workout } from "../model/workout";
 import database from "./prisma/db";
-
-const getWorkoutByIdIncludeAll = async (id: number): Promise<Workout> => {
-	const workout = await database.workout.findUnique({
-		where: {
-			id: id,
-		},
-		include: {
-			ExerciseNote: true,
-			ExerciseSet: { include: { exercise: true } },
-			LikedBy: true,
-			profile: true,
-			WorkoutComment: { include: { profile: true } },
-		},
-	});
-	return Workout.From(workout);
-};
-
-const getWorkoutByIdForWorkoutPage = async (id: number) => {
-	const workout = await database.workout.findUnique({
-		where: {
-			id: id,
-		},
-		include: {
-			ExerciseSet: { include: { exercise: {include: { ExerciseNote: {select: {id: true, note: true}}}} } },
-			LikedBy: true,
-			profile: true
-		},
-		});
-
-	return Workout.formatWorkout(workout);
-};
+import { Workout } from "../model/workout";
 
 const getWorkoutById = async (id: number): Promise<Workout> => {
 	const workout = await database.workout.findUnique({
@@ -41,8 +10,37 @@ const getWorkoutById = async (id: number): Promise<Workout> => {
 	return Workout.From(workout);
 };
 
-const createWorkout = async (workout: Workout) => {
-	return await database.workout.create({
+const getWorkoutByIdIncludeAll = async (id: number): Promise<Workout> => {
+	const workout = await database.workout.findUnique({
+		where: {
+			id: id,
+		},
+		include: {
+			profile: true,
+			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
+			LikedBy: true,
+			WorkoutComment: { include: { profile: true } },
+		},
+	});
+	return Workout.From(workout);
+};
+
+const getWorkoutByIdForWorkoutPage = async (id: number): Promise<Workout> => {
+	const workout = await database.workout.findUnique({
+		where: {
+			id: id,
+		},
+		include: {
+			profile: true,
+			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
+			LikedBy: true
+		},
+	});
+	return Workout.From(workout);
+}
+
+const createWorkout = async (workout: Workout): Promise<Workout> => {
+	const w = await database.workout.create({
 		data: {
 			name: workout.name,
 			createdAt: workout.createdAt,
@@ -51,26 +49,12 @@ const createWorkout = async (workout: Workout) => {
 			profileId: workout.profileId,
 		},
 	});
+	return Workout.From(w);
 };
 
 export default {
-	getWorkoutByIdIncludeAll,
-	getWorkoutById,
 	getWorkoutByIdForWorkoutPage,
 	createWorkout,
-};*/
-
-import database from "./prisma/db";
-
-const getAllWorkouts = async () => {
-	return await database.workout.findMany({
-		include: {
-			profile: true,
-			ExerciseWorkout: { include: { exercise: true, ExerciseSet: true } },
-		},
-	});
-}
-
-export default {
-	getAllWorkouts
+	getWorkoutById,
+	getWorkoutByIdIncludeAll,
 }

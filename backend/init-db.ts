@@ -136,7 +136,7 @@ const main = async () => {
   });
 
 
-  await prisma.exerciseWorkout.createMany({
+  await prisma.workoutDetails.createMany({
     data: [{
       id: 1,
       workoutId: 1,
@@ -153,7 +153,7 @@ const main = async () => {
     data: [{
       id: 1,
       workoutId: 1,
-      exerciseWorkoutId: 1,
+      workoutDetailsId: 1,
       setNr: 1,
       repetitions: 10,
       weightKG: 10,
@@ -161,7 +161,7 @@ const main = async () => {
     {
       id: 2,
       workoutId: 1,
-      exerciseWorkoutId: 1,
+      workoutDetailsId: 1,
       setNr: 2,
       repetitions: 10,
       weightKG: 10,
@@ -169,7 +169,7 @@ const main = async () => {
     {
       id: 3,
       workoutId: 1,
-      exerciseWorkoutId: 2,
+      workoutDetailsId: 2,
       setNr: 1,
       repetitions: 10,
       weightKG: 10,

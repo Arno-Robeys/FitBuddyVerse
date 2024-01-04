@@ -1,14 +1,14 @@
-/*import database from "./prisma/db";
+import database from "./prisma/db";
 import { ExerciseSet } from "../model/set";
 
 
-/*const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
+const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
     const createdSets = await database.exerciseSet.create({
         data: {
             weightKG: set.weightKG,
             setNr: set.setNr,
             repetitions: set.repetitions,
-            exerciseId: set.exerciseId,
+            workoutDetailsId: set.workoutDetailsId,
             workoutId: set.workoutId
           }
     });
@@ -18,8 +18,4 @@ import { ExerciseSet } from "../model/set";
 
 export default {
     createSet
-};*/
-
-export default {
-	
-}
+};

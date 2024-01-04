@@ -1,4 +1,3 @@
-/*import { TProfile } from "../../types/profile.type";
 import { WorkoutComment } from "../model/comment";
 import { Workout } from "../model/workout";
 import {
@@ -29,7 +28,7 @@ export class Profile {
 		followedBy,
 		following,
 		likedWorkouts,
-	}: TProfile) {
+	}: Profile) {
 		this.id = id;
 		this.email = email;
 		this.username = username;
@@ -64,4 +63,3 @@ export class Profile {
 		});
 	}
 }
-*/

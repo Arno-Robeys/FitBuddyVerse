@@ -1,10 +1,7 @@
-/*import { ExerciseSet } from "../model/set";
-import { TExercise } from "@/types/exercise.type";
-import { Note } from "./note";
+import { ExerciseSet } from "../model/set";
 import {
 	Exercise as PrismaExercise,
 	Workout as PrismaWorkout,
-	ExerciseNote as PrismaNote,
 	ExerciseSet as PrismaExerciseSet,
 } from "@prisma/client";
 import { Workout } from "./workout";
@@ -15,7 +12,6 @@ export class Exercise {
 	readonly type: string;
 	readonly equipment: string;
 	readonly exerciseSets?: ExerciseSet[];
-	readonly notes?: Note[];
 	readonly workouts?: Workout[];
 
 	constructor({
@@ -24,28 +20,25 @@ export class Exercise {
 		type,
 		equipment,
 		exerciseSets,
-		notes,
 		workouts,
-	}: TExercise) {
+	}: Exercise) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.equipment = equipment;
 		this.exerciseSets = exerciseSets;
-		this.notes = notes;
 		this.workouts = workouts;
 	}
 
 	static From(
 		exercise: PrismaExercise & {
 			ExerciseSet?: PrismaExerciseSet[];
-		} & { ExerciseNote?: PrismaNote[] } & { Workout?: PrismaWorkout[] }
+		} & { Workout?: PrismaWorkout[] }
 	): Exercise {
 		return new Exercise({
 			...exercise,
 			exerciseSets: exercise?.ExerciseSet?.map(ExerciseSet.From),
-			notes: exercise?.ExerciseNote?.map(Note.From),
 			workouts: exercise?.Workout?.map(Workout.From),
 		});
 	}
-}*/
+}
