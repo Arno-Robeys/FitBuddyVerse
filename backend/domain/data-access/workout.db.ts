@@ -25,6 +25,7 @@ const getWorkoutByIdForWorkoutPage = async (id: number) => {
 		w."durationSec" AS "workoutDurationSec",
 		w."volumeKG" AS "workoutVolumeKG",
 		w."profileId" AS "workoutProfileId",
+		p."username" AS "workoutProfileUsername",
 		JSON_AGG(
 		JSON_BUILD_OBJECT(
 			'exerciseId', e.id,
@@ -40,6 +41,7 @@ const getWorkoutByIdForWorkoutPage = async (id: number) => {
 		"Exercise" e
 		LEFT JOIN "ExerciseSet" s ON e.id = s."exerciseId"
 		LEFT JOIN "Workout" w ON s."workoutId" = w.id
+		LEFT JOIN "Profile" p ON w."profileId" = p.id
 		LEFT JOIN "ExerciseNote" n ON e.id = n."exerciseId" AND w.id = n."workoutId"
 		LEFT JOIN (
 		SELECT
@@ -67,7 +69,8 @@ const getWorkoutByIdForWorkoutPage = async (id: number) => {
 		w."createdAt",
 		w."durationSec",
 		w."volumeKG",
-		w."profileId"
+		w."profileId",
+		p."username"
 	ORDER BY
 		"workoutCreatedAt";`;
 };
