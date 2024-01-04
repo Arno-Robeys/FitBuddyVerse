@@ -30,6 +30,15 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 	return profile;
 };
 
+const getProfileByIdIncludeFollowing = async (
+	profileId: string
+): Promise<Profile | null> => {
+	if (!Number.isInteger(parseInt(profileId)))
+		throw new Error("Id must be numeric and whole");
+	const profile = await profileDb.getProfileByIdIncludeFollowing(profileId);
+	return profile;
+};
+
 const getProfileByIdIncludeAll = async (profileId: string): Promise<Profile | null> => {
 	if (!Number.isInteger(parseInt(profileId))) throw new Error("Id must be numeric and whole");
 	return await profileDb.getProfileByIdIncludeAll(profileId);
@@ -93,4 +102,5 @@ export default {
 	searchAllProfiles,
 	followProfile,
 	unfollowProfile,
+	getProfileByIdIncludeFollowing
 };
