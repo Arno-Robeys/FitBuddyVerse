@@ -22,5 +22,6 @@ export type TWorkoutExercise = {
     durationSec: number;
     volumeKG: number;
     profileId: number;
+    completed?: boolean;
     exercise?: TExercise[];
 };

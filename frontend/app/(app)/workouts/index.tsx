@@ -6,7 +6,7 @@ import { TWorkoutExercise } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 
 
 export default function WorkoutPage({ navigation }: { route: any, navigation: any }) {
@@ -15,20 +15,15 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
     const [opened, setOpened] = useState(false);
     const [exercises, setExercises] = useState<TExercise[]>([]);
     const [selectedExercise, setSelectedExercise] = useState<TExercise[]>([]);
-    const [done, setDone] = useState(false);
-
-    const FinishHandler = async () => {
-        // Implement your finish logic
-        console.log("Finish")
-        console.log(workout);
-    };
 
     useEffect(() => {
-        if (done) {
-            FinishHandler();
-            setDone(false);
+        if (workout.completed) {
+            //Finish workout
+            console.log("FINISH", workout);
+            //Tijdelijk voor testing purposes
+            setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
         }
-    }, [done]);
+    }, [workout.completed]);
 
     useEffect(() => {
         (async () => {
@@ -77,7 +72,7 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
                     </TouchableOpacity>
                 ),
                 headerRight: () => (
-                    <TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => setDone(true)}>
+                    <TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => setWorkout((prevWorkout) => ({...prevWorkout, completed: true}))}>
                         <Text className="text-center font-bold">Finish</Text>
                     </TouchableOpacity>
                 )
