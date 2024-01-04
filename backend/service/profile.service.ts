@@ -90,6 +90,14 @@ const unfollowProfile = async ({
 };
 
 const searchAllProfiles = async (search: string): Promise<Profile[]> => await profileDb.getAllProfilesWithName(search);
+
+
+const updateProfile = async (id: string, username: string, email: string, password: string) => {
+	if (!Number.isInteger(parseInt(id)))
+		throw new Error("Id must be numeric and whole");
+	const profile = await profileDb.updateProfile(parseInt(id), username, email, password);
+	return profile;
+}
 	
 
 export default {
@@ -102,5 +110,6 @@ export default {
 	searchAllProfiles,
 	followProfile,
 	unfollowProfile,
-	getProfileByIdIncludeFollowing
+	getProfileByIdIncludeFollowing,
+	updateProfile
 };

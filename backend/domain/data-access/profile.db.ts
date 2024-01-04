@@ -154,6 +154,23 @@ const unfollowProfile = async (
 	return Profile.From(profile);
 };
 
+const updateProfile = async (
+	id: number,
+	username: string,
+	email: string,
+	password: string
+): Promise<Profile> => {
+	const profile = await database.profile.update({
+		where: { id },
+		data: {
+			username: username,
+			email: email,
+			password: password,
+		},
+	});
+	return Profile.From(profile);
+}
+
 export default {
 	createProfile,
 	getProfileById,
@@ -164,5 +181,6 @@ export default {
 	getAllProfilesWithName,
 	followProfile,
 	unfollowProfile,
-	getProfileByIdIncludeFollowing
+	getProfileByIdIncludeFollowing,
+	updateProfile
 };

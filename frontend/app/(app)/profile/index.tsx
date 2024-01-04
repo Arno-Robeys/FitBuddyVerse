@@ -70,6 +70,9 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 				renderItem={({ item }) => (
 					<Workout key={item.id} workout={item} navigation={navigation} />
 				)}
+
+				// Add a margin-bottom under the last rendered item
+				ListFooterComponent={() => <View className="mb-10" />}
 			/>
 		</>
 	);

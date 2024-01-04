@@ -93,4 +93,17 @@ router.put('/unfollow', async (req, res) => {
     }
 });
 
+router.put("/:profileId", async (req, res) => {
+	const id = req.params.profileId;
+	const username = req.body.username;
+	const email = req.body.email;
+	const password = req.body.password;
+	try {
+		const profile = await profileService.updateProfile(id, username, email, password);
+		res.status(200).json({ status: 200, profile });
+	} catch (err) {
+		res.status(500).send({ status: 500, message: err.message });
+	}
+});
+
 export default router;

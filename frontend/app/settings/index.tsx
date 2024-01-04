@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator, Button, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
+import profileService from "@/lib/profileService";
+import { set } from "date-fns";
 
 export default function SettingsPage({ navigation }: { navigation: any }) {
     const [username, setUsername] = useState("");
@@ -8,10 +10,47 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const handleSaveChanges = () => {
-        // TODO: Implement logic to save changes
+
+    const handleSaveChanges = async () => {
+        const id = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}").id;
+        setIsLoading(true);
         console.log("Saving changes...");
+
+        const profile = await AsyncStorage.getItem("profile");
+        if (profile) {
+            const parsedProfile = JSON.parse(profile);
+            const updatedProfile = {
+                ...parsedProfile,
+                username: username || parsedProfile.username,
+                email: email || parsedProfile.email,
+            };
+
+            if (currentPassword && newPassword) {
+                updatedProfile.password = newPassword;
+            } else if (!currentPassword && newPassword) {
+                console.log("Please provide the current password.");
+            } else if (currentPassword && !newPassword) {
+                console.log("Please provide the new password.");
+            }
+
+            await profileService.updateProfile(id, updatedProfile.username, updatedProfile.email, updatedProfile.password);
+
+            await AsyncStorage.setItem("profile", JSON.stringify(updatedProfile));
+        }
+
+        setIsLoading(false);
+        console.log("Changes saved!");
+
+        setSuccess(true);
+
+        setTimeout(() => {
+            setSuccess(false);
+            navigation.navigate("Profile");
+        }, 1000);
+
+        
     };
 
     const handleLogout = () => {
@@ -21,7 +60,7 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
             routes: [{ name: "Login" }],
         });
     };
-
+    
     return (
         <View className="bg-white flex-1 justify-center p-4">
             <Text className="text-center text-2xl font-bold mb-4">Settings</Text>
@@ -66,11 +105,17 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity className="mt-2" onPress={handleLogout}>
-                <View className="bg-gray-800 rounded py-3 items-center">
+            <TouchableOpacity className="mt-3" onPress={handleLogout}>
+                <View className="bg-red-800 rounded py-3 items-center">
                     <Text className="text-white text-lg">Logout</Text>
                 </View>
             </TouchableOpacity>
+
+            {success && (
+                <View className="bg-green-600 p-3 rounded-lg" style={{ position: "absolute", bottom: 20, alignSelf: "center" }}>
+                    <Text style={{ color: "white" }}>Changes saved successfully!</Text>
+                </View>
+            )}
         </View>
     );
 }
