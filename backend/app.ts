@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import * as bodyParser from "body-parser";
 import profileRouter from "./controller/profile.routes";
-import exerciseRouter from "./controller/exercise.routes";
+//import exerciseRouter from "./controller/exercise.routes";
 import workoutRouter from "./controller/workout.routes";
-import setRouter from "./controller/set.routes";
+//import setRouter from "./controller/set.routes";
 
 const app = express();
 dotenv.config();
@@ -19,9 +19,9 @@ app.get("/status", (req, res) => {
 });
 
 app.use("/profiles", profileRouter);
-app.use("/exercises", exerciseRouter);
+//app.use("/exercises", exerciseRouter);
 app.use("/workouts", workoutRouter);
-app.use("/sets", setRouter);
+//app.use("/sets", setRouter);
 
 app.listen(port || 3000, () => {
 	console.log(`Back-end is running on port ${port}.`);
