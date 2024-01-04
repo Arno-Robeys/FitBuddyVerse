@@ -58,18 +58,28 @@ export default function ExerciseInfoPage({
 
     const [exerciseGraph, setExerciseGraph] = useState<ApiResponseGraph>();
     const [userSelected, setUserSelected] = useState<GraphItemFilterType>("volumeKG"); // volumeKG is default value
+    const [exerciseBest, setExerciseBest] = useState<ApiResponseBest>();
+
 
     useEffect(() => {
         const fetchData = async () => {
+            // GRAPH DATA
             try {
-                // Fetch exercise details using the exerciseService
+                // Fetch exercise graph details using the exerciseService
                 const exerciseGraph: ApiResponseGraph =
                     await exerciseService.getExerciseGraph(id, userid);
                 setExerciseGraph(exerciseGraph);
-
-                // Now you can use exerciseDetails to update the component state or perform other actions
             } catch (error) {
                 console.error("Error fetching exercise graph:", error);
+            }
+            // BEST DATA
+            try {
+                // Fetch exercise best details using the exerciseService
+                const exerciseBest: ApiResponseBest =
+                    await exerciseService.getExerciseBest(id, userid);
+                setExerciseBest(exerciseBest);
+            } catch (error) {
+                console.error("Error fetching exercise best:", error);
             }
         };
         fetchData();
@@ -77,6 +87,8 @@ export default function ExerciseInfoPage({
 
     return (
         <View className="bg-white flex-1 justify-center p-4">
+
+            {/* GRAPH VIEW */}
             {/* Verify if there is data available to display in the graph. */}
             {exerciseGraph && exerciseGraph.graph.length > 0 ? (<>
                 <Text className="font-bold text-xl">Exercise Chart of {changeToUserView[userSelected]}</Text>
@@ -158,10 +170,33 @@ export default function ExerciseInfoPage({
                 </ScrollView>
             </>
             ) : (
-                // Shown when there is no available data 
+                // Shown when there is no available graph data 
                 <View className="bg-slate-400/20 p-4 rounded-md items-center">
                     <Image source={require("../../assets/bar-graph.png")} className="h-20 w-20" />
-                    <Text className="text-center font-bold text-lg">No graph data yet.</Text>
+                    <Text className="text-center font-bold text-lg">No graph data yet</Text>
+                </View>
+            )}
+
+            {/* BEST VIEW */}
+            {/* Verify if there is data available to display in the records section. */}
+            {exerciseBest && exerciseBest.personal_best.length > 0 ? (
+                <View className="my-4 ">
+                    <Text className="font-bold text-xl mt-4">
+                        Personal Records🥇
+                    </Text>
+                    {exerciseBest.personal_best.map((bestItem) => (
+                        <View key={bestItem.set_id} >
+                            <Text className="border-b-2 py-3 border-gray-300 font-bold">Heaviest Weight: {bestItem.weightKG} kg</Text>
+                            <Text className="border-b-2 py-3 border-gray-300 font-bold">Repetitions: {bestItem.repetitions} reps</Text>
+                            <Text className="border-b-2 py-3 border-gray-300 font-bold">Best Set Volume: {bestItem.set_volume} kg ({bestItem.set_volume_string})</Text>
+                        </View>
+                    ))}
+
+                </View>
+            ) : (
+                // Shown when there is no available best data 
+                <View className="bg-slate-400/20 p-4 rounded-md items-center mt-2">
+                    <Text className="text-center font-bold text-lg">No personal records yet</Text>
                 </View>
             )}
 
@@ -171,6 +206,7 @@ export default function ExerciseInfoPage({
                 className="bg-gray-700 rounded mt-4 py-2">
                 <Text className="text-center text-white font-bold text-lg">Go to Exercise History</Text>
             </TouchableOpacity>
+
         </View>
     );
 }
