@@ -23,18 +23,7 @@ const getExerciseByIdFromUser = async (
 		where: {
 			id: id,
 		},
-		include: {
-			ExerciseNote: {
-				where: {
-					id: profileId,
-				},
-			},
-			ExerciseSet: {
-				where: {
-					id: profileId,
-				},
-			},
-		},
+    //Mist include nog
 	});
 	return exercise ? Exercise.From(exercise) : null;
 };

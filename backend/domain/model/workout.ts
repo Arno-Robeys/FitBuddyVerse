@@ -30,6 +30,7 @@ export class Workout {
 		workoutComments,
 		likedBy,
 		profile,
+		workoutDetails,
 	}: Workout) {
 		this.id = id;
 		this.name = name;
@@ -40,6 +41,7 @@ export class Workout {
 		this.workoutComments = workoutComments;
 		this.likedBy = likedBy;
 		this.profile = profile;
+		this.workoutDetails = workoutDetails;
 	}
 
 	static From(
