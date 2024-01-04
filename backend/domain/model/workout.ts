@@ -1,28 +1,24 @@
-import { TWorkout } from "../../types/workout.type";
 import { WorkoutComment } from "../model/comment";
-import { ExerciseSet } from "../model/set";
 import { Profile } from "../model/profile";
-import { Note } from "./note";
+import { WorkoutDetails } from "./details";
 import {
 	WorkoutComment as PrismaWorkoutComment,
-	ExerciseSet as PrismaExerciseSet,
+	WorkoutDetails as PrismaWorkoutDetails,
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
-	ExerciseNote as PrismaExerciseNote,
 } from "@prisma/client";
 
 export class Workout {
-	readonly id: number;
+	readonly id?: number;
 	readonly name: string;
 	readonly createdAt: Date;
 	readonly durationSec: number;
 	readonly volumeKG: number;
 	readonly profileId: number;
 	readonly workoutComments?: WorkoutComment[];
-	readonly exerciseSets?: ExerciseSet[];
 	readonly likedBy?: Profile[];
 	readonly profile?: Profile;
-	readonly exerciseNotes?: Note[];
+	readonly workoutDetails?: WorkoutDetails[];
 
 	constructor({
 		id,
@@ -32,11 +28,10 @@ export class Workout {
 		volumeKG,
 		profileId,
 		workoutComments,
-		exerciseSets,
 		likedBy,
 		profile,
-		exerciseNotes,
-	}: TWorkout) {
+		workoutDetails,
+	}: Workout) {
 		this.id = id;
 		this.name = name;
 		this.createdAt = createdAt;
@@ -44,26 +39,22 @@ export class Workout {
 		this.volumeKG = volumeKG;
 		this.profileId = profileId;
 		this.workoutComments = workoutComments;
-		this.exerciseSets = exerciseSets;
 		this.likedBy = likedBy;
 		this.profile = profile;
-		this.exerciseNotes = exerciseNotes;
+		this.workoutDetails = workoutDetails;
 	}
 
 	static From(
 		workout: PrismaWorkout & { WorkoutComment?: PrismaWorkoutComment[] } & {
-			ExerciseSet?: PrismaExerciseSet[];
-		} & { LikedBy?: PrismaProfile[] } & {
-			ExerciseNote?: PrismaExerciseNote[];
-		} & { profile?: PrismaProfile }
+			WorkoutDetails?: PrismaWorkoutDetails[];
+		} & { LikedBy?: PrismaProfile[] } & { profile?: PrismaProfile }
 	): Workout {
 		return new Workout({
 			...workout,
 			workoutComments: workout?.WorkoutComment?.map(WorkoutComment.From),
-			exerciseSets: workout?.ExerciseSet?.map(ExerciseSet.From),
+			workoutDetails: workout?.WorkoutDetails?.map(WorkoutDetails.From),
 			likedBy: workout?.LikedBy?.map(Profile.From),
 			profile: workout.profile ? Profile.From(workout.profile) : null,
-			exerciseNotes: workout?.ExerciseNote?.map(Note.From),
 		});
 	}
 }

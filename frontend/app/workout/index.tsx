@@ -1,44 +1,9 @@
-import profileService from "@/lib/profileService";
 import workoutService from "@/lib/workoutService";
+import { TWorkout } from "@/types/workout.type";
 import { format } from "date-fns";
 import moment from "moment";
 import React, { useEffect } from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-
-interface ExerciseSet {
-	setId: number;
-	setNr: number;
-	repetitions: number;
-	weightKG: number;
-}
-
-interface Exercise {
-	exerciseId: number;
-	exerciseDescription: string;
-	exerciseEquipment: string;
-	exerciseName: string;
-	exerciseNote: string;
-	exerciseType: string;
-	sets: ExerciseSet[];
-}
-
-interface Workout {
-	exercises: Exercise[];
-	workoutCreatedAt: string;
-	workoutDurationSec: number;
-	workoutId: number;
-	workoutName: string;
-	workoutProfileId: number;
-	workoutProfileUsername: string;
-	workoutVolumeKG: number;
-}
-
-interface Profile {
-	email: string;
-	id: number;
-	password: number;
-	username: string;
-}
+import { View, Text,  ScrollView } from "react-native";
 
 const formatDuration = (durationSec: number) => {
 	const duration = moment.duration(durationSec, "seconds");
@@ -51,39 +16,28 @@ export default function WorkoutDetailsPage({
 	route: any;
 }) {
 	const { id } = route.params;
-	const [workout, setWorkout] = React.useState<Workout>();
-	const [exercises, setExercises] = React.useState<Exercise[]>();
+	const [workout, setWorkout] = React.useState<TWorkout>();
 
 	useEffect(() => {
-		const fetchData = async () => {
+		(async () => {
 			try {
 				// Fetch exercise details using the exerciseService
-				const workout: Workout = await workoutService.getWorkoutById(id);
+				const workout = await workoutService.getWorkoutDetailsById(id);
 				setWorkout(workout);
-				const arrayUniqueByKey = (array: any, key: any) => [
-					...new Map(array.map((item: any) => [item[key], item])).values(),
-				];
-				setExercises(
-					arrayUniqueByKey(workout.exercises, "exerciseId") as Exercise[]
-				);
-
-
-				// Now you can use exerciseDetails to update the component state or perform other actions
 			} catch (error) {
 				console.error("Error fetching workout:", error);
 			}
-		};
-		fetchData();
+		})();
 	}, []);
 
 	return (
 		<ScrollView className="bg-white px-4">
 					<View>
-						<Text className="text-lg">{workout?.workoutProfileUsername}</Text>
+						<Text className="text-lg">{workout?.profile?.username}</Text>
 						<Text className="text-sm">
-							{workout?.workoutCreatedAt
+							{workout?.createdAt
 								? format(
-										new Date(workout.workoutCreatedAt),
+										new Date(workout.createdAt),
 										"dd MMMM yyyy, kk:mm"
 									)
 								: null}
@@ -91,20 +45,20 @@ export default function WorkoutDetailsPage({
 					</View>
 
 					<View className="my-2 w-full">
-						<Text className="text-xl font-bold">{workout?.workoutName}</Text>
+						<Text className="text-xl font-bold">{workout?.name}</Text>
 						<View className="flex flex-row justify-between border-t-2 border-b-2 border-gray-200 py-2">
 							<View>
 								<Text>Time</Text>
-								<Text>{formatDuration(workout?.workoutDurationSec ?? 0)}</Text>
+								<Text>{formatDuration(workout?.durationSec ?? 0)}</Text>
 							</View>
 							<View>
 								<Text>Volume</Text>
-								<Text>{workout?.workoutVolumeKG} kg</Text>
+								<Text>{workout?.volumeKG} kg</Text>
 							</View>
 							<View>
 								<Text>Sets</Text>
 								<Text>
-									{exercises?.map((exercise) => exercise.sets).flat().length}
+									{workout?.workoutDetails?.map((exercise) => exercise.exerciseSets).flat().length}
 								</Text>
 							</View>
 						</View>
@@ -113,14 +67,14 @@ export default function WorkoutDetailsPage({
 					<View className="w-full">
 						<Text>Workout</Text>
 						<View className="my-2">
-							{exercises?.map((exercise) => (
-								<View className="mb-2" key={exercise.exerciseId}>
+							{workout?.workoutDetails?.map((details) => (
+								<View className="mb-2" key={details.id}>
 									<View className="mb-2">
 										<Text className="text-lg font-extrabold">
-											{exercise.exerciseName}
+											{details.exercise?.name}
 										</Text>
-										{exercise.exerciseNote ? (
-											<Text>{exercise.exerciseNote}</Text>
+										{details.note ? (
+											<Text>{details.note}</Text>
 										) : null}
 									</View>
 									<View className="flex flex-row justify-between">
@@ -128,10 +82,10 @@ export default function WorkoutDetailsPage({
 										<Text>WEIGHT & REPS</Text>
 									</View>
 
-									{exercise.sets.map((set) => (
+									{details?.exerciseSets?.map((set) => (
 										<View
 											className="flex flex-row justify-between"
-											key={set.setId}
+											key={set.id}
 										>
 											<Text>{set.setNr}</Text>
 											<Text>

@@ -1,6 +1,14 @@
 import { Workout } from "../domain/model/workout";
 import workoutDB from "../domain/data-access/workout.db";
-import { TInputWorkout } from "@/types/workout.type";
+
+type TInputWorkout = {
+	id?: number;
+	name: string;
+	durationSec: number;
+	createdAt: Date;
+	volumeKG: number;
+	profileId: number;
+};
 
 const getWorkoutByIdIncludeAll = async ({
 	id,

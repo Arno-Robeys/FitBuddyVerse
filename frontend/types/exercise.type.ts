@@ -1,4 +1,4 @@
-import { TNote } from './note.type';
+import { TNote } from './details.type';
 import { TExerciseSet } from './set.type';
 
 export type TExercise = {

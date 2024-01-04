@@ -36,4 +36,5 @@ router.post("/create", async (req, res) => {
 		res.status(500).send({ status: 500, message: err.message });
 	}
 });
+
 export default router;

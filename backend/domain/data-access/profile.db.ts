@@ -68,10 +68,9 @@ const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
 				include: {
 					Workout: {
 						include: {
-							ExerciseSet: { include: { exercise: true } },
+							WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
 							WorkoutComment: { include: { profile: true } },
 							LikedBy: true,
-							ExerciseNote: true,
 						},
 					},
 				},
@@ -91,10 +90,9 @@ const getProfileByIdIncludeAll = async (
 		include: {
 			Workout: {
 				include: {
-					ExerciseSet: { include: { workout: true, exercise: true } },
+					WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
 					WorkoutComment: { include: { profile: true } },
 					LikedBy: true,
-					ExerciseNote: true,
 				},
 			},
 			followedBy: true,
@@ -110,7 +108,6 @@ const getAllProfiles = async (): Promise<Profile[]> => {
 };
 
 const getAllProfilesWithName = async (name: string): Promise<Profile[]> => {
-	//Get all profiles that are not the current user
 	const profiles = await database.profile.findMany({
 		where: {
 			username: {

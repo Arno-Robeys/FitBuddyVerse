@@ -8,7 +8,7 @@ const createSet = async (set: ExerciseSet): Promise<ExerciseSet> => {
             weightKG: set.weightKG,
             setNr: set.setNr,
             repetitions: set.repetitions,
-            exerciseId: set.exerciseId,
+            workoutDetailsId: set.workoutDetailsId,
             workoutId: set.workoutId
           }
     });
