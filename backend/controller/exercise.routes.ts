@@ -124,4 +124,5 @@ router.get("/:id/:profileId/exercise-history", async (req, res) => {
 		res.status(404).json({ status: "error", errorMessage: error.message });
 	}
 });
+
 export default router;

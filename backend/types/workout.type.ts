@@ -21,7 +21,7 @@ export type TWorkout = {
 export type TInputWorkout = {
 	id?: number;
 	name: string;
-	createdAt: string;
+	createdAt: Date;
 	durationSec: number;
 	volumeKG: number;
 	profileId: number;

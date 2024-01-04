@@ -26,7 +26,7 @@ const getWorkoutByIdForWorkoutPage = async ({ id }: { id: string }) => {
 };
 
 const createWorkout = async ({ name, durationSec, createdAt, volumeKG, profileId }: TInputWorkout) => {
-	return await workoutDB.createWorkout(new Workout({ name, durationSec, createdAt: new Date(createdAt), volumeKG, profileId }));
+	return await workoutDB.createWorkout(new Workout({ name, durationSec, createdAt, volumeKG, profileId }));
 };
 
 export default {

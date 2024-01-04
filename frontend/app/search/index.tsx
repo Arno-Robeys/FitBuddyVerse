@@ -1,6 +1,6 @@
 import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
-import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -11,9 +11,16 @@ export default function SearchPage({ navigation }: { navigation: any }) {
 	const handleSearch = (text: string) => {
 		setSearchText(text);
 		if (text.length < 1) setUsers([]);
-		else profileService.searchProfiles(text).then(res => {
-			setUsers(res.profiles);
-		});
+		else {
+			AsyncStorage.getItem("profile").then((res) => {
+				const profile = JSON.parse(res!);
+				profileService.searchProfiles(text).then(res => {
+					setUsers(res.profiles.filter((user: { id: any; }) => user.id !== profile.id));
+				});
+			}).catch((err) => {
+				console.log(err);
+			});
+		}
 	}
 
 	useEffect(() => {

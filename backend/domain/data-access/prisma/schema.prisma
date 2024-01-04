@@ -37,7 +37,6 @@ model Profile {
   email          String           @unique
   username       String           @unique
   password       String
-  profilePicture String?
   Workout        Workout[]
   WorkoutComment WorkoutComment[]
   following      Profile[]        @relation("ProfileFollows")

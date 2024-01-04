@@ -41,8 +41,8 @@ export class ExerciseSet {
 	}
 
 	static From(
-		exerciseSet: PrismaExerciseSet & { workout: PrismaWorkout } & {
-			exercise: PrismaExercise;
+		exerciseSet: PrismaExerciseSet & { workout?: PrismaWorkout } & {
+			exercise?: PrismaExercise;
 		}
 	): ExerciseSet {
 		return new ExerciseSet({

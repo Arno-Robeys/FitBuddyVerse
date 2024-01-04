@@ -1,12 +1,14 @@
 "use client";
 import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
+import exerciseSetService from "@/lib/exerciseSetService";
+import workoutService from "@/lib/workoutService";
 import { TExercise } from "@/types/exercise.type";
 import { TWorkoutExercise } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, ToastAndroid } from 'react-native';
 
 
 export default function WorkoutPage({ navigation }: { route: any, navigation: any }) {
@@ -19,9 +21,36 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
     useEffect(() => {
         if (workout.completed) {
             //Finish workout
-            console.log("FINISH", workout);
-            //Tijdelijk voor testing purposes
-            setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+            const completedSets = workout.exercise?.map((exercise) => exercise?.exerciseSets?.filter((set) => set.isCompleted && set.repetitions != 0 && set.weightKG != 0)).flat()
+            
+            if(!workout.name.trim()) {
+                ToastAndroid.show('Please enter a workout name', ToastAndroid.SHORT);
+                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                return;
+            } else if(!workout.exercise?.length) {
+                ToastAndroid.show('Please add at least 1 exercise', ToastAndroid.SHORT);
+                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                return;
+            } else if(completedSets?.length === 0) {
+                ToastAndroid.show('Please complete at least 1 set', ToastAndroid.SHORT);
+                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                return;
+            }
+
+            workoutService.createWorkout(workout).then((res) => {
+                completedSets?.forEach((set) => {
+                    if(set) {
+                        exerciseSetService.createExerciseSet({...set, workoutId: res.workout.id}).then((r) => {
+                            navigation.reset({ routes: [{ name: "Profile" }] });
+                            ToastAndroid.show('Workout completed', ToastAndroid.SHORT);
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                    }
+                });
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }, [workout.completed]);
 

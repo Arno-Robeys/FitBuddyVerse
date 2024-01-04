@@ -28,11 +28,12 @@ const getExerciseHistory = async (exerciseId: number, profileId: number) => {
     const exercise_history = await exerciseDb.getExerciseHistory(exerciseId, profileId);
     return exercise_history;
 }
+
 export default {
     getExerciseById,
     getExerciseByIdFromUser,
     getWorkoutGraphForExercise,
     getPersonalBestForExercise,
     getExerciseHistory,
-    getAllExercises
+    getAllExercises,
 }

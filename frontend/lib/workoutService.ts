@@ -1,4 +1,4 @@
-//http://localhost:3000
+import { TWorkoutExercise } from "@/types/workout.type";
 import axios from "axios";
 
 const getWorkoutById = async (id: string) => {
@@ -9,6 +9,13 @@ const getWorkoutById = async (id: string) => {
 	).data.workout[0];
 };
 
+const createWorkout = async (workout: TWorkoutExercise) => {
+	return (
+		await axios.post(process.env.EXPO_PUBLIC_URL + `/workouts/create`, workout)
+	).data;
+};
+
 export default {
 	getWorkoutById,
+	createWorkout,
 };
