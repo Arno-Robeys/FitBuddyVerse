@@ -1,9 +1,5 @@
 
-import {
-	ExerciseSet as PrismaExerciseSet,
-	Exercise as PrismaExercise,
-} from "@prisma/client";
-import { Exercise } from "./exercise";
+import {ExerciseSet as PrismaExerciseSet} from "@prisma/client";
 
 export class ExerciseSet {
 	readonly id: number;
@@ -12,7 +8,6 @@ export class ExerciseSet {
 	readonly setNr: number;
 	readonly repetitions: number;
 	readonly weightKG: number;
-	readonly exercise?: Exercise;
 
 	constructor({
 		id,
@@ -21,7 +16,6 @@ export class ExerciseSet {
 		setNr,
 		repetitions,
 		weightKG,
-		exercise,
 	}: ExerciseSet) {
 		this.id = id;
 		this.workoutId = workoutId;
@@ -29,17 +23,11 @@ export class ExerciseSet {
 		this.setNr = setNr;
 		this.repetitions = repetitions;
 		this.weightKG = weightKG;
-		this.exercise = exercise;
 	}
 
 	static From(
-		exerciseSet: PrismaExerciseSet & {
-			exercise?: PrismaExercise;
-		}
+		exerciseSet: PrismaExerciseSet
 	): ExerciseSet {
-		return new ExerciseSet({
-			...exerciseSet,
-			exercise: exerciseSet?.exercise ? Exercise.From(exerciseSet.exercise) : null
-		});
+		return new ExerciseSet(exerciseSet);
 	}
 }

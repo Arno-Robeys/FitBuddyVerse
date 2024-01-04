@@ -1,12 +1,12 @@
 import { TWorkoutExercise } from "@/types/workout.type";
 import axios from "axios";
 
-const getWorkoutById = async (id: string) => {
+const getWorkoutDetailsById = async (id: string) => {
 	return (
 		await axios.get(
 			process.env.EXPO_PUBLIC_URL + `/workouts/${id}/workout-page`
 		)
-	).data.workout[0];
+	).data.workout;
 };
 
 const createWorkout = async (workout: TWorkoutExercise) => {
@@ -16,6 +16,6 @@ const createWorkout = async (workout: TWorkoutExercise) => {
 };
 
 export default {
-	getWorkoutById,
+	getWorkoutDetailsById,
 	createWorkout,
 };
