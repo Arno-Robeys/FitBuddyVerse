@@ -2,7 +2,6 @@ import { TWorkout } from "../../types/workout.type";
 import { WorkoutComment } from "../model/comment";
 import { ExerciseSet } from "../model/set";
 import { Profile } from "../model/profile";
-import { Exercise } from "../model/exercise";
 import { Note } from "./note";
 import {
 	WorkoutComment as PrismaWorkoutComment,
@@ -10,7 +9,6 @@ import {
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
 	ExerciseNote as PrismaExerciseNote,
-	Exercise as PrismaExercise,
 } from "@prisma/client";
 
 export class Workout {
@@ -21,7 +19,6 @@ export class Workout {
 	readonly volumeKG: number;
 	readonly profileId: number;
 	readonly workoutComments?: WorkoutComment[];
-	readonly exercises?: Exercise[];
 	readonly exerciseSets?: ExerciseSet[];
 	readonly likedBy?: Profile[];
 	readonly profile?: Profile;
@@ -37,7 +34,6 @@ export class Workout {
 		workoutComments,
 		exerciseSets,
 		likedBy,
-		exercises,
 		profile,
 		exerciseNotes,
 	}: TWorkout) {
@@ -50,7 +46,6 @@ export class Workout {
 		this.workoutComments = workoutComments;
 		this.exerciseSets = exerciseSets;
 		this.likedBy = likedBy;
-		this.exercises = exercises;
 		this.profile = profile;
 		this.exerciseNotes = exerciseNotes;
 	}
@@ -60,14 +55,13 @@ export class Workout {
 			ExerciseSet?: PrismaExerciseSet[];
 		} & { LikedBy?: PrismaProfile[] } & {
 			ExerciseNote?: PrismaExerciseNote[];
-		} & { Exercise?: PrismaExercise[] } & { profile?: PrismaProfile }
+		} & { profile?: PrismaProfile }
 	): Workout {
 		return new Workout({
 			...workout,
 			workoutComments: workout?.WorkoutComment?.map(WorkoutComment.From),
 			exerciseSets: workout?.ExerciseSet?.map(ExerciseSet.From),
 			likedBy: workout?.LikedBy?.map(Profile.From),
-			exercises: workout?.Exercise?.map(Exercise.From),
 			profile: workout.profile ? Profile.From(workout.profile) : null,
 			exerciseNotes: workout?.ExerciseNote?.map(Note.From),
 		});
