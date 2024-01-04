@@ -11,10 +11,19 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 	navigation,
 }) => {
 	const [username, setUsername] = React.useState<string>("");
+
 	const formatDuration = (durationSec: number) => {
 		const duration = moment.duration(durationSec, "seconds");
 		return `${duration.hours()}h ${duration.minutes()}m`;
 	};
+
+	const formateDate = (createdAt: String) => {
+		if (isYesterday(new Date(String(createdAt)))) {
+			return "Yesterday";
+		} else {
+			return format(new Date(String(createdAt)), "dd MMMM yyyy 'at' HH:mm");
+		}
+	}
 	
 	useEffect(() => {
 		const fetchData = async () => {
@@ -29,27 +38,29 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 		fetchData();
 	}, []);
 
-	const publishDate: Date = new Date(workout.createdAt);
-	const createdAtDateString = isYesterday(publishDate)
-		? `Yesterday at ${format(publishDate, "h:mmaaa")}`
-		: format(publishDate, "dd MMM yyyy HH:mm");
 
 	return (
-		<TouchableOpacity
-			onPress={() => navigation.navigate("Workout", { id: workout.id })}
-		>
-			<View className="mt-3">
-				<Text className="text-lg">{username}</Text>
+		<View className="mt-3">
+			{/* clickable username to go to profile */}
+			<TouchableOpacity
+				onPress={() => navigation.navigate("Profile", { id: workout.profileId })}
+			>
+				<Text className="text-center text-lg">{username}</Text>
+			</TouchableOpacity>
+
+			<TouchableOpacity
+				onPress={() => navigation.navigate("Workout", { id: workout.id })}
+			>
 				<View className="border-y-2">
-					<Text>{workout.name}</Text>
+					<Text className="flex text-left">{workout.name}</Text>
+					<Text>{formateDate(workout.createdAt)}</Text>
 					<Text>Volume: {workout.volumeKG} kg</Text>
 					<Text>Duration: {formatDuration(workout.durationSec)}</Text>
-					<Text>{createdAtDateString}</Text>
 					<Text>{workout.likedBy?.length ?? 0} likes</Text>
 					<EvilIcons name="like" size={24} />
 				</View>
-			</View>
-		</TouchableOpacity>
+			</TouchableOpacity>
+		</View>
 	);
 };
 
