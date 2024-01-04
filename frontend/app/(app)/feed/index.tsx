@@ -6,61 +6,75 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 
+
 export default function FeedPage({ navigation }: { navigation: any }) {
-	const [profile, setProfile] = useState<TProfileAll>();
 
-	var fetchData = async () => {
-		try {
-			const p = JSON.parse(
-				(await AsyncStorage.getItem("profile")) ?? "{}"
-			) as TProfile;
-			var res = await profileService.getProfilesFollowingAll(p?.id ?? 0);
-			setProfile(res.profiles);
-		} catch (err) {
-			console.log(err);
+  const [profile, setProfile] = useState<TProfileAll>();
+  
+  var fetchData = async () => {
+    try {
+      const p = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}") as TProfile;
+
+      // Fetch profiles of users being followed
+      var res = await profileService.getProfilesFollowingAll(p?.id ?? 0);
+      setProfile(res.profiles);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+return (
+	<>
+
+	  {/* FlatList component for rendering a scrollable list of workouts */}
+	  <FlatList
+		className="bg-white p-6"
+		refreshControl={
+		  // Pull-to-refresh functionality with a RefreshControl component
+		  <RefreshControl refreshing={false} onRefresh={() => fetchData()} />
 		}
-	};
 
-	useEffect(() => {
-		fetchData();
-	}, []);
+		data={
+		  // Extract workouts from the profiles of users being followed
+		  profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[]
+		}
+		nestedScrollEnabled={true}
+		keyExtractor={(item) => (item.id as number).toString()}
 
-	return (
-		<>
-			<FlatList
-				className="bg-white p-6"
-				refreshControl={
-					<RefreshControl refreshing={false} onRefresh={() => fetchData()} />
-				}
-				data={
-					profile?.following
-						?.map((profile) => profile.workouts)
-						.flat() as TWorkout[]
-				}
-				nestedScrollEnabled={true}
-				keyExtractor={(item) => (item.id as number).toString()}
-				ListHeaderComponent={() => (
-					<View>
-						<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-							Your Feed
-						</Text>
-						<Text className="mt-2 text-lg text-gray-600 mb-4">
-							Workouts of all your following will appear here.
-						</Text>
-					</View>
-				)}
-				ListEmptyComponent={() => (
-					<View>
-						<Text className="mt-12 text-lg text-center text-gray-600 mb-4">
-							All the people that you follow haven't worked out yet so you can't
-							see anything here.
-						</Text>
-					</View>
-				)}
-				renderItem={({ item }) => (
-					<Workout key={item.id} workout={item} navigation={navigation} />
-				)}
-			/>
-		</>
-	);
+		// Header component with introductory text
+		ListHeaderComponent={() => (
+		  <View>
+			<Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+			  Your Feed
+			</Text>
+			<Text className="mt-2 text-lg text-gray-600 mb-4">
+			  Workouts of all your following will appear here.
+			</Text>
+		  </View>
+		)}
+
+		// When the feed is empty
+		ListEmptyComponent={() => (
+		  <View>
+			<Text className="mt-12 text-lg text-center text-gray-600 mb-4">
+			  All the people that you follow haven't worked out yet, so you can't see anything here.
+			</Text>
+		  </View>
+		)}
+
+		// Render each workout using the Workout component
+		renderItem={({ item }) => (
+		  <Workout key={item.id} workout={item} navigation={navigation} />
+		)}
+	  />
+
+	</>
+  );
+  
 }

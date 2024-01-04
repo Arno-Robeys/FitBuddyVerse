@@ -52,12 +52,15 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 				onPress={() => navigation.navigate("Workout", { id: workout.id })}
 			>
 				<View className="border-y-2">
-					<Text className="flex text-left">{workout.name}</Text>
-					<Text>{formateDate(workout.createdAt)}</Text>
-					<Text>Volume: {workout.volumeKG} kg</Text>
-					<Text>Duration: {formatDuration(workout.durationSec)}</Text>
-					<Text>{workout.likedBy?.length ?? 0} likes</Text>
-					<EvilIcons name="like" size={24} />
+					<Text className="text-center text-sm">{formateDate(workout.createdAt)}</Text>
+					<Text className="text-base">{workout.name}</Text>
+					<Text className="text-base">Volume: {workout.volumeKG} kg</Text>
+					<Text className="text-base">Duration: {formatDuration(workout.durationSec)}</Text>
+					<Text className="text-base">
+						<EvilIcons name="like" size={24} /> 
+						{workout.likedBy?.length ?? 0} likes
+					</Text>
+					
 				</View>
 			</TouchableOpacity>
 		</View>
