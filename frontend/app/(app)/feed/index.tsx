@@ -27,11 +27,11 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 	  fetchData();
 	}, []);
   
-	// Extract workouts from the profiles of users being followed
-	const allWorkouts = profile?.following?.map((profile) => profile.workouts).flat() as TWorkout[];
+	// Ensure that profile?.following is defined before attempting to map
+	const allWorkouts = profile?.following?.map((profile) => profile.workouts)?.flat() as TWorkout[];
   
-	// Sort the workouts based on the createdAt property
-	const sortedWorkouts = allWorkouts.slice().sort((a, b) => {
+	// Ensure that allWorkouts is defined before attempting to sort
+	const sortedWorkouts = allWorkouts?.slice().sort((a, b) => {
 	  const dateA = new Date(a.createdAt);
 	  const dateB = new Date(b.createdAt);
 	  return dateB.getTime() - dateA.getTime();
@@ -46,7 +46,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 			// Pull-to-refresh functionality with a RefreshControl component
 			<RefreshControl refreshing={false} onRefresh={() => fetchData()} />
 		  }
-		  data={sortedWorkouts} // Use the sorted data
+		  data={sortedWorkouts || []} // Use the sorted data or an empty array if undefined
 		  nestedScrollEnabled={true}
 		  keyExtractor={(item) => (item.id as number).toString()}
   
@@ -77,7 +77,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 		  )}
   
 		  // Add a margin-bottom under the last rendered item
-		  ListFooterComponent={() => <View className="mb-20" />}
+		  ListFooterComponent={() => <View className="mb-10" />}
 		/>
 	  </>
 	);
