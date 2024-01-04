@@ -1,4 +1,4 @@
-/*import express from "express";
+import express from "express";
 const router = express.Router();
 import exerciseService from "../service/exercise.service";
 
@@ -125,4 +125,4 @@ router.get("/:id/:profileId/exercise-history", async (req, res) => {
 	}
 });
 
-export default router;*/
+export default router;

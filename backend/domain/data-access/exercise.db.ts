@@ -1,7 +1,7 @@
-/*import database from "./prisma/db";
+import database from "./prisma/db";
 import { Exercise } from "../model/exercise";
 
-/*const getExerciseById = async (id: number): Promise<Exercise> => {
+const getExerciseById = async (id: number): Promise<Exercise> => {
 	const exercise = await database.exercise.findUnique({
 		where: {
 			id: id,
@@ -154,8 +154,3 @@ export default {
 	getExerciseHistory,
 	getAllExercises,
 };
-*/
-
-export default {
-	
-}
