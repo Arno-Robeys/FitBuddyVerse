@@ -29,6 +29,7 @@ interface Workout {
 	workoutId: number;
 	workoutName: string;
 	workoutProfileId: number;
+	workoutProfileUsername: string;
 	workoutVolumeKG: number;
 }
 
@@ -52,7 +53,6 @@ export default function WorkoutDetailsPage({
 	const { id } = route.params;
 	const [workout, setWorkout] = React.useState<Workout>();
 	const [exercises, setExercises] = React.useState<Exercise[]>();
-	const [profile, setProfile] = React.useState<Profile>();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -60,16 +60,13 @@ export default function WorkoutDetailsPage({
 				// Fetch exercise details using the exerciseService
 				const workout: Workout = await workoutService.getWorkoutById(id);
 				setWorkout(workout);
-				const profile: Profile = await profileService.getProfileById(
-					workout.workoutProfileId
-				);
 				const arrayUniqueByKey = (array: any, key: any) => [
 					...new Map(array.map((item: any) => [item[key], item])).values(),
 				];
 				setExercises(
 					arrayUniqueByKey(workout.exercises, "exerciseId") as Exercise[]
 				);
-				setProfile(profile);
+
 
 				// Now you can use exerciseDetails to update the component state or perform other actions
 			} catch (error) {
@@ -82,7 +79,7 @@ export default function WorkoutDetailsPage({
 	return (
 		<ScrollView className="bg-white px-4">
 					<View>
-						<Text className="text-lg">{profile?.username}</Text>
+						<Text className="text-lg">{workout?.workoutProfileUsername}</Text>
 						<Text className="text-sm">
 							{workout?.workoutCreatedAt
 								? format(
