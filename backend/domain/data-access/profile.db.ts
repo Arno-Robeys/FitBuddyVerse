@@ -8,7 +8,6 @@ const createProfile = async (profileData: Profile): Promise<Profile> => {
 				email: profileData.email.toLowerCase(),
 				username: profileData.username.toLowerCase(),
 				password: profileData.password,
-				profilePicture: profileData.profilePicture || null,
 			},
 		});
 		return Profile.From(profile);
