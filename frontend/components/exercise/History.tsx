@@ -7,8 +7,8 @@ export default function History({ workouts }: any) {
 		return (
 			<View className="flex h-full justify-center items-center mx-10">
 				<View className="bg-slate-400/20 p-4 rounded-md">
-					<Text className="text-lg">
-						You don't have any workouts with this exercise
+					<Text className="text-center font-bold text-lg">
+						You don't have any workouts with this exercise.
 					</Text>
 				</View>
 			</View>

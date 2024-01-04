@@ -1,13 +1,13 @@
 import exerciseService from "@/lib/exerciseService";
 import React, { useEffect, useState } from "react";
-import { Button, Dimensions, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
-interface ApiResponse {
+//Workout Graph
+interface ApiResponseGraph {
     status: string;
     graph: GraphItem[];
 }
-
 interface GraphItem {
     id: number;
     volumeKG: number;
@@ -17,8 +17,7 @@ interface GraphItem {
     total_reps: number;
     best_set_volume: number;
 }
-
-type GraphItemType =
+type GraphItemFilterType =
     | "volumeKG"
     | "one_rep_max"
     | "max_weight"
@@ -26,12 +25,27 @@ type GraphItemType =
     | "best_set_volume";
 
 const changeToUserView = {
-    volumeKG: "Volume (KG)",
-    one_rep_max: "Single Rep Max (KG)",
-    max_weight: "Max Weight (KG)",
-    total_reps: "Total Reps (Amount)",
+    volumeKG: "Volume (kg)",
+    one_rep_max: "Single Rep Max (kg)",
+    max_weight: "Max Weight (kg)",
+    total_reps: "Total Reps (amount)",
     best_set_volume: "Best Set Volume (kg)",
 };
+
+//Personal Best
+interface ApiResponseBest {
+    status: string;
+    personal_best: BestItem[];
+}
+interface BestItem {
+    workout_id: number;
+    set_id: number;
+    repetitions: number;
+    weightKG: number;
+    set_volume: number;
+    set_volume_string: string;
+}
+
 
 export default function ExerciseInfoPage({
     route,
@@ -42,14 +56,14 @@ export default function ExerciseInfoPage({
 }) {
     const { id, userid } = route.params;
 
-    const [exerciseGraph, setExerciseGraph] = useState<ApiResponse>();
-    const [userSelected, setUserSelected] = useState<GraphItemType>("volumeKG"); // volumeKG is default value
+    const [exerciseGraph, setExerciseGraph] = useState<ApiResponseGraph>();
+    const [userSelected, setUserSelected] = useState<GraphItemFilterType>("volumeKG"); // volumeKG is default value
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch exercise details using the exerciseService
-                const exerciseGraph: ApiResponse =
+                const exerciseGraph: ApiResponseGraph =
                     await exerciseService.getExerciseGraph(id, userid);
                 setExerciseGraph(exerciseGraph);
 
@@ -108,41 +122,46 @@ export default function ExerciseInfoPage({
                         borderRadius: 0,
                     }}
                 />
+                <ScrollView horizontal style={{ maxHeight: 30 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        {/* Filter buttons */}
+                        <TouchableOpacity
+                            onPress={() => setUserSelected(userSelected === 'volumeKG' ? 'volumeKG' : 'volumeKG')}
+                            className="bg-indigo-800 rounded mr-1 px-2 py-1">
+                            <Text className="text-center text-white font-bold">Volume</Text>
+                        </TouchableOpacity>
 
-                {/* Filter buttons */}
-                <TouchableOpacity
-                    onPress={() => setUserSelected(userSelected === 'volumeKG' ? 'volumeKG' : 'volumeKG')}
-                    className="bg-indigo-800 rounded mt-0.5 py-2">
-                    <Text className="text-center text-white font-bold">Volume</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setUserSelected(userSelected === 'one_rep_max' ? 'volumeKG' : 'one_rep_max')}
+                            className="bg-indigo-800 rounded mr-1 px-2 py-1">
+                            <Text className="text-center text-white font-bold">Single Rep Max</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => setUserSelected(userSelected === 'one_rep_max' ? 'volumeKG' : 'one_rep_max')}
-                    className="bg-indigo-800 rounded mt-0.5 py-2">
-                    <Text className="text-center text-white font-bold">Single Rep Max</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setUserSelected(userSelected === 'max_weight' ? 'volumeKG' : 'max_weight')}
+                            className="bg-indigo-800 rounded mr-1 px-2 py-1">
+                            <Text className="text-center text-white font-bold">Max Weight</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => setUserSelected(userSelected === 'max_weight' ? 'volumeKG' : 'max_weight')}
-                    className="bg-indigo-800 rounded mt-0.5 py-2">
-                    <Text className="text-center text-white font-bold">Max Weight</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setUserSelected(userSelected === 'total_reps' ? 'volumeKG' : 'total_reps')}
+                            className="bg-indigo-800 rounded mr-1 px-2 py-1">
+                            <Text className="text-center text-white font-bold">Total Reps</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => setUserSelected(userSelected === 'total_reps' ? 'volumeKG' : 'total_reps')}
-                    className="bg-indigo-800 rounded mt-0.5 py-2">
-                    <Text className="text-center text-white font-bold">Total Reps</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => setUserSelected(userSelected === 'best_set_volume' ? 'volumeKG' : 'best_set_volume')}
-                    className="bg-indigo-800 rounded mt-0.5 py-2">
-                    <Text className="text-center text-white font-bold">Best Set Volume</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setUserSelected(userSelected === 'best_set_volume' ? 'volumeKG' : 'best_set_volume')}
+                            className="bg-indigo-800 rounded mr-1 px-2 py-1">
+                            <Text className="text-center text-white font-bold">Best Set Volume</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </>
             ) : (
                 // Shown when there is no available data 
-                <Text className="font-bold text-xl">No graph data is currently available.</Text>
+                <View className="bg-slate-400/20 p-4 rounded-md">
+                    <Text className="text-center font-bold text-lg">No graph data is currently available.</Text>
+                </View>
             )}
 
             {/* Go to exercise history button */}
