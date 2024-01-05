@@ -34,8 +34,6 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 		});
 	};
   
-
-  
 	return (
 	  <>
 		{/* FlatList component for rendering a scrollable list of workouts */}
