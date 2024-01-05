@@ -5,7 +5,7 @@ import { TProfile, TProfileAll } from "@/types/profile.type";
 import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage({ navigation }: { navigation: any }) {
 	const [profile, setProfile] = useState<TProfileAll>();
@@ -22,16 +22,17 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 		}
 	};
 
-	const ProfileInfo = ({ label, value }: { label: string, value: string | number }) => (
-		<View className="flex flex-col">
-		  <Text className="text-sm text-gray-700 font-bold">{label}:</Text>
-		  <Text className="text-base">{value}</Text>
-		</View>
-	  );
-
 	useEffect(() => {
 		fetchData();
 	}, []);
+
+	const handleFollowers = () => {
+		navigation.navigate('Follow', { type: "followers", profileId: profile?.id })
+	};
+
+	const handleFollowing = () => {
+		navigation.navigate("Follow", { type: "following", profileId: profile?.id });
+	};
 
 	return (
 		<>
@@ -60,21 +61,27 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 
 							<View className="flex flex-row justify-between w-8/12 mx-auto my-2 divide-x-2 divide-gray-100 py-2">
 								<View className="w-6/12">
-									<Text className="text-center font-bold text-lg">
-										{profile?.following?.length ?? 0}
-									</Text>
-									<Text className="text-center text-sm">
-										Following
-									</Text>
+									<TouchableOpacity
+									onPress={handleFollowing}>
+										<Text className="text-center font-bold text-lg">
+											{profile?.following?.length ?? 0}
+										</Text>
+										<Text className="text-center text-sm">
+											Following
+										</Text>
+										</TouchableOpacity>
 								</View>
 
 								<View className="w-6/12">
-									<Text className="text-center font-bold text-lg">
-										{profile?.followedBy?.length ?? 0}
-									</Text>
-									<Text className="text-center text-sm">
-										Followers
-									</Text>
+									<TouchableOpacity
+									onPress={handleFollowers}>
+										<Text className="text-center font-bold text-lg">
+											{profile?.followedBy?.length ?? 0}
+										</Text>
+										<Text className="text-center text-sm">
+											Followers
+										</Text>
+									</TouchableOpacity>
 								</View>
 							</View>
 							

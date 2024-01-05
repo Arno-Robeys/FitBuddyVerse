@@ -56,6 +56,21 @@ const getProfileByIdIncludeFollowing = async (
 	return profile ? Profile.From(profile) : null;
 };
 
+const getProfileByIdIncludeFollowingAndFollowedBy = async (
+    profileId: string
+): Promise<Profile | null> => {
+    const profile = await database.profile.findUnique({
+        where: {
+            id: Number.parseInt(profileId),
+        },
+        include: {
+            following: true,
+                        followedBy: true
+        },
+    });
+    return profile ? Profile.From(profile) : null;
+};
+
 const getProfileByIdIncludeAll = async (
 	profileId: string
 ): Promise<Profile | null> => {
@@ -148,6 +163,7 @@ const updateProfile = async (
 	return Profile.From(profile);
 }
 
+
 export default {
 	createProfile,
 	getProfileById,
@@ -158,5 +174,6 @@ export default {
 	followProfile,
 	unfollowProfile,
 	getProfileByIdIncludeFollowing,
+	getProfileByIdIncludeFollowingAndFollowedBy,
 	updateProfile
 };

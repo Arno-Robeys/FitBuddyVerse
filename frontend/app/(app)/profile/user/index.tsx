@@ -28,14 +28,7 @@ export default function ProfileUserPage({
 			console.log(err);
 		}
 	};
-
-	const ProfileInfo = ({ label, value }: { label: string, value: string | number }) => (
-		<View className="flex flex-col">
-		  <Text className="text-sm text-gray-700 font-bold">{label}:</Text>
-		  <Text className="text-base">{value}</Text>
-		</View>
-	  );
-
+	
 	useEffect(() => {
 		fetchData();
 	}, []);

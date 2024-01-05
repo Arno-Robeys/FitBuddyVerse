@@ -86,6 +86,13 @@ const updateProfile = async (id: string, username: string, email: string, passwo
 	const profile = await profileDb.updateProfile(parseInt(id), username, email, password);
 	return profile;
 }
+
+const getProfileByIdIncludeFollowingAndFollowedBy = async (profileId: string): Promise<Profile | null> => {
+	if (!Number.isInteger(parseInt(profileId)))
+		throw new Error("Id must be numeric and whole");
+	const profile = await profileDb.getProfileByIdIncludeFollowingAndFollowedBy(profileId);
+	return profile;
+}
 	
 
 export default {
@@ -98,5 +105,6 @@ export default {
 	followProfile,
 	unfollowProfile,
 	getProfileByIdIncludeFollowing,
+	getProfileByIdIncludeFollowingAndFollowedBy,
 	updateProfile
 };

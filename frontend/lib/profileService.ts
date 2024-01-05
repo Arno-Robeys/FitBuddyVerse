@@ -44,6 +44,7 @@ const updateProfile = async (id: number, username: string, email: string, passwo
 	}, {headers: {"Content-Type": "application/json"}});
 }
 
+const getFollow = async (id: number) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}/follow`)).data;
 export default {
 	createProfile,
 	loginProfile,
@@ -53,5 +54,6 @@ export default {
 	getProfileById,
 	followProfile,
 	unfollowProfile,
-	updateProfile
+	updateProfile,
+	getFollow
 };
