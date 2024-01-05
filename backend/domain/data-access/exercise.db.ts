@@ -63,6 +63,9 @@ const getPersonalBestForExercise = async (
             w_inner."profileId" = ${profileId}
             AND wd_inner."exerciseId" = ${exerciseId}
             AND es_inner."weightKG" * es_inner.repetitions = MAX(es."weightKG" * es.repetitions)
+        GROUP BY
+            es_inner."weightKG", es_inner.repetitions
+        LIMIT 1
     ) as set_volume_string
   FROM "Workout" w
   LEFT JOIN "WorkoutDetails" wd ON w.id = wd."workoutId"
