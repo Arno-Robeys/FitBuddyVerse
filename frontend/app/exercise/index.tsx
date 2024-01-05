@@ -169,7 +169,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
         {/* Verify if there is data available to display in the records section. */}
         {exerciseBest && exerciseBest.personal_best[0].heaviest_weight !== null ? (
           <View className="my-4 ">
-            <Text className="font-bold text-xl mt-4">Personal Records🥇{exerciseBest.personal_best.length}</Text>
+            <Text className="font-bold text-xl mt-4">Personal Records🥇</Text>
 
             <View>
               <Text className="border-b-2 py-3 border-gray-300 font-bold">Heaviest Weight: {exerciseBest.personal_best[0].heaviest_weight} kg</Text>
