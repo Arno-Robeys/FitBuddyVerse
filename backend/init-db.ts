@@ -66,6 +66,7 @@ const main = async () => {
       durationSec: 2530,
       volumeKG: 10300,
       profileId: 1,
+      createdAt: new Date("2024-01-01T13:10:00.000Z"),
     },
     {
       id: 2,
@@ -73,6 +74,7 @@ const main = async () => {
       durationSec: 2000,
       volumeKG: 8500,
       profileId: 1,
+      createdAt: new Date("2024-01-03T10:10:00.000Z"),
     },
     {
       id: 3,
@@ -80,6 +82,7 @@ const main = async () => {
       durationSec: 1800,
       volumeKG: 7500,
       profileId: 1,
+      createdAt: new Date("2024-01-05T09:10:00.000Z"),
     },
     {
       id: 4,
@@ -87,6 +90,7 @@ const main = async () => {
       durationSec: 2398,
       volumeKG: 9230,
       profileId: 2,
+      createdAt: new Date("2024-01-01T11:10:00.000Z"),
     },
     {
       id: 5,
@@ -94,6 +98,7 @@ const main = async () => {
       durationSec: 2100,
       volumeKG: 8000,
       profileId: 2,
+      createdAt: new Date("2024-01-02T21:02:56.000Z"),
     },
     {
       id: 6,
@@ -101,6 +106,7 @@ const main = async () => {
       durationSec: 1800,
       volumeKG: 7000,
       profileId: 2,
+      createdAt: new Date("2024-01-04T09:31:46.000Z"),
     },
     {
       id: 7,
@@ -108,6 +114,7 @@ const main = async () => {
       durationSec: 1290,
       volumeKG: 5302,
       profileId: 3,
+      createdAt: new Date("2024-01-01T09:02:12.000Z"),
     },
     {
       id: 8,
@@ -115,6 +122,7 @@ const main = async () => {
       durationSec: 1100,
       volumeKG: 4800,
       profileId: 3,
+      createdAt: new Date("2024-01-03T16:56:20.000Z"),
     },
     {
       id: 9,
@@ -122,6 +130,7 @@ const main = async () => {
       durationSec: 900,
       volumeKG: 4000,
       profileId: 3,
+      createdAt: new Date("2024-01-05T08:12:00.000Z"),
     },
     {
       id: 10,
@@ -129,6 +138,7 @@ const main = async () => {
       durationSec: 1943,
       volumeKG: 12309,
       profileId: 4,
+      createdAt: new Date("2023-30-12T07:26:30.000Z"),
     },
     {
       id: 11,
@@ -136,6 +146,7 @@ const main = async () => {
       durationSec: 1800,
       volumeKG: 11000,
       profileId: 4,
+      createdAt: new Date("2024-01-01T09:10:00.000Z"),
     },
     {
       id: 12,
@@ -143,6 +154,7 @@ const main = async () => {
       durationSec: 1600,
       volumeKG: 10000,
       profileId: 4,
+      createdAt: new Date("2024-01-04T10:12:35.000Z"),
     },
     ]
   });

@@ -32,7 +32,7 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			{/* TODO: let navigation go to the profile of the perticular user! */}
 			{/* clickable username to go to profile */}
 			<TouchableOpacity
-				onPress={() => navigation.navigate("Profile", { id: workout.profileId })}
+				onPress={() => navigation.navigate("ProfileUser", { id: workout.profileId })}
 			>
 				<Text className="text-xl text-white">{workout.profile?.username}</Text>
 			</TouchableOpacity>
