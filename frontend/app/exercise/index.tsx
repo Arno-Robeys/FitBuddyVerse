@@ -49,30 +49,20 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
   useEffect(() => {
     const fetchData = async () => {
-      // NAVIGATION TITLE
       try {
+        //Personal Records
+        const exerciseBest: ApiResponseBest = await exerciseService.getExerciseBest(id, userid);
+        setExerciseBest(exerciseBest);
+
+        //Graphs Data
+        const exerciseGraph: ApiResponseGraph = await exerciseService.getExerciseGraph(id, userid);
+        setExerciseGraph(exerciseGraph);
+
         navigation.setOptions({
           title: exercise.name + " Info",
         });
-      }
-      catch (error) {
-        console.error("Error navigation title:", error);
-      }
-      // GRAPH DATA
-      try {
-        // Fetch exercise graph details using the exerciseService
-        const exerciseGraph: ApiResponseGraph = await exerciseService.getExerciseGraph(id, userid);
-        setExerciseGraph(exerciseGraph);
       } catch (error) {
-        console.error("Error fetching exercise graph:", error);
-      }
-      // BEST DATA
-      try {
-        // Fetch exercise best details using the exerciseService
-        const exerciseBest: ApiResponseBest = await exerciseService.getExerciseBest(id, userid);
-        setExerciseBest(exerciseBest);
-      } catch (error) {
-        console.error("Error fetching exercise best:", error);
+        console.error("Error fetching", error);
       }
     };
     fetchData();
@@ -176,10 +166,9 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
         {/* BEST VIEW */}
         {/* Verify if there is data available to display in the records section. */}
-        {exerciseBest && exerciseBest.personal_best[0].heaviest_weight !== null ? (
+        {exerciseBest && exerciseBest.personal_best.length > 0 ? (
           <View className="my-4 ">
             <Text className="font-bold text-xl mt-4">Personal Records🥇</Text>
-
             <View>
               <Text className="border-b-2 py-3 border-gray-300 font-bold">Heaviest Weight: {exerciseBest.personal_best[0].heaviest_weight} kg</Text>
               <Text className="border-b-2 py-3 border-gray-300 font-bold">Best 1RM: {exerciseBest.personal_best[0].best_one_rep_max} kg</Text>
@@ -196,9 +185,14 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
           </View>
         )}
 
+        {/* EXERCISE INFO VIEW */}
+        <Text className="text-lg">Type: {exercise.type}</Text>
+        <Text className="text-lg">Equipment: {exercise.equipment}</Text>
+        <Text className="text-lg">How To: {exercise.description}</Text>
+
         {/* Go to exercise history button */}
         <TouchableOpacity
-          onPress={() => navigation.navigate("ExerciseHistory", { id: id, userid: userid })}
+          onPress={() => navigation.navigate("ExerciseHistory", { id: id, userid: userid, name: exercise.name })}
           className="bg-gray-700 rounded mt-4 py-2"
         >
           <Text className="text-center text-white font-bold text-lg">Go to Exercise History</Text>

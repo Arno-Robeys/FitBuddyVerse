@@ -67,7 +67,8 @@ const getPersonalBestForExercise = async (
   FROM "Workout" w
   LEFT JOIN "WorkoutDetails" wd ON w.id = wd."workoutId"
   LEFT JOIN "ExerciseSet" es ON wd.id = es."workoutDetailsId"
-  WHERE "profileId" = ${profileId} AND wd."exerciseId" = ${exerciseId}`;
+  WHERE "profileId" = ${profileId} AND wd."exerciseId" = ${exerciseId}
+  LIMIT 1`;
 
 const getExerciseHistory = async (
 	exerciseId: number,
