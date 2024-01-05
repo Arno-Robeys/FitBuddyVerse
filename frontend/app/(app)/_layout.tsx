@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 export default function AppLayout({navigation}: {navigation: any}) {
 	// This layout can be deferred because it's not the root layout.
 	return (	
-		<Tab.Navigator screenOptions={{tabBarStyle: {height: 60}, tabBarLabelStyle: {fontSize: 18, fontWeight: "bold"}, headerTitleAlign: 'center'}}>
+		<Tab.Navigator screenOptions={{tabBarStyle: {height: 80}, tabBarLabelStyle: {fontSize: 18, fontWeight: "bold"}, headerTitleAlign: 'center'}}>
 			<Tab.Screen name="Feed" component={FeedPage} options={{tabBarIcon: ({ size, color }) => (<Ionicons name="ios-home" size={size} color={color} />),
 					headerRight: () => (
 						<TouchableOpacity className="mr-2 p-2" onPress={() => navigation.navigate('Search')}>
