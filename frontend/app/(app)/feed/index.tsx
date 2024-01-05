@@ -23,8 +23,8 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 	};
   
 	useEffect(() => {
-	  fetchData();
-	}, []);
+		fetchData();
+	}, [workouts]);
 
 	const sortWorkoutsByDate = (data: TWorkout[]) => {
 		return data.sort((a, b) => {

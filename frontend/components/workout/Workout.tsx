@@ -1,7 +1,7 @@
 import { TWorkout } from "@/types/workout.type";
 import { EvilIcons } from "@expo/vector-icons";
 import moment from "moment";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { format, isToday, isYesterday } from "date-fns";
 import workoutService from "@/lib/workoutService";
@@ -35,8 +35,6 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			console.log(err);
 		}
 	}
-
-
 
 	return (
 		<View className="mb-5 bg-gray-800 p-5 rounded-xl">
