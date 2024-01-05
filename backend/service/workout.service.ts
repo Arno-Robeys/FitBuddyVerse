@@ -46,12 +46,14 @@ const getAllFollowingWorkouts = async (profileId: string): Promise<Workout[]> =>
 	return await workoutDB.getAllFollowingWorkouts(parseInt(profileId));
 }
 
-const likeWorkout = async (workoutId: string, profileId: string) => {
+const likeWorkout = async (workoutId: string, profileId: string, type: string) => {
 	if (!Number.isInteger(parseInt(workoutId)))
 		throw new Error("Id must be numeric and whole");
 	if (!Number.isInteger(parseInt(profileId)))
 		throw new Error("Id must be numeric and whole");
-	await workoutDB.likeWorkout(parseInt(workoutId), parseInt(profileId));
+	if (type !== "like" && type !== "unlike")
+		throw new Error("Type must be like or unlike");
+	return await workoutDB.likeWorkout(parseInt(workoutId), parseInt(profileId), type);
 }
 
 export default {

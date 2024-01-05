@@ -1,8 +1,10 @@
+import { TWorkout } from "@/types/workout.type";
 import { format } from "date-fns";
-import React from "react";
+import React, { FC } from "react";
 import { ScrollView, Text, View } from "react-native";
 
-export default function History({ workouts }: any) {
+const History: FC<{ workouts: TWorkout[]}> = ({workouts}) => {
+
 	if (!workouts || workouts.length === 0) {
 		return (
 			<View className="flex h-full justify-center items-center mx-10">
@@ -68,3 +70,5 @@ export default function History({ workouts }: any) {
 		</>
 	);
 }
+
+export default History;

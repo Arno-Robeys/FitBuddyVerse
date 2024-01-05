@@ -1,4 +1,3 @@
-"use client";
 import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
 import workoutService from "@/lib/workoutService";
@@ -10,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, ToastAndroid } from 'react-native';
 
 
-export default function WorkoutPage({ navigation }: { route: any, navigation: any }) {
+export default function WorkoutPage({ navigation }: { navigation: any }) {
 
     const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, workoutDetails: [] });
     const [opened, setOpened] = useState(false);
@@ -46,6 +45,7 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
                 navigation.reset({ routes: [{ name: "Profile" }] });
                 ToastAndroid.show('Workout completed', ToastAndroid.SHORT);
             }).catch((err) => {
+                setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 console.log(err);
             });
         }

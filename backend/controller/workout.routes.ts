@@ -46,12 +46,13 @@ router.post("/create", async (req, res) => {
 	}
 });
 
-router.get("/:workoutId/like/:profileId", async (req, res) => {
+router.get("/:workoutId/:type/:profileId", async (req, res) => {
 	const workoutId = req.params.workoutId;
 	const profileId = req.params.profileId;
+	const type = req.params.type;
 	try {
-		await workoutService.likeWorkout(workoutId, profileId);
-		res.json({ status: 200 });
+		const likedBy = await workoutService.likeWorkout(workoutId, profileId, type);
+		res.json({ status: 200, likedBy });
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}

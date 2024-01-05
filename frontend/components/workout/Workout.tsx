@@ -1,17 +1,17 @@
 import { TWorkout } from "@/types/workout.type";
 import { EvilIcons } from "@expo/vector-icons";
 import moment from "moment";
-import React, { FC, useEffect, useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import React, { FC } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { format, isToday, isYesterday } from "date-fns";
 import workoutService from "@/lib/workoutService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
+const Workout: FC<{ workout: TWorkout; navigation: any; updateLikeCount?: any }> = ({
 	workout,
 	navigation,
+	updateLikeCount,
 }) => {
-
-	const [isLoading, setIsLoading] = useState(false);
 
 	const formatDuration = (durationSec: number) => {
 		const duration = moment.duration(durationSec, "seconds");
@@ -29,14 +29,17 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 	};
 
 	const likeWorkout = async () => {
-		try {
-			setIsLoading(true); // Set isLoading to true before making the API call
-			await workoutService.likeWorkout(String(workout.id), String(workout.profileId));
-			setIsLoading(false); // Set isLoading to false after the API call is completed
-		} catch (err) {
+		AsyncStorage.getItem("profile").then((res) => {
+			var profile = JSON.parse(res!);
+			var type = workout.likedBy?.some(item => item.id === profile.id) ? "unlike" : "like";
+			workoutService.likeWorkout(workout.id, profile.id, type).then((res) => {
+				updateLikeCount(workout.id, res.likedBy);
+			}).catch((err) => {
+				console.log(err);
+			});
+		}).catch((err) => {
 			console.log(err);
-			setIsLoading(false); // Set isLoading to false if there is an error
-		}
+		});
 	};
 
 	return (
@@ -96,15 +99,11 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			<View className="flex flex-row justify-between w-full border-t-2 border-gray-200 mt-2">
 				{/* Clickable Like button */}
 				<View className="py-1 px-4 w-6/12">
-					{isLoading ? (
-						<ActivityIndicator color="white" size="small"/>
-					) : (
-						<TouchableOpacity onPress={likeWorkout}>
-							<Text className="text-lg text-white text-left mt-1">
-								{workout.likedBy?.length ?? 0} <EvilIcons name="like" size={24} />
-							</Text>
-						</TouchableOpacity>
-					)}
+					<TouchableOpacity onPress={likeWorkout}>
+						<Text className="text-lg text-white text-left mt-1">
+							{workout.likedBy?.length ?? 0} <EvilIcons name="like" size={24} />
+						</Text>
+					</TouchableOpacity>
 				</View>
 
 				{/* TODO: Clickable comment button */}

@@ -1,9 +1,8 @@
-"use client";
-
 import exerciseService from "@/lib/exerciseService";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import History from "../../../components/exercise/History";
+import { TWorkout } from "@/types/workout.type";
 
 export default function ExerciseHistoryPage({
 	route,
@@ -12,30 +11,29 @@ export default function ExerciseHistoryPage({
 	route: any;
 	navigation: any;
 }) {
-	const { id, userid } = route.params;
-	const [exerciseHistory, setExerciseHistory] = useState<any>();
+	const { id, userid, name } = route.params;
+	const [exerciseHistory, setExerciseHistory] = useState<TWorkout[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				// Fetch exercise details using the exerciseService
-				const exerciseHistory = await exerciseService.getExerciseHistory(
+				const res = await exerciseService.getExerciseHistory(
 					id,
 					userid
 				);
-				if (exerciseHistory && exerciseHistory.length > 0) {
-					setExerciseHistory(exerciseHistory);
+				setExerciseHistory(res);
+				navigation.setOptions({
+					title: name + " History",
+				});
 
-					navigation.setOptions({
-						title: exerciseHistory[0].exercise.name + " History",
-					});
-				}
 			} catch (error) {
 				console.error("Error fetching exercise details:", error);
 			}
 		};
 		fetchData();
 	}, []);
+
 	return (
 		<>
 			<View className="bg-white h-full">

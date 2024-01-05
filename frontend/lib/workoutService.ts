@@ -23,10 +23,10 @@ const getProfileFeed = async (profileId: number) => {
 	).data.workouts;
 };
 
-const likeWorkout = async (workoutId: string, profileId: string) => {
+const likeWorkout = async (workoutId: number, profileId: number, type: string) => {
 	return (
 		await axios.get(
-			process.env.EXPO_PUBLIC_URL + `/workouts/${workoutId}/like/${profileId}`
+			process.env.EXPO_PUBLIC_URL + `/workouts/${workoutId}/${type}/${profileId}`
 		)
 	).data;
 };
