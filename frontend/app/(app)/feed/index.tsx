@@ -1,6 +1,6 @@
 import Workout from "@/components/workout/Workout";
-import profileService from "@/lib/profileService";
-import { TProfile, TProfileAll } from "@/types/profile.type";
+import workoutService from "@/lib/workoutService";
+import { TProfile } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
@@ -8,16 +8,15 @@ import { FlatList, RefreshControl, Text, View } from "react-native";
 
 
 export default function FeedPage({ navigation }: { navigation: any }) {
-	const [profile, setProfile] = useState<TProfileAll>();
+	const [workouts, setWorkouts] = useState<TWorkout[]>();
   
 	var fetchData = async () => {
 	  try {
 		const p = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}") as TProfile;
   
 		// Fetch profiles of users being followed
-		var res = await profileService.getProfilesFollowingAll(p?.id ?? 0);
-		setProfile(res.profiles);
-  
+		var res = await workoutService.getProfileFeed(p?.id ?? 0);
+		setWorkouts(res);
 	  } catch (err) {
 		console.log(err);
 	  }
@@ -27,15 +26,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 	  fetchData();
 	}, []);
   
-	// Ensure that profile?.following is defined before attempting to map
-	const allWorkouts = profile?.following?.map((profile) => profile.workouts)?.flat() as TWorkout[];
-  
-	// Ensure that allWorkouts is defined before attempting to sort
-	const sortedWorkouts = allWorkouts?.slice().sort((a, b) => {
-	  const dateA = new Date(a.createdAt);
-	  const dateB = new Date(b.createdAt);
-	  return dateB.getTime() - dateA.getTime();
-	}) as TWorkout[];
+
   
 	return (
 	  <>
@@ -46,7 +37,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 			// Pull-to-refresh functionality with a RefreshControl component
 			<RefreshControl refreshing={false} onRefresh={() => fetchData()} />
 		  }
-		  data={sortedWorkouts || []} // Use the sorted data or an empty array if undefined
+		  data={workouts} // Use the sorted data or an empty array if undefined
 		  nestedScrollEnabled={true}
 		  keyExtractor={(item) => (item.id as number).toString()}
   

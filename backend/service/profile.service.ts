@@ -18,18 +18,6 @@ const login = async (username: string, email: string, password: string): Promise
 	return profile;
 };
 
-const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
-	profileId: string
-): Promise<Profile | null> => {
-	if (!Number.isInteger(parseInt(profileId)))
-		throw new Error("Id must be numeric and whole");
-	const profile =
-		await profileDb.getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments(
-			profileId
-		);
-	return profile;
-};
-
 const getProfileByIdIncludeFollowing = async (
 	profileId: string
 ): Promise<Profile | null> => {
@@ -103,7 +91,6 @@ const updateProfile = async (id: string, username: string, email: string, passwo
 export default {
 	createProfile,
 	login,
-	getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments,
 	getProfileByIdIncludeAll,
 	getProfileById,
 	getAllProfiles,

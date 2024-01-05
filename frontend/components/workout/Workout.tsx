@@ -1,16 +1,14 @@
 import { TWorkout } from "@/types/workout.type";
 import { EvilIcons } from "@expo/vector-icons";
 import moment from "moment";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { format, isToday, isYesterday } from "date-fns";
-import profileService from "@/lib/profileService";
 
 const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 	workout,
 	navigation,
 }) => {
-	const [username, setUsername] = React.useState<string>("");
 
 	const formatDuration = (durationSec: number) => {
 		const duration = moment.duration(durationSec, "seconds");
@@ -27,20 +25,6 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			return format(new Date(String(createdAt)), "dd MMMM yyyy 'at' HH:mm");
 		}
 	}
-	
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				var profile = await profileService.getProfileById(workout.profileId);
-				setUsername(profile.username);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchData();
-		
-	}, []);
 
 
 	return (
@@ -50,7 +34,7 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			<TouchableOpacity
 				onPress={() => navigation.navigate("Profile", { id: workout.profileId })}
 			>
-				<Text className="text-xl text-white">{username}</Text>
+				<Text className="text-xl text-white">{workout.profile?.username}</Text>
 			</TouchableOpacity>
 
 			{/* clickable workout to go to workout details */}
@@ -79,7 +63,7 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 							<View>
 								<Text className="text-white">Sets</Text>
 								<Text className="text-white">
-									{workout.exerciseSets?.length ?? 0}
+									{workout.workoutDetails?.reduce((total, details) => total + (details.exerciseSets ? details.exerciseSets.length : 0), 0) ?? 0}
 								</Text>
 							</View>
 						</View>

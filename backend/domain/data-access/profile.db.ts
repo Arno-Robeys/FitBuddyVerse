@@ -56,30 +56,6 @@ const getProfileByIdIncludeFollowing = async (
 	return profile ? Profile.From(profile) : null;
 };
 
-const getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments = async (
-	profileId: string
-): Promise<Profile | null> => {
-	const profile = await database.profile.findUnique({
-		where: {
-			id: Number.parseInt(profileId),
-		},
-		include: {
-			following: {
-				include: {
-					Workout: {
-						include: {
-							WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
-							WorkoutComment: { include: { profile: true } },
-							LikedBy: true,
-						},
-					},
-				},
-			},
-		},
-	});
-	return profile ? Profile.From(profile) : null;
-};
-
 const getProfileByIdIncludeAll = async (
 	profileId: string
 ): Promise<Profile | null> => {
@@ -92,7 +68,11 @@ const getProfileByIdIncludeAll = async (
 				include: {
 					WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
 					WorkoutComment: { include: { profile: true } },
+					profile: { select: { username: true } },
 					LikedBy: true,
+				},
+				orderBy: {
+					createdAt: "desc",
 				},
 			},
 			followedBy: true,
@@ -172,7 +152,6 @@ export default {
 	createProfile,
 	getProfileById,
 	getProfileByEmailOrName,
-	getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments,
 	getProfileByIdIncludeAll,
 	getAllProfiles,
 	getAllProfilesWithName,

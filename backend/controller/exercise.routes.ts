@@ -31,7 +31,6 @@ router.get("/:id/:profileId/workout-graph", async (req, res) => {
 	const exerciseId = parseInt(exerciseIdParam); // Convert to number
 	const profileId = parseInt(profileIdParam); // Convert to number
 	if (isNaN(exerciseId) || isNaN(profileId)) {
-		console.log("Invalid exerciseId or profileId")
 		res.status(400).json({
 			status: "error",
 			errorMessage: "Invalid exerciseId or profileId",

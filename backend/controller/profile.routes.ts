@@ -5,13 +5,8 @@ import profileService from "../service/profile.service";
 router.get("/:profileId/following", async (req, res) => {
 	const id = req.params.profileId;
 	try {
-		if(req.query.embed === "all") {
-			const profiles = await profileService.getProfileByIdIncludeFollowingIncludeWorkoutWithSetsAndComments(id);
-			res.json({ status: 200, profiles });
-		} else {
 			const profiles = await profileService.getProfileByIdIncludeFollowing(id);
 			res.json({ status: 200, profiles });
-		}
 	} catch (err) {
 		res.status(500).send({ status: 500, message: err.message });
 	}

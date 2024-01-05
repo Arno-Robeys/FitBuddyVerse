@@ -1,6 +1,7 @@
 import { Workout } from "../domain/model/workout";
 import workoutDB from "../domain/data-access/workout.db";
 import { WorkoutDetails } from "@/domain/model/details";
+import { parse } from "path";
 
 type TInputWorkout = {
 	id?: number;
@@ -39,9 +40,16 @@ const createWorkout = async (workout: TInputWorkout) => {
 	return await workoutDB.createWorkout(new Workout(workout));
 };
 
+const getAllFollowingWorkouts = async (profileId: string): Promise<Workout[]> => {
+	if (!Number.isInteger(parseInt(profileId)))
+		throw new Error("Id must be numeric and whole");
+	return await workoutDB.getAllFollowingWorkouts(parseInt(profileId));
+}
+
 export default {
 	getWorkoutByIdIncludeAll,
 	getWorkoutById,
 	getWorkoutByIdForWorkoutPage,
 	createWorkout,
+	getAllFollowingWorkouts
 };

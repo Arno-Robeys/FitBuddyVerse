@@ -17,6 +17,16 @@ router.get("/:workoutId", async (req, res) => {
 	}
 });
 
+router.get("/:profileId/feed", async (req, res) => {
+	const id = req.params.profileId;
+	try {
+		const workouts = await workoutService.getAllFollowingWorkouts(id);
+		res.json({ status: 200, workouts });
+	} catch (err) {
+		res.status(500).send({ status: 500, message: err.message });
+	}
+});
+
 router.get("/:workoutId/workout-page", async (req, res) => {
 	const id = req.params.workoutId;
 	try {

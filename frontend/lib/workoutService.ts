@@ -15,7 +15,16 @@ const createWorkout = async (workout: TWorkoutExercise) => {
 	).data;
 };
 
+const getProfileFeed = async (profileId: number) => {
+	return (
+		await axios.get(
+			process.env.EXPO_PUBLIC_URL + `/workouts/${profileId}/feed`
+		)
+	).data.workouts;
+};
+
 export default {
 	getWorkoutDetailsById,
 	createWorkout,
+	getProfileFeed
 };

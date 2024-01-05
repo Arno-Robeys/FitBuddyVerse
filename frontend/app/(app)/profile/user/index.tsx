@@ -3,7 +3,7 @@ import Workout from "@/components/workout/Workout";
 import profileService from "@/lib/profileService";
 import { TProfileAll } from "@/types/profile.type";
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, Text, View } from "react-native";
 
 export default function ProfileUserPage({
 	route,

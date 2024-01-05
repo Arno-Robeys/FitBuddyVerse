@@ -39,8 +39,27 @@ const getWorkoutByIdForWorkoutPage = async (id: number): Promise<Workout> => {
 	return Workout.From(workout);
 }
 
+const getAllFollowingWorkouts = async (profileId: number): Promise<Workout[]> => {
+	const workouts = await database.workout.findMany({
+		where: {
+			profile: {
+				followedBy: {
+					some: {
+						id: profileId
+					}
+				}
+			}
+		},
+		include: {
+			profile: true,
+			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
+			LikedBy: true
+		}
+	});
+	return workouts.map(Workout.From);
+}
+
 const createWorkout = async (workout: Workout): Promise<Workout> => {
-	console.log(workout.workoutDetails);
 	const w = await database.workout.create({
 		data: {
 			name: workout.name,
@@ -79,4 +98,5 @@ export default {
 	createWorkout,
 	getWorkoutById,
 	getWorkoutByIdIncludeAll,
+	getAllFollowingWorkouts
 }
