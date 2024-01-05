@@ -96,51 +96,23 @@ const createWorkout = async (workout: Workout): Promise<Workout> => {
 	return Workout.From(w);
 };
 
-const likeWorkout = async (workoutId: number, profileId: number): Promise<void> => {
-	// Check if the workout is already liked by that user
-	const workout = await database.workout.findUnique({
+const likeWorkout = async (workoutId: number, profileId: number, type: string): Promise<any> => {
+	//Based on type, either like or unlike
+	const workout = await database.workout.update({
 		where: {
 			id: workoutId
 		},
-		include: {
+		data: {
 			LikedBy: {
-				where: {
-					id: profileId
-				}
+				...(type == 'unlike' ? { disconnect: { id: profileId } } : { connect: { id: profileId } })
 			}
+		},
+		include: {
+			LikedBy: true
 		}
-	});
+	});	
 
-	if (workout?.LikedBy.length) {
-		console.log("disliking");
-		await database.workout.update({
-			where: {
-				id: workoutId
-			},
-			data: {
-				LikedBy: {
-					disconnect: {
-						id: profileId
-					}
-				}
-			}
-		});
-	} 
-	else {
-		console.log("liking");
-		await database.workout.update({
-			where: {
-				id: workoutId
-			},
-			data: {
-				LikedBy: {
-					connect: {
-						id: profileId
-					}
-				}
-			}
-		});
-	}
+	return workout.LikedBy;
 };
 
 

@@ -10,6 +10,17 @@ import { FlatList, RefreshControl, Text, View } from "react-native";
 export default function FeedPage({ navigation }: { navigation: any }) {
 	const [workouts, setWorkouts] = useState<TWorkout[]>();
   
+	const updateLikedByCount = (workoutId: number, newLikedBy: any[]) => {
+		setWorkouts(prevWorkouts =>
+		prevWorkouts?.map(workout => {
+			if (workout.id === workoutId) {
+			  return { ...workout, likedBy: newLikedBy }; // Update the likedBy array for the specific workout
+			}
+			return workout;
+		  })
+		);
+	  };
+
 	var fetchData = async () => {
 	  try {
 		const p = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}") as TProfile;
@@ -24,7 +35,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
   
 	useEffect(() => {
 		fetchData();
-	}, [workouts]);
+	}, []);
   
 	return (
 	  <>
@@ -62,7 +73,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
   
 		  // Render each workout using the Workout component
 		  renderItem={({ item }) => (
-			<Workout key={item.id} workout={item} navigation={navigation} />
+			<Workout key={item.id} workout={item} navigation={navigation} updateLikeCount={updateLikedByCount} />
 		  )}
   
 		  // Add a margin-bottom under the last rendered item
