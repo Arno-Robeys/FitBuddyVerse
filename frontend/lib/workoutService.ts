@@ -23,8 +23,17 @@ const getProfileFeed = async (profileId: number) => {
 	).data.workouts;
 };
 
+const likeWorkout = async (workoutId: string, profileId: string) => {
+	return (
+		await axios.get(
+			process.env.EXPO_PUBLIC_URL + `/workouts/${workoutId}/like/${profileId}`
+		)
+	).data;
+};
+
 export default {
 	getWorkoutDetailsById,
 	createWorkout,
-	getProfileFeed
+	getProfileFeed,
+	likeWorkout
 };

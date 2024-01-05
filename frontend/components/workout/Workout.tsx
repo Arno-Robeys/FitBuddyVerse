@@ -4,6 +4,7 @@ import moment from "moment";
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { format, isToday, isYesterday } from "date-fns";
+import workoutService from "@/lib/workoutService";
 
 const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 	workout,
@@ -25,6 +26,16 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 			return format(new Date(String(createdAt)), "dd MMMM yyyy 'at' HH:mm");
 		}
 	}
+
+	const likeWorkout = async () => {
+		try {
+			await workoutService.likeWorkout(String(workout.id), String(workout.profileId));
+		}
+		catch (err) {
+			console.log(err);
+		}
+	}
+
 
 
 	return (
@@ -86,20 +97,26 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 				</View>
 				
 			</TouchableOpacity>
-			
+
 				<View className="flex flex-row justify-between w-full border-t-2 border-gray-200 mt-2">
 					<View className="py-1 px-4 w-6/12">
-						<Text className="text-lg text-white text-left mt-1">
-							{workout.likedBy?.length ?? 0} <EvilIcons name="like" size={24} /> 
-						</Text>
+						<TouchableOpacity
+						onPress={likeWorkout}>
+							<Text className="text-lg text-white text-left mt-1">
+								{workout.likedBy?.length ?? 0} <EvilIcons name="like" size={24} /> 
+							</Text>
+						</TouchableOpacity>
 					</View>
 
 					<View className="py-1 px-4 w-6/12">
-						<Text className="text-lg text-white text-right mt-1">
-							{workout.workoutComments?.length ?? 0} <EvilIcons name="comment" size={24}/>
-						</Text>
+						<TouchableOpacity>
+							<Text className="text-lg text-white text-right mt-1">
+								{workout.workoutComments?.length ?? 0} <EvilIcons name="comment" size={24}/>
+							</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
+				
 					
 		</View>
 	);

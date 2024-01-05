@@ -46,4 +46,15 @@ router.post("/create", async (req, res) => {
 	}
 });
 
+router.get("/:workoutId/like/:profileId", async (req, res) => {
+	const workoutId = req.params.workoutId;
+	const profileId = req.params.profileId;
+	try {
+		await workoutService.likeWorkout(workoutId, profileId);
+		res.json({ status: 200 });
+	} catch (err) {
+		res.status(500).send({ status: 500, message: err.message });
+	}
+});
+
 export default router;
