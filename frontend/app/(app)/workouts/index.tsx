@@ -1,4 +1,3 @@
-"use client";
 import Exercise from "@/components/exercise/Exercise";
 import exerciseService from "@/lib/exerciseService";
 import workoutService from "@/lib/workoutService";

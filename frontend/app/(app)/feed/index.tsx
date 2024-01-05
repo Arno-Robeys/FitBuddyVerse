@@ -25,14 +25,6 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 	useEffect(() => {
 		fetchData();
 	}, [workouts]);
-
-	const sortWorkoutsByDate = (data: TWorkout[]) => {
-		return data.sort((a, b) => {
-			const dateA = new Date(a.createdAt);
-			const dateB = new Date(b.createdAt);
-			return dateB.getTime() - dateA.getTime();
-		});
-	};
   
 	return (
 	  <>
@@ -43,7 +35,7 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 			// Pull-to-refresh functionality with a RefreshControl component
 			<RefreshControl refreshing={false} onRefresh={() => fetchData()} />
 		  }
-		data={sortWorkoutsByDate(workouts ?? [])}
+		data={workouts ?? []}
 		  nestedScrollEnabled={true}
 		  keyExtractor={(item) => (item.id as number).toString()}
   

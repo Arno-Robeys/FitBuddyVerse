@@ -54,6 +54,9 @@ const getAllFollowingWorkouts = async (profileId: number): Promise<Workout[]> =>
 			profile: true,
 			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
 			LikedBy: true
+		},
+		orderBy: {
+			createdAt: "desc"
 		}
 	});
 	return workouts.map(Workout.From);
