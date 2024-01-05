@@ -41,7 +41,7 @@ interface BestItem {
 }
 
 export default function ExerciseInfoPage({ route, navigation }: { route: any; navigation: any }) {
-  const { id, userid } = route.params;
+  const { id, userid, exercise } = route.params;
 
   const [exerciseGraph, setExerciseGraph] = useState<ApiResponseGraph>();
   const [userSelected, setUserSelected] = useState<GraphItemFilterType>("volumeKG"); // volumeKG is default value
@@ -49,6 +49,15 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
   useEffect(() => {
     const fetchData = async () => {
+      // NAVIGATION TITLE
+      try {
+        navigation.setOptions({
+          title: exercise.name + " Info",
+        });
+      }
+      catch (error) {
+        console.error("Error navigation title:", error);
+      }
       // GRAPH DATA
       try {
         // Fetch exercise graph details using the exerciseService

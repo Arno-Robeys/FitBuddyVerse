@@ -115,7 +115,7 @@ const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {
         workout.workoutDetails.map((row: TWorkoutDetails) => (
           <View key={row.exercise?.name}>
             {/* ExerciseInfoPage receives exercise-id and userid */}
-            <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.exerciseId, userid: workout.profileId })}>
+            <TouchableOpacity onPress={() => navigation.navigate('ExerciseInfo', { id: row.exerciseId, userid: workout.profileId, exercise: row.exercise })}>
               <Text className='font-bold text-2xl'>{row.exercise?.name}</Text>
             </TouchableOpacity>
             <TextInput placeholder='Add Exercise Note...' onChangeText={text => addExerciseNote(row.exerciseId, text)}></TextInput>
