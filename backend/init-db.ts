@@ -320,18 +320,18 @@ const main = async () => {
       {
         id: 27,
         workoutId: 10,
-        exerciseId: 2,
+        exerciseId: 1,
       },
       {
         id: 28,
         workoutId: 10,
-        exerciseId: 3,
+        exerciseId: 2,
         note: "Fantastic job!",
       },
       {
         id: 29,
         workoutId: 10,
-        exerciseId: 4,
+        exerciseId: 3,
       },
       // Exercices for Workout 11
       {
@@ -343,7 +343,7 @@ const main = async () => {
       {
         id: 31,
         workoutId: 11,
-        exerciseId: 4,
+        exerciseId: 2,
       },
       // Exercices for Workout 12
       {
