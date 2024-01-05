@@ -50,26 +50,43 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 					<Text className="text-xl text-white text-center text-bold pb-2">
 						{workout.name}
 					</Text>
-					<View className="my-2 w-full">
-						<View className="flex flex-row border-gray-500 border-2 rounded-lg justify-between p-3">
+					<View className="my-2 w-full border-gray-500 border-2 rounded-lg divide-y-2 divide-gray-500">
+						<View className="flex flex-row justify-between p-3">
 							<View>
-								<Text className="text-white">Time</Text>
+								<Text className="text-white">Time:</Text>
 								<Text className="text-white">{formatDuration(workout.durationSec)}</Text>
 							</View>
 							<View>
-								<Text className="text-white">Volume</Text>
+								<Text className="text-white">Volume:</Text>
 								<Text className="text-white">{workout.volumeKG} kg</Text>
 							</View>
 							<View>
-								<Text className="text-white">Sets</Text>
+								<Text className="text-white">Sets:</Text>
 								<Text className="text-white">
 									{workout.workoutDetails?.reduce((total, details) => total + (details.exerciseSets ? details.exerciseSets.length : 0), 0) ?? 0}
 								</Text>
 							</View>
 						</View>
+
+						<View>
+							<View className="px-3 py-2">
+								<View className="flex flex-row justify-between pb-1.5">
+									<Text className="text-white font-bold">Excercise:</Text>
+									<Text className="text-white font-bold">Sets:</Text>
+								</View>
+								{workout.workoutDetails?.map((details) => (
+									<View key={details.exerciseId} className="flex flex-row justify-between py-0.5">
+										<Text className="text-white">{details.exercise?.name}</Text>
+										<Text className="text-white">{details.exerciseSets?.length ?? 0} sets</Text>
+									</View>
+								))}
+							</View>
+						</View>
 					</View>
 				</View>
 				
+			</TouchableOpacity>
+			
 				<View className="flex flex-row justify-between w-full border-t-2 border-gray-200 mt-2">
 					<View className="py-1 px-4 w-6/12">
 						<Text className="text-lg text-white text-left mt-1">
@@ -84,7 +101,6 @@ const Workout: FC<{ workout: TWorkout; navigation: any }> = ({
 					</View>
 				</View>
 					
-			</TouchableOpacity>
 		</View>
 	);
 };
