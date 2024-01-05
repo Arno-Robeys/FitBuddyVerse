@@ -23,11 +23,13 @@ export default function ExerciseHistoryPage({
 					id,
 					userid
 				);
-				setExerciseHistory(exerciseHistory);
+				if (exerciseHistory && exerciseHistory.length > 0) {
+					setExerciseHistory(exerciseHistory);
 
-				navigation.setOptions({
-					title: exerciseHistory[0].exercise.name + " History",
-				});
+					navigation.setOptions({
+						title: exerciseHistory[0].exercise.name + " History",
+					});
+				}
 			} catch (error) {
 				console.error("Error fetching exercise details:", error);
 			}

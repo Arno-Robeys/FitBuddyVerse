@@ -41,7 +41,7 @@ interface BestItem {
 }
 
 export default function ExerciseInfoPage({ route, navigation }: { route: any; navigation: any }) {
-  const { id, userid } = route.params;
+  const { id, userid, exercise } = route.params;
 
   const [exerciseGraph, setExerciseGraph] = useState<ApiResponseGraph>();
   const [userSelected, setUserSelected] = useState<GraphItemFilterType>("volumeKG"); // volumeKG is default value
@@ -49,6 +49,15 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
   useEffect(() => {
     const fetchData = async () => {
+      // NAVIGATION TITLE
+      try {
+        navigation.setOptions({
+          title: exercise.name + " Info",
+        });
+      }
+      catch (error) {
+        console.error("Error navigation title:", error);
+      }
       // GRAPH DATA
       try {
         // Fetch exercise graph details using the exerciseService
@@ -167,9 +176,10 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
         {/* BEST VIEW */}
         {/* Verify if there is data available to display in the records section. */}
-        {exerciseBest && exerciseBest.personal_best.length > 0 ? (
+        {exerciseBest && exerciseBest.personal_best[0].heaviest_weight !== null ? (
           <View className="my-4 ">
             <Text className="font-bold text-xl mt-4">Personal Records🥇</Text>
+
             <View>
               <Text className="border-b-2 py-3 border-gray-300 font-bold">Heaviest Weight: {exerciseBest.personal_best[0].heaviest_weight} kg</Text>
               <Text className="border-b-2 py-3 border-gray-300 font-bold">Best 1RM: {exerciseBest.personal_best[0].best_one_rep_max} kg</Text>

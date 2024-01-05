@@ -21,25 +21,25 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
         if (workout.completed) {
             //Finish workout
             const completedSets = workout.workoutDetails?.map((exercise) => exercise?.exerciseSets?.filter((set) => set.isCompleted && set.repetitions != 0 && set.weightKG != 0)).flat()
-            
-            if(!workout.name.trim()) {
+
+            if (!workout.name.trim()) {
                 ToastAndroid.show('Please enter a workout name', ToastAndroid.SHORT);
-                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
-            } else if(!workout.workoutDetails?.length) {
+            } else if (!workout.workoutDetails?.length) {
                 ToastAndroid.show('Please add at least 1 exercise', ToastAndroid.SHORT);
-                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
-            } else if(completedSets?.length === 0) {
+            } else if (completedSets?.length === 0) {
                 ToastAndroid.show('Please complete at least 1 set', ToastAndroid.SHORT);
-                setWorkout((prevWorkout) => ({...prevWorkout, completed: false}))
+                setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
             }
 
             //Remove not completed sets
             workout.workoutDetails?.forEach((exercise) => {
                 exercise.exerciseSets = exercise.exerciseSets?.filter((set) => set.repetitions != 0 && set.weightKG != 0 && set.isCompleted);
-                if(!exercise.exerciseSets?.length) workout.workoutDetails = workout.workoutDetails?.filter((item) => item.exerciseId !== exercise.exerciseId);
+                if (!exercise.exerciseSets?.length) workout.workoutDetails = workout.workoutDetails?.filter((item) => item.exerciseId !== exercise.exerciseId);
             });
 
             workoutService.createWorkout(workout).then((res) => {
@@ -78,7 +78,7 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
             if (workout.workoutDetails?.find((item) => item.exerciseId === exercise.id)) return;
             const newExercise = {
                 exerciseId: exercise.id,
-                exercise: { ...exercise},
+                exercise: { ...exercise },
                 exerciseSets: [{ setNr: 1, repetitions: 0, weightKG: 0 }]
             };
             workout.workoutDetails?.push(newExercise);
@@ -96,7 +96,7 @@ export default function WorkoutPage({ navigation }: { route: any, navigation: an
                     </TouchableOpacity>
                 ),
                 headerRight: () => (
-                    <TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => setWorkout((prevWorkout) => ({...prevWorkout, completed: true}))}>
+                    <TouchableOpacity className="mr-2 p-2 bg-blue-400 rounded" onPress={() => setWorkout((prevWorkout) => ({ ...prevWorkout, completed: true }))}>
                         <Text className="text-center font-bold">Finish</Text>
                     </TouchableOpacity>
                 )
