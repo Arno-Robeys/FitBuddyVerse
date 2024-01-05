@@ -2,6 +2,7 @@
 import Workout from "@/components/workout/Workout";
 import profileService from "@/lib/profileService";
 import { TProfile, TProfileAll } from "@/types/profile.type";
+import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
@@ -44,19 +45,39 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 				keyExtractor={(item) => (item.id as number).toString()}
 				ListHeaderComponent={() => (
 					<>
-						<View className="p-6 bg-gray-100 rounded-md mb-5">
-							<View className="mb-4">
-								<Text className="text-2xl font-bold text-gray-800 mb-2">Your Profile</Text>
-								<Text className="text-base text-gray-600">
-								Your information and workouts are listed below.
+						<View className="mb-5">
+							<View className="items-center">
+								<Text className="p-1">
+									<EvilIcons name="user" size={100}/>
+								</Text>
+								<Text className="font-bold text-xl text-gray-800">
+									{profile?.username ?? "unknown"}
+								</Text>
+								<Text className="text-sm">
+									{profile?.email ?? "unknown email"}
 								</Text>
 							</View>
-							<View className="space-y-2">
-								<ProfileInfo label="Username" value={profile?.username ?? ""} />
-								<ProfileInfo label="Email" value={profile?.email ?? ""} />
-								<ProfileInfo label="Followers" value={profile?.followedBy?.length ?? 0} />
-								<ProfileInfo label="Following" value={profile?.following?.length ?? 0} />
+
+							<View className="flex flex-row justify-between w-8/12 mx-auto my-2 divide-x-2 divide-gray-100 py-2">
+								<View className="w-6/12">
+									<Text className="text-center font-bold text-lg">
+										{profile?.following?.length ?? 0}
+									</Text>
+									<Text className="text-center text-sm">
+										Following
+									</Text>
+								</View>
+
+								<View className="w-6/12">
+									<Text className="text-center font-bold text-lg">
+										{profile?.followedBy?.length ?? 0}
+									</Text>
+									<Text className="text-center text-sm">
+										Followers
+									</Text>
+								</View>
 							</View>
+							
 						</View>
 					</>
 				)}

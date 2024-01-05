@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Button, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import profileService from "@/lib/profileService";
+import { set } from "date-fns";
 
 export default function SettingsPage({ navigation }: { navigation: any }) {
     const [username, setUsername] = useState("");
@@ -47,7 +48,7 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
         setTimeout(() => {
             setSuccess(false);
             navigation.navigate("Profile");
-        }, 1000);
+        }, 1500);
 
         
     };
