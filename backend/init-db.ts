@@ -68,6 +68,7 @@ const main = async () => {
         durationSec: 2530,
         volumeKG: 10300,
         profileId: 1,
+        createdAt: "2024-01-02T20:01:11.025Z",
       },
       // Workout 2
       {
@@ -76,6 +77,7 @@ const main = async () => {
         durationSec: 2000,
         volumeKG: 8500,
         profileId: 1,
+        createdAt: "2023-12-22T22:24:11.025Z",
       },
       // Workout 3
       {
@@ -84,6 +86,7 @@ const main = async () => {
         durationSec: 1800,
         volumeKG: 7500,
         profileId: 1,
+        createdAt: "2023-11-15T13:01:11.025Z",
       },
       // Workout 4
       {
@@ -92,6 +95,7 @@ const main = async () => {
         durationSec: 2398,
         volumeKG: 9230,
         profileId: 2,
+        createdAt: "2023-10-29T15:01:11.025Z",
       },
       // Workout 5
       {
@@ -100,6 +104,7 @@ const main = async () => {
         durationSec: 2100,
         volumeKG: 8000,
         profileId: 2,
+        createdAt: "2023-12-29T15:01:11.025Z",
       },
       // Workout 6
       {
@@ -108,6 +113,7 @@ const main = async () => {
         durationSec: 1800,
         volumeKG: 7000,
         profileId: 2,
+        createdAt: "2023-11-02T04:55:11.025Z",
       },
       // Workout 7
       {
@@ -116,6 +122,7 @@ const main = async () => {
         durationSec: 1290,
         volumeKG: 5302,
         profileId: 3,
+        createdAt: "2023-11-02T04:55:11.025Z",
       },
       // Workout 8
       {
@@ -124,6 +131,7 @@ const main = async () => {
         durationSec: 1100,
         volumeKG: 4800,
         profileId: 3,
+        createdAt: "2023-12-29T15:01:11.025Z",
       },
       // Workout 9
       {
@@ -132,6 +140,7 @@ const main = async () => {
         durationSec: 900,
         volumeKG: 4000,
         profileId: 3,
+        createdAt: "2023-12-28T05:30:11.025Z",
       },
       // Workout 10
       {
@@ -140,6 +149,7 @@ const main = async () => {
         durationSec: 1943,
         volumeKG: 12309,
         profileId: 4,
+        createdAt: "2023-12-28T12:39:11.025Z",
       },
       // Workout 11
       {
@@ -148,6 +158,7 @@ const main = async () => {
         durationSec: 1800,
         volumeKG: 11000,
         profileId: 4,
+        createdAt: "2024-01-04T11:39:11.025Z",
       },
       // Workout 12
       {
@@ -156,6 +167,7 @@ const main = async () => {
         durationSec: 1600,
         volumeKG: 10000,
         profileId: 4,
+        createdAt: "2024-01-02T09:39:11.025Z",
       },
     ]
   });
