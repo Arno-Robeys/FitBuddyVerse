@@ -33,6 +33,23 @@ export default function ProfileUserPage({
 		fetchData();
 	}, []);
 
+	const updateLikedByCount = (workoutId: number, newLikedBy: any[]) => {
+		setProfile(prevProfile => {
+			if (prevProfile) {
+				return {
+					...prevProfile,
+					workouts: prevProfile.workouts?.map(workout => {
+						if (workout.id === workoutId) {
+							return { ...workout, likedBy: newLikedBy };
+						}
+						return workout;
+					})
+				};
+			}
+			return prevProfile;
+		});
+	  };
+
 	return (
 		<>
 			<FlatList
@@ -86,7 +103,7 @@ export default function ProfileUserPage({
 					</View>
 				)}
 				renderItem={({ item }) => (
-					<Workout key={item.id} workout={item} navigation={navigation} />
+					<Workout key={item.id} workout={item} navigation={navigation} updateLikeCount={updateLikedByCount} />
 				)}
 
 				// Add a margin-bottom under the last rendered item

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import profileService from "@/lib/profileService";
 
@@ -9,13 +9,11 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
 
 
     const handleSaveChanges = async () => {
         const id = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}").id;
         setIsLoading(true);
-        console.log("Saving changes...");
 
         const profile = await AsyncStorage.getItem("profile");
         if (profile) {
@@ -40,15 +38,10 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
         }
 
         setIsLoading(false);
-        console.log("Changes saved!");
+        
 
-        setSuccess(true);
-
-        setTimeout(() => {
-            setSuccess(false);
-            navigation.navigate("Profile");
-        }, 1500);
-
+        ToastAndroid.show("Changes saved successfully!", ToastAndroid.SHORT);
+        navigation.navigate("Profile");
         
     };
 
@@ -109,12 +102,6 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
                     <Text className="text-white text-lg">Logout</Text>
                 </View>
             </TouchableOpacity>
-
-            {success && (
-                <View className="bg-green-600 p-3 rounded-lg" style={{ position: "absolute", bottom: 20, alignSelf: "center" }}>
-                    <Text style={{ color: "white" }}>Changes saved successfully!</Text>
-                </View>
-            )}
         </View>
     );
 }

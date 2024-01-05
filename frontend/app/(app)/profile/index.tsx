@@ -4,8 +4,9 @@ import profileService from "@/lib/profileService";
 import { TProfile, TProfileAll } from "@/types/profile.type";
 import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
+import { FlatList, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage({ navigation }: { navigation: any }) {
 	const [profile, setProfile] = useState<TProfileAll>();
@@ -22,17 +23,26 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 		}
 	};
 
-	useEffect(() => {
+	useFocusEffect(useCallback(() => {
 		fetchData();
-	}, []);
+	}, []));
 
-	const handleFollowers = () => {
-		navigation.navigate('Follow', { type: "followers", profileId: profile?.id })
-	};
-
-	const handleFollowing = () => {
-		navigation.navigate("Follow", { type: "following", profileId: profile?.id });
-	};
+	const updateLikedByCount = (workoutId: number, newLikedBy: any[]) => {
+		setProfile(prevProfile => {
+			if (prevProfile) {
+				return {
+					...prevProfile,
+					workouts: prevProfile.workouts?.map(workout => {
+						if (workout.id === workoutId) {
+							return { ...workout, likedBy: newLikedBy };
+						}
+						return workout;
+					})
+				};
+			}
+			return prevProfile;
+		});
+	  };
 
 	return (
 		<>
@@ -62,7 +72,7 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 							<View className="flex flex-row justify-between w-8/12 mx-auto my-2 divide-x-2 divide-gray-100 py-2">
 								<View className="w-6/12">
 									<TouchableOpacity
-									onPress={handleFollowing}>
+									onPress={() => navigation.navigate("Follow", { type: "following", profileId: profile?.id })}>
 										<Text className="text-center font-bold text-lg">
 											{profile?.following?.length ?? 0}
 										</Text>
@@ -74,7 +84,7 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 
 								<View className="w-6/12">
 									<TouchableOpacity
-									onPress={handleFollowers}>
+									onPress={() => navigation.navigate('Follow', { type: "followers", profileId: profile?.id })}>
 										<Text className="text-center font-bold text-lg">
 											{profile?.followedBy?.length ?? 0}
 										</Text>
@@ -96,7 +106,7 @@ export default function ProfilePage({ navigation }: { navigation: any }) {
 					</View>
 				)}
 				renderItem={({ item }) => (
-					<Workout key={item.id} workout={item} navigation={navigation} />
+					<Workout key={item.id} workout={item} navigation={navigation} updateLikeCount={updateLikedByCount} />
 				)}
 
 				// Add a margin-bottom under the last rendered item

@@ -3,7 +3,8 @@ import workoutService from "@/lib/workoutService";
 import { TProfile } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useState, useCallback } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 
 
@@ -21,6 +22,9 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 		);
 	  };
 
+	
+	  const [shouldFetchData, setShouldFetchData] = useState(true);
+
 	var fetchData = async () => {
 	  try {
 		const p = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}") as TProfile;
@@ -28,14 +32,16 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 		// Fetch profiles of users being followed
 		var res = await workoutService.getProfileFeed(p?.id ?? 0);
 		setWorkouts(res);
+		
 	  } catch (err) {
 		console.log(err);
 	  }
 	};
-  
-	useEffect(() => {
+
+
+	useFocusEffect(useCallback(() => {
 		fetchData();
-	}, []);
+	}, []));
   
 	return (
 	  <>
