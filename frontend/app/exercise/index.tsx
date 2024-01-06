@@ -71,6 +71,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
   return (
     <ScrollView className="bg-white h-screen">
       <View className="p-4">
+
         {/* GRAPH VIEW */}
         {/* Verify if there is data available to display in the graph. */}
         {exerciseGraph && exerciseGraph.graph.length > 0 ? (
@@ -166,7 +167,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
         {/* BEST VIEW */}
         {/* Verify if there is data available to display in the records section. */}
-        {exerciseBest && exerciseBest.personal_best.length > 0 ? (
+        {exerciseBest && exerciseBest.personal_best[0].heaviest_weight !== null ? (
           <View className="my-4 ">
             <Text className="font-bold text-xl mt-4">Personal Records🥇</Text>
             <View>
@@ -186,17 +187,19 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
         )}
 
         {/* EXERCISE INFO VIEW */}
-        <Text className="text-lg">Type: {exercise.type}</Text>
-        <Text className="text-lg">Equipment: {exercise.equipment}</Text>
-        <Text className="text-lg">How To: {exercise.description}</Text>
+        <View className="border-2 border-gray-300 mt-4">
+          <Text className="text-lg"><Text className="font-bold">Type:</Text> {exercise.type}</Text>
+          <Text className="text-lg mt-2"><Text className="font-bold">Equipment:</Text> {exercise.equipment}</Text>
+          <Text className="text-lg mt-2"><Text className="font-bold">How To:</Text> {exercise.description}</Text>
+        </View>
 
         {/* Go to exercise history button */}
         <TouchableOpacity
           onPress={() => navigation.navigate("ExerciseHistory", { id: id, userid: userid, name: exercise.name })}
-          className="bg-gray-700 rounded mt-4 py-2"
-        >
+          className="bg-gray-700 rounded mt-4 py-2">
           <Text className="text-center text-white font-bold text-lg">Go to Exercise History</Text>
         </TouchableOpacity>
+
       </View>
     </ScrollView>
   );
