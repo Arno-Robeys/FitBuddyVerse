@@ -3,12 +3,13 @@ import workoutService from "@/lib/workoutService";
 import { TProfile } from "@/types/profile.type";
 import { TWorkout } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/native";
 import { useFocusEffect } from "expo-router";
 import { useState, useCallback } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 
 
-export default function FeedPage({ navigation }: { navigation: any }) {
+export default function FeedPage({ navigation }: { navigation: NavigationProp<any> }) {
 	const [workouts, setWorkouts] = useState<TWorkout[]>();
   
 	const updateLikedByCount = (workoutId: number, newLikedBy: any[]) => {
@@ -21,9 +22,6 @@ export default function FeedPage({ navigation }: { navigation: any }) {
 		  })
 		);
 	  };
-
-	
-	  const [shouldFetchData, setShouldFetchData] = useState(true);
 
 	var fetchData = async () => {
 	  try {

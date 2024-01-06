@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, ToastAndroid, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, ToastAndroid} from 'react-native';
 import Errors from "@/components/Errors";
 import profileService from '@/lib/profileService';
+import { NavigationProp } from '@react-navigation/native';
 
-export default function RegistrationForm({navigation}: {navigation: any}) {
+export default function RegistrationForm({navigation}: {navigation: NavigationProp<any>}) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

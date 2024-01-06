@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import History from "../../../components/exercise/History";
 import { TWorkout } from "@/types/workout.type";
+import { NavigationProp } from "@react-navigation/native";
 
 export default function ExerciseHistoryPage({
 	route,
 	navigation,
 }: {
 	route: any;
-	navigation: any;
+	navigation: NavigationProp<any>;
 }) {
 	const { id, userid, name } = route.params;
 	const [exerciseHistory, setExerciseHistory] = useState<TWorkout[]>([]);

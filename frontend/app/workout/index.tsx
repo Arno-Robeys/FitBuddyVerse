@@ -1,5 +1,6 @@
 import workoutService from "@/lib/workoutService";
 import { TWorkout } from "@/types/workout.type";
+import { RouteProp } from "@react-navigation/native";
 import { format } from "date-fns";
 import moment from "moment";
 import React, { useEffect } from "react";
@@ -13,16 +14,15 @@ const formatDuration = (durationSec: number) => {
 export default function WorkoutDetailsPage({
 	route
 }: {
-	route: any;
+	route: RouteProp<any>;
 }) {
-	const { id } = route.params;
 	const [workout, setWorkout] = React.useState<TWorkout>();
 
 	useEffect(() => {
 		(async () => {
 			try {
 				// Fetch exercise details using the exerciseService
-				const workout = await workoutService.getWorkoutDetailsById(id);
+				const workout = await workoutService.getWorkoutDetailsById(route.params?.id);
 				setWorkout(workout);
 			} catch (error) {
 				console.error("Error fetching workout:", error);

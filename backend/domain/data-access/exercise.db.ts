@@ -47,7 +47,7 @@ const getPersonalBestForExercise = async (
 	profileId: number
 ) =>
 	database.$queryRaw`SELECT 
-  max(es."weightKG" * (1 + es.repetitions::numeric / 30)) as best_one_rep_max, 
+  ROUND(max(es."weightKG" * (1 + es.repetitions::float / 30))::numeric, 2) as best_one_rep_max, 
   max(es."weightKG") as heaviest_weight, MAX(es.repetitions)::integer as best_reps, 
   max(es."weightKG" * es.repetitions) as best_set_volume,
   (

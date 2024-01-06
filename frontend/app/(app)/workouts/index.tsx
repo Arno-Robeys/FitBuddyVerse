@@ -4,12 +4,13 @@ import workoutService from "@/lib/workoutService";
 import { TExercise } from "@/types/exercise.type";
 import { TWorkoutExercise } from "@/types/workout.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/native";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, ToastAndroid } from 'react-native';
 
 
-export default function WorkoutPage({ navigation }: { navigation: any }) {
+export default function WorkoutPage({ navigation }: { navigation: NavigationProp<any> }) {
 
     const [workout, setWorkout] = useState<TWorkoutExercise>({ name: '', createdAt: '', durationSec: 0, volumeKG: 0, profileId: 0, workoutDetails: [] });
     const [opened, setOpened] = useState(false);

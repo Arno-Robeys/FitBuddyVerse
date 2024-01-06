@@ -1,4 +1,5 @@
 import exerciseService from "@/lib/exerciseService";
+import { NavigationProp } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Dimensions, Text, TouchableOpacity, View, ScrollView, Image } from "react-native";
 import { LineChart } from "react-native-chart-kit";
@@ -40,7 +41,7 @@ interface BestItem {
   set_volume_string: string;
 }
 
-export default function ExerciseInfoPage({ route, navigation }: { route: any; navigation: any }) {
+export default function ExerciseInfoPage({ route, navigation }: { route: any; navigation: NavigationProp<any> }) {
   const { id, userid, exercise } = route.params;
 
   const [exerciseGraph, setExerciseGraph] = useState<ApiResponseGraph>();

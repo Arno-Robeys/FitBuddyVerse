@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import {ActivityIndicator, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileService from "@/lib/profileService";
+import { NavigationProp } from "@react-navigation/native";
 
-export default function LoginPage({navigation}: {navigation: any}) {
+export default function LoginPage({navigation}: {navigation: NavigationProp<any>}) {
 	const [emailOrUsername, setEmailOrUsername] = useState("");
 	const [password, setPassword] = useState("");
 

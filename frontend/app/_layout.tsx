@@ -9,7 +9,7 @@ import SearchPage from "./search";
 import ProfileUserPage from "./(app)/profile/user";
 import ExerciseHistoryPage from "./exercise/history";
 import WorkoutDetailsPage from "./workout";
-import FollowPage from "./(app)/follow";
+import FollowPage from "./follow";
 
 const Stack = createNativeStackNavigator();
 

@@ -1,14 +1,14 @@
-"use client";
 import Workout from "@/components/workout/Workout";
 import profileService from "@/lib/profileService";
 import { TProfile, TProfileAll } from "@/types/profile.type";
 import { EvilIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/native";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { FlatList, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 
-export default function ProfilePage({ navigation }: { navigation: any }) {
+export default function ProfilePage({ navigation }: { navigation: NavigationProp<any> }) {
 	const [profile, setProfile] = useState<TProfileAll>();
 
 	const fetchData = async () => {

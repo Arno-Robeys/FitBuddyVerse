@@ -2,6 +2,7 @@ import { TWorkoutDetails } from '@/types/details.type';
 import { TExerciseSet } from '@/types/set.type';
 import { TWorkoutExercise } from '@/types/workout.type';
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationProp } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
@@ -9,7 +10,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 interface Props {
   workout: TWorkoutExercise;
   setWorkout: any;
-  navigation: any;
+  navigation: NavigationProp<any>;
 }
 
 const Exercise: FC<Props> = ({ workout, setWorkout, navigation }: Props) => {

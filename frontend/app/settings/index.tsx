@@ -1,15 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import profileService from "@/lib/profileService";
+import { NavigationProp } from "@react-navigation/native";
 
-export default function SettingsPage({ navigation }: { navigation: any }) {
+export default function SettingsPage({ navigation }: { navigation: NavigationProp<any> }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-
 
     const handleSaveChanges = async () => {
         const id = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}").id;
@@ -41,8 +41,7 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
         
 
         ToastAndroid.show("Changes saved successfully!", ToastAndroid.SHORT);
-        navigation.navigate("Profile");
-        
+        navigation.navigate('Profile');   
     };
 
     const handleLogout = () => {
@@ -52,6 +51,16 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
             routes: [{ name: "Login" }],
         });
     };
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity className="py-2 px-4 bg-blue-400 rounded" onPress={() => handleLogout()}>
+                    <Text className="text-center font-bold">Logout</Text>
+                </TouchableOpacity>
+            )
+        });
+    },[]);
     
     return (
         <View className="bg-white flex-1 justify-center p-4">
@@ -94,12 +103,6 @@ export default function SettingsPage({ navigation }: { navigation: any }) {
                     ) : (
                         <ActivityIndicator color="white" />
                     )}
-                </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity className="mt-3" onPress={handleLogout}>
-                <View className="bg-red-800 rounded py-3 items-center">
-                    <Text className="text-white text-lg">Logout</Text>
                 </View>
             </TouchableOpacity>
         </View>

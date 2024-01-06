@@ -1,8 +1,8 @@
-"use client";
 import Workout from "@/components/workout/Workout";
 import profileService from "@/lib/profileService";
 import { TProfileAll } from "@/types/profile.type";
 import { EvilIcons } from "@expo/vector-icons";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 
@@ -10,15 +10,15 @@ export default function ProfileUserPage({
 	route,
 	navigation,
 }: {
-	route: any;
-	navigation: any;
+	route: RouteProp<any>;
+	navigation: NavigationProp<any>;
 }) {
 	const [profile, setProfile] = useState<TProfileAll>();
 
 	const fetchData = async () => {
 		try {
 			var res = await profileService.getProfileByIdEmbedAll(
-				route.params.id ?? 0
+				route.params?.id ?? 0
 			);
 			navigation.setOptions({
 				title: "Profile " + res?.profile.username ?? "Profile",

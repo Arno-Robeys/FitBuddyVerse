@@ -6,8 +6,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { format, isToday, isYesterday } from "date-fns";
 import workoutService from "@/lib/workoutService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/native";
 
-const Workout: FC<{ workout: TWorkout; navigation: any; updateLikeCount?: any }> = ({
+const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLikeCount?: any }> = ({
 	workout,
 	navigation,
 	updateLikeCount,

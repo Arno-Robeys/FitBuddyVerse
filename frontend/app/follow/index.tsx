@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 
 export default function FollowPage({
     route,
     navigation,
 }: {
-    route: any;
-    navigation: any;
+    route: RouteProp<any>;
+    navigation: NavigationProp<any>;
 }) {
-    const type = route.params.type;
-    const profileId = route.params.profileId;
+    const type = route.params?.type;
+    const profileId = route.params?.profileId;
     const [profiles, setProfiles] = useState<TProfile[]>([]);
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export default function FollowPage({
     }, [type, profileId]);
 
     return (
-        <View className="items-center bg-white p-6">
+        <View className="items-center bg-white p-6 h-full">
             <View className="w-full pb-2">
                 {type === "followers" ? (
                     <Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Followers</Text>

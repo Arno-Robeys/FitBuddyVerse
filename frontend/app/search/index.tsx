@@ -1,10 +1,11 @@
 import profileService from "@/lib/profileService";
 import { TProfile } from "@/types/profile.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function SearchPage({ navigation }: { navigation: any }) {
+export default function SearchPage({ navigation }: { navigation: NavigationProp<any> }) {
 	const [searchText, setSearchText] = useState('');
 	const [users, setUsers] = useState<TProfile[]>([]);
 	const [following, setFollowing] = useState<TProfile[]>([]);
