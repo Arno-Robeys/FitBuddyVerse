@@ -143,12 +143,12 @@ export default function WorkoutPage({ navigation }: { navigation: NavigationProp
             </View>
 
             {/* Modal AddExercise*/}
-            <Modal visible={opened} onRequestClose={() => { setOpened(false); setSelectedExercise([]) }} animationType="slide">
+            <Modal visible={opened} onRequestClose={() => { setOpened(false); setSelectedExercise([]) }} animationType="slide" presentationStyle="pageSheet">
                 <View className="flex-col justify-between h-screen">
-                    <TouchableOpacity onPress={() => { setOpened(false); setSelectedExercise([]) }} className="bg-gray-700 py-4">
-                        <Text className="text-center text-white font-bold">Cancel</Text>
-                    </TouchableOpacity>
                     <ScrollView>
+                        <TouchableOpacity onPress={() => { setOpened(false); setSelectedExercise([]) }} className="bg-gray-700 py-4">
+                            <Text className="text-center text-white font-bold">Cancel</Text>
+                        </TouchableOpacity>
                         {exercises.map((exercise) => (
                             <TouchableOpacity key={exercise.id} onPress={() => AddSelectedExerciseHandler(exercise)}>
                                 <View className="border-b-2 border-gray-400 p-2">

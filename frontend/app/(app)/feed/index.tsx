@@ -6,8 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/native";
 import { useFocusEffect } from "expo-router";
 import { useState, useCallback } from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
-import { BackHandler } from 'react-native';
+import { FlatList, RefreshControl, Text, View, BackHandler, Platform } from "react-native";
 
 
 export default function FeedPage({ navigation }: { navigation: NavigationProp<any> }) {
@@ -37,16 +36,8 @@ export default function FeedPage({ navigation }: { navigation: NavigationProp<an
 	  }
 	};
 
-
 	useFocusEffect(useCallback(() => {
-		//Prevent going back to the login page
-		const onBackPress = () => true;
-		BackHandler.addEventListener('hardwareBackPress', onBackPress);
-		
 		fetchData();
-
-		//Remove the listener when the component is unmounted
-		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
 	}, []));
   
 	return (

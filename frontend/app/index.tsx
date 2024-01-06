@@ -15,7 +15,10 @@ export default function LoginPage({navigation}: {navigation: NavigationProp<any>
 	useEffect(() => {
 		AsyncStorage.getItem("profile").then((profile) => {
 			if (profile) {
-				navigation.navigate("FitBuddyVerse");
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'FitBuddyVerse' }],
+				});
 			}
 		});
 	}, []);
@@ -26,7 +29,10 @@ export default function LoginPage({navigation}: {navigation: NavigationProp<any>
 			if (res.status === 200) {
 				AsyncStorage.setItem("profile", JSON.stringify(res.data.profile));
 				setErrors([]);
-				navigation.navigate("FitBuddyVerse");
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'FitBuddyVerse' }],
+				});
 			} else {
 				setErrors(['Something went wrong! Please try again']);
 			}
