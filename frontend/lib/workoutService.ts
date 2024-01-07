@@ -31,9 +31,38 @@ const likeWorkout = async (workoutId: number, profileId: number, type: string) =
 	).data;
 };
 
+const placeComment = async (workoutId: number, profileId: number, message: string) => {	
+	return (
+		await axios.post(
+			process.env.EXPO_PUBLIC_URL + `/workouts/${workoutId}/comment/${profileId}`,
+			{ message }
+		)
+	).data;
+}
+
+const getAllWorkoutDetailsById = async (id: string) => {
+	return (
+		await axios.get(
+			process.env.EXPO_PUBLIC_URL + `/workouts/${id}?embed=all`
+		)
+	).data.workout;
+}
+
+const getWorkoutCommentsById = async (id: string) => {
+	return (
+		await axios.get(
+			process.env.EXPO_PUBLIC_URL + `/workouts/${id}/comments`
+		)
+	).data.comments;
+}
+
+
 export default {
 	getWorkoutDetailsById,
 	createWorkout,
 	getProfileFeed,
-	likeWorkout
+	likeWorkout,
+	placeComment,
+	getAllWorkoutDetailsById,
+	getWorkoutCommentsById
 };

@@ -2,7 +2,7 @@ import {
 	Workout as PrismaWorkout,
 	Profile as PrismaProfile,
 	WorkoutComment as PrismaWorkoutComment,
-} from "@prisma/client";
+} from "@prisma/client"; 
 import { Profile } from "./profile";
 import { Workout } from "./workout";
 
@@ -14,7 +14,7 @@ export class WorkoutComment {
 	readonly createdAt: Date;
 	readonly profile?: Profile;
 	readonly workout?: Workout;
-
+ 
 	constructor({
 		id,
 		workoutId,
@@ -32,7 +32,7 @@ export class WorkoutComment {
 		this.profile = profile;
 		this.workout = workout;
 	}
-
+ 
 	static From(
 		workoutComment: PrismaWorkoutComment & { profile?: PrismaProfile } & {
 			workout?: PrismaWorkout;

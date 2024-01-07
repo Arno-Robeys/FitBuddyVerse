@@ -58,4 +58,28 @@ router.get("/:workoutId/:type/:profileId", async (req, res) => {
 	}
 });
 
+
+router.post("/:workoutId/comment/:profileId", async (req, res) => {
+	const workoutId = req.params.workoutId;
+	const profileId = req.params.profileId;
+	const message = req.body.message;
+	try {
+		const workoutComment = await workoutService.placeComment(workoutId, profileId, message);
+		res.json({ status: 200, workoutComment });
+	} catch (err) {
+		res.status(500).send({ status: 500, message: err.message });
+	}
+});
+
+
+router.get("/:workoutId/comments", async (req, res) => {
+	const workoutId = req.params.workoutId;
+	try {
+		const comments = await workoutService.getWorkoutCommentsById(workoutId);
+		res.json({ status: 200, comments });
+	} catch (err) {
+		res.status(500).send({ status: 500, message: err.message });
+	}
+});
+
 export default router;

@@ -4,4 +4,10 @@ export type TWorkoutComment = {
     profileId: number;
     message: string;
     createdAt: string;
+    profile: {
+        id: number;
+        username: string;
+        firstName: string;
+        lastName: string;
+    };
 };

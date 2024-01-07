@@ -8,10 +8,11 @@ import workoutService from "@/lib/workoutService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/native";
 
-const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLikeCount?: any }> = ({
+const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLikeCount?: any, updateCommentsCount?: any }> = ({
 	workout,
 	navigation,
 	updateLikeCount,
+	updateCommentsCount,
 }) => {
 
 	const formatDuration = (durationSec: number) => {
@@ -39,6 +40,19 @@ const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLi
 				console.log(err);
 			});
 		}).catch((err) => {
+			console.log(err);
+		});
+	};
+
+	const commentWorkout = () => {
+		// Set profile to current (logedin) user
+		AsyncStorage.getItem("profile").then((res) => {
+			var profile = JSON.parse(res!);
+			
+			// navigate to Comment page, giving the workoutId, workout and profile as params
+			navigation.navigate("Comment", { workout: workout, profile: profile });
+		}
+		).catch((err) => {
 			console.log(err);
 		});
 	};
@@ -109,7 +123,7 @@ const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLi
 
 				{/* TODO: Clickable comment button */}
 				<View className="py-1 px-4 w-6/12">
-					<TouchableOpacity>
+					<TouchableOpacity onPress={commentWorkout}>
 						<Text className="text-lg text-white text-right mt-1">
 							{workout.workoutComments?.length ?? 0} <EvilIcons name="comment" size={24} />
 						</Text>

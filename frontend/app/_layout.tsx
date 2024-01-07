@@ -10,6 +10,7 @@ import ProfileUserPage from "./(app)/profile/user";
 import ExerciseHistoryPage from "./exercise/history";
 import WorkoutDetailsPage from "./workout";
 import FollowPage from "./follow";
+import CommentPage from "./(app)/feed/comment";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function Root() {
 				<Stack.Screen name="ExerciseHistory" component={ExerciseHistoryPage} options={{title: 'History'}}/>
 				<Stack.Screen name="Workout" component={WorkoutDetailsPage} options={{title: 'Workout'}}/>
 				<Stack.Screen name="Follow" component={FollowPage}/>
+				<Stack.Screen name="Comment" component={CommentPage} options={{title: 'Comment'}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

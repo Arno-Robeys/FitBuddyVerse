@@ -20,7 +20,8 @@ const getWorkoutByIdIncludeAll = async ({
 }): Promise<Workout> => {
 	if (!Number.isInteger(parseInt(id)))
 		throw new Error("Id must be numeric and whole");
-	return workoutDB.getWorkoutByIdIncludeAll(parseInt(id));
+	const workout = workoutDB.getWorkoutByIdIncludeAll(parseInt(id));
+	return workout;
 };
 
 const getWorkoutById = async ({ id }: { id: string }): Promise<Workout> => {
@@ -56,11 +57,30 @@ const likeWorkout = async (workoutId: string, profileId: string, type: string) =
 	return await workoutDB.likeWorkout(parseInt(workoutId), parseInt(profileId), type);
 }
 
+const placeComment = async (workoutId: string, profileId: string, message: string) => {
+	if (!Number.isInteger(parseInt(workoutId)))
+		throw new Error("Id must be numeric and whole");
+	if (!Number.isInteger(parseInt(profileId)))
+		throw new Error("Id must be numeric and whole");
+	return await workoutDB.placeComment(parseInt(workoutId), parseInt(profileId), message);
+}
+
+const getWorkoutCommentsById = async (id: string) => {
+	if (!Number.isInteger(parseInt(id)))
+		throw new Error("Id must be numeric and whole");
+	const comments = await workoutDB.getWorkoutCommentsById(parseInt(id));
+	console.log(comments);
+	return comments;
+}
+
+
 export default {
 	getWorkoutByIdIncludeAll,
 	getWorkoutById,
 	getWorkoutByIdForWorkoutPage,
 	createWorkout,
 	getAllFollowingWorkouts,
-	likeWorkout
+	likeWorkout,
+	placeComment,
+	getWorkoutCommentsById
 };

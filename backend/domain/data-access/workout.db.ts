@@ -53,7 +53,8 @@ const getAllFollowingWorkouts = async (profileId: number): Promise<Workout[]> =>
 		include: {
 			profile: true,
 			WorkoutDetails: { include: { exercise: true, ExerciseSet: true } },
-			LikedBy: true
+			LikedBy: true,
+			WorkoutComment: { include: { profile: true } },
 		},
 		orderBy: {
 			createdAt: "desc"
@@ -115,6 +116,32 @@ const likeWorkout = async (workoutId: number, profileId: number, type: string): 
 	return workout.LikedBy;
 };
 
+const placeComment = async (workoutId: number, profileId: number, message: string) => {
+	const comment = await database.workoutComment.create({
+		data: {
+			message: message,
+			workoutId: workoutId,
+			profileId: profileId
+		},
+		include: {
+			profile: true
+		}
+	});
+	console.log(comment);
+	return comment;
+}
+
+const getWorkoutCommentsById = async (id: number) => {
+	const comments = await database.workoutComment.findMany({
+		where: {
+			workoutId: id
+		},
+		include: {
+			profile: true
+		}
+	});
+	return comments;
+}
 
 export default {
 	getWorkoutByIdForWorkoutPage,
@@ -122,5 +149,7 @@ export default {
 	getWorkoutById,
 	getWorkoutByIdIncludeAll,
 	getAllFollowingWorkouts,
-	likeWorkout
+	likeWorkout,
+	placeComment,
+	getWorkoutCommentsById
 }
