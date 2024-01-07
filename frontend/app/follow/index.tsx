@@ -36,6 +36,9 @@ export default function FollowPage({
             }
         };
 
+        navigation.setOptions({
+            title: type === "followers" ? "Followers" : "Following",
+        });
         fetchData();
     }, [type, profileId]);
 
