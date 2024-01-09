@@ -55,7 +55,163 @@ const main = async () => {
       type: "Back",
       equipment: "Machine",
       description: "Seated row is an exercise for the back muscles. Sit on the machine and grip the handles. Pull the handles towards you and push them back out.",
-    }
+    },
+    {
+      name: "Shoulder Press",
+      type: "Shoulders",
+      equipment: "Barbell",
+      description: "Shoulder press is an exercise for the shoulder muscles. Sit on a bench and grip the bar. Push the bar up and down.",
+    },
+    {
+      name: "Squat",
+      type: "Legs",
+      equipment: "Barbell",
+      description: "Squat is an exercise for the leg muscles. Stand with your feet shoulder width apart and grip the bar. Squat down and up.",
+    },
+    {
+      name: "Deadlift",
+      type: "Legs",
+      equipment: "Barbell",
+      description: "Deadlift is an exercise for the leg muscles. Stand with your feet shoulder width apart and grip the bar. Lift the bar up and down.",
+    },
+    {
+      name: "Leg Press",
+      type: "Legs",
+      equipment: "Machine",
+      description: "Leg press is an exercise for the leg muscles. Sit on the machine and place your feet on the platform. Push the platform away from you and pull it back in.",
+    },
+    {
+      name: "Leg Curl",
+      type: "Legs",
+      equipment: "Machine",
+      description: "Leg curl is an exercise for the leg muscles. Lie on the machine and place your feet under the pads. Curl your legs up and down.",
+    },
+    {
+      name: "Leg Extension",
+      type: "Legs",
+      equipment: "Machine",
+      description: "Leg extension is an exercise for the leg muscles. Sit on the machine and place your feet under the pads. Push the pads up and down.",
+    },
+    {
+      name: "Calf Raise",
+      type: "Legs",
+      equipment: "Machine",
+      description: "Calf raise is an exercise for the calf muscles. Stand on the machine and place your shoulders under the pads. Push the pads up and down.",
+    },
+    {
+      name: "Crunch",
+      type: "Abs",
+      equipment: "Bodyweight",
+      description: "Crunch is an exercise for the abdominal muscles. Lie on the ground with your knees bent and place your hands behind your head. Lift your upper body up and down.",
+    },
+    {
+      name: "Plank",
+      type: "Abs",
+      equipment: "Bodyweight",
+      description: "Plank is an exercise for the abdominal muscles. Lie on the ground with your elbows under your shoulders. Lift your body up and hold.",
+    },
+    {
+      name: "Russian Twist",
+      type: "Abs",
+      equipment: "Bodyweight",
+      description: "Russian twist is an exercise for the abdominal muscles. Sit on the ground with your knees bent and your feet off the ground. Twist your upper body from side to side.",
+    },
+    {
+      name: "Side Plank",
+      type: "Abs",
+      equipment: "Bodyweight",
+      description: "Side plank is an exercise for the abdominal muscles. Lie on the ground with your elbow under your shoulder. Lift your body up and hold.",
+    },
+    {
+      name: "Bent Over Row",
+      type: "Back",
+      equipment: "Barbell",
+      description: "Bent over row is an exercise for the back muscles. Stand with your feet shoulder width apart and grip the bar. Pull the bar towards you and push it back out.",
+    },
+    {
+      name: "Lat Pulldown",
+      type: "Back",
+      equipment: "Machine",
+      description: "Lat pulldown is an exercise for the back muscles. Sit on the machine and grip the bar. Pull the bar down and up.",
+    },
+    {
+      name: "Pull Up",
+      type: "Back",
+      equipment: "Bodyweight",
+      description: "Pull up is an exercise for the back muscles. Hang from a bar with your hands shoulder width apart. Pull yourself up and down.",
+    },
+    {
+      name: "Chin Up",
+      type: "Back",
+      equipment: "Bodyweight",
+      description: "Chin up is an exercise for the back muscles. Hang from a bar with your hands shoulder width apart and your palms facing towards you. Pull yourself up and down.",
+    },
+    {
+      name: "Dumbbell Curl",
+      type: "Biceps",
+      equipment: "Dumbbell",
+      description: "Dumbbell curl is an exercise for the biceps muscles. Stand with your feet shoulder width apart and grip the dumbbells. Curl the dumbbells up and down.",
+    },
+    {
+      name: "Hammer Curl",
+      type: "Biceps",
+      equipment: "Dumbbell",
+      description: "Hammer curl is an exercise for the biceps muscles. Stand with your feet shoulder width apart and grip the dumbbells. Curl the dumbbells up and down.",
+    },
+    {
+      name: "Concentration Curl",
+      type: "Biceps",
+      equipment: "Dumbbell",
+      description: "Concentration curl is an exercise for the biceps muscles. Sit on a bench and grip the dumbbell. Curl the dumbbell up and down.",
+    },
+    {
+      name: "Triceps Extension",
+      type: "Triceps",
+      equipment: "Dumbbell",
+      description: "Triceps extension is an exercise for the triceps muscles. Lie on a bench and grip the dumbbell. Extend your arm up and down.",
+    },
+    {
+      name: "Triceps Kickback",
+      type: "Triceps",
+      equipment: "Dumbbell",
+      description: "Triceps kickback is an exercise for the triceps muscles. Stand with your feet shoulder width apart and grip the dumbbell. Extend your arm up and down.",
+    },
+    {
+      name: "Triceps Dip",
+      type: "Triceps",
+      equipment: "Bodyweight",
+      description: "Triceps dip is an exercise for the triceps muscles. Sit on a bench and grip the edge. Extend your legs out and push yourself up and down.",
+    },
+    {
+      name: "Arnold Press",
+      type: "Shoulders",
+      equipment: "Dumbbell",
+      description: "Arnold press is an exercise for the shoulder muscles. Sit on a bench and grip the dumbbells. Push the dumbbells up and down.",
+    },
+    {
+      name: "Lateral Raise",
+      type: "Shoulders",
+      equipment: "Dumbbell",
+      description: "Lateral raise is an exercise for the shoulder muscles. Stand with your feet shoulder width apart and grip the dumbbells. Raise the dumbbells up and down.",
+    },
+    {
+      name: "Front Raise",
+      type: "Shoulders",
+      equipment: "Dumbbell",
+      description: "Front raise is an exercise for the shoulder muscles. Stand with your feet shoulder width apart and grip the dumbbells. Raise the dumbbells up and down.",
+    },
+    {
+      name: "Shrug",
+      type: "Shoulders",
+      equipment: "Dumbbell",
+      description: "Shrug is an exercise for the shoulder muscles. Stand with your feet shoulder width apart and grip the dumbbells. Shrug your shoulders up and down.",
+    },
+    {
+      name: "Dumbbell Fly",
+      type: "Chest",
+      equipment: "Dumbbell",
+      description: "Dumbbell fly is an exercise for the chest muscles. Lie on a bench and grip the dumbbells. Lower the dumbbells to your sides and push them back up.",
+    },
     ]
   });
 
@@ -63,7 +219,7 @@ const main = async () => {
     data: [
       // Workout 1
       {
-        id: 1,
+        id: 1000,
         name: "Nino's Beste Workout 1",
         durationSec: 2530,
         volumeKG: 10300,
@@ -72,7 +228,7 @@ const main = async () => {
       },
       // Workout 2
       {
-        id: 2,
+        id: 1001,
         name: "Nino's Beste Workout 2",
         durationSec: 2000,
         volumeKG: 8500,
@@ -81,7 +237,7 @@ const main = async () => {
       },
       // Workout 3
       {
-        id: 3,
+        id: 1002,
         name: "Nino's Beste Workout 3",
         durationSec: 1800,
         volumeKG: 7500,
@@ -90,7 +246,7 @@ const main = async () => {
       },
       // Workout 4
       {
-        id: 4,
+        id: 1003,
         name: "Epische Workout 1",
         durationSec: 2398,
         volumeKG: 9230,
@@ -99,7 +255,7 @@ const main = async () => {
       },
       // Workout 5
       {
-        id: 5,
+        id: 1004,
         name: "Epische Workout 2",
         durationSec: 2100,
         volumeKG: 8000,
@@ -108,7 +264,7 @@ const main = async () => {
       },
       // Workout 6
       {
-        id: 6,
+        id: 1005,
         name: "Epische Workout 3",
         durationSec: 1800,
         volumeKG: 7000,
@@ -117,7 +273,7 @@ const main = async () => {
       },
       // Workout 7
       {
-        id: 7,
+        id: 1006,
         name: "Zware Workout 1",
         durationSec: 1290,
         volumeKG: 5302,
@@ -126,7 +282,7 @@ const main = async () => {
       },
       // Workout 8
       {
-        id: 8,
+        id: 1007,
         name: "Zware Workout 2",
         durationSec: 1100,
         volumeKG: 4800,
@@ -135,7 +291,7 @@ const main = async () => {
       },
       // Workout 9
       {
-        id: 9,
+        id: 1008,
         name: "Zware Workout 3",
         durationSec: 900,
         volumeKG: 4000,
@@ -144,7 +300,7 @@ const main = async () => {
       },
       // Workout 10
       {
-        id: 10,
+        id: 1009,
         name: "Beste Workout 1",
         durationSec: 1943,
         volumeKG: 12309,
@@ -153,7 +309,7 @@ const main = async () => {
       },
       // Workout 11
       {
-        id: 11,
+        id: 1010,
         name: "Beste Workout 2",
         durationSec: 1800,
         volumeKG: 11000,
@@ -162,7 +318,7 @@ const main = async () => {
       },
       // Workout 12
       {
-        id: 12,
+        id: 1011,
         name: "Beste Workout 3",
         durationSec: 1600,
         volumeKG: 10000,
@@ -177,201 +333,201 @@ const main = async () => {
     data: [
       // Exercices for Workout 1
       {
-        id: 1,
-        workoutId: 1,
+        id: 1000,
+        workoutId: 1000,
         exerciseId: 1,
         note: "Dit was een zware workout",
       },
       {
-        id: 2,
-        workoutId: 1,
+        id: 1001,
+        workoutId: 1000,
         exerciseId: 2,
       },
       {
-        id: 3,
-        workoutId: 1,
+        id: 1002,
+        workoutId: 1000,
         exerciseId: 3,
         note: "Deze oefening vergde veel inspanning",
       },
       // Exercices for Workout 2
       {
-        id: 4,
-        workoutId: 2,
+        id: 1003,
+        workoutId: 1001,
         exerciseId: 2,
         note: "Dit was een uitdagende oefening",
       },
       {
-        id: 5,
-        workoutId: 2,
+        id: 1004,
+        workoutId: 1001,
         exerciseId: 4,
         note: "Goed gewerkt tijdens deze workout",
       },
       // Exercices for Workout 3
       {
-        id: 6,
-        workoutId: 3,
+        id: 1005,
+        workoutId: 1002,
         exerciseId: 1,
         note: "Dit was een zware workout",
       },
       {
-        id: 7,
-        workoutId: 3,
+        id: 1006,
+        workoutId: 1002,
         exerciseId: 3,
       },
       {
-        id: 8,
-        workoutId: 3,
+        id: 1007,
+        workoutId: 1002,
         exerciseId: 4,
         note: "Deze oefening vergde veel inspanning",
       },
       // Exercices for Workout 4
       {
-        id: 9,
-        workoutId: 4,
+        id: 1008,
+        workoutId: 1003,
         exerciseId: 1,
       },
       {
-        id: 10,
-        workoutId: 4,
+        id: 1009,
+        workoutId: 1003,
         exerciseId: 3,
         note: "Great effort in this workout",
       },
       {
-        id: 11,
-        workoutId: 4,
+        id: 1010,
+        workoutId: 1003,
         exerciseId: 4,
       },
       // Exercices for Workout 5
       {
-        id: 12,
-        workoutId: 5,
+        id: 1011,
+        workoutId: 1004,
         exerciseId: 2,
         note: "Well done on this exercise",
       },
       {
-        id: 13,
-        workoutId: 5,
+        id: 1012,
+        workoutId: 1004,
         exerciseId: 3,
       },
       {
-        id: 14,
-        workoutId: 5,
+        id: 1013,
+        workoutId: 1004,
         exerciseId: 4,
         note: "You nailed this one!",
       },
       // Exercices for Workout 6
       {
-        id: 15,
-        workoutId: 6,
+        id: 1014,
+        workoutId: 1005,
         exerciseId: 1,
       },
       {
-        id: 16,
-        workoutId: 6,
+        id: 1015,
+        workoutId: 1005,
         exerciseId: 2,
       },
       {
-        id: 17,
-        workoutId: 6,
+        id: 1016,
+        workoutId: 1005,
         exerciseId: 4,
         note: "Impressive performance!",
       },
       // Exercices for Workout 7
       {
-        id: 18,
-        workoutId: 7,
+        id: 1017,
+        workoutId: 1006,
         exerciseId: 2,
         note: "Keep up the good work!",
       },
       {
-        id: 19,
-        workoutId: 7,
+        id: 1018,
+        workoutId: 1006,
         exerciseId: 3,
       },
       {
-        id: 20,
-        workoutId: 7,
+        id: 1019,
+        workoutId: 1006,
         exerciseId: 4,
         note: "Hard work pays off!",
       },
       // Exercices for Workout 8
       {
-        id: 21,
-        workoutId: 8,
+        id: 1020,
+        workoutId: 1007,
         exerciseId: 1,
       },
       {
-        id: 22,
-        workoutId: 8,
+        id: 1021,
+        workoutId: 1007,
         exerciseId: 3,
         note: "Push yourself a bit more next time",
       },
       {
-        id: 23,
-        workoutId: 8,
+        id: 1022,
+        workoutId: 1007,
         exerciseId: 4,
       },
       // Exercices for Workout 9
       {
-        id: 24,
-        workoutId: 9,
+        id: 1023,
+        workoutId: 1008,
         exerciseId: 1,
         note: "You're doing great!",
       },
       {
-        id: 25,
-        workoutId: 9,
+        id: 1024,
+        workoutId: 1008,
         exerciseId: 2,
       },
       {
-        id: 26,
-        workoutId: 9,
+        id: 1025,
+        workoutId: 1008,
         exerciseId: 3,
       },
       // Exercices for Workout 10
       {
-        id: 27,
-        workoutId: 10,
+        id: 1026,
+        workoutId: 1009,
         exerciseId: 1,
       },
       {
-        id: 28,
-        workoutId: 10,
+        id: 1027,
+        workoutId: 1009,
         exerciseId: 2,
         note: "Fantastic job!",
       },
       {
-        id: 29,
-        workoutId: 10,
+        id: 1028,
+        workoutId: 1009,
         exerciseId: 3,
       },
       // Exercices for Workout 11
       {
-        id: 30,
-        workoutId: 11,
+        id: 1029,
+        workoutId: 1010,
         exerciseId: 1,
         note: "You're making progress!",
       },
       {
-        id: 31,
-        workoutId: 11,
+        id: 1030,
+        workoutId: 1010,
         exerciseId: 2,
       },
       // Exercices for Workout 12
       {
-        id: 32,
-        workoutId: 12,
+        id: 1031,
+        workoutId: 1011,
         exerciseId: 1,
       },
       {
-        id: 33,
-        workoutId: 12,
+        id: 1032,
+        workoutId: 1011,
         exerciseId: 2,
         note: "Stay consistent!",
       },
       {
-        id: 34,
-        workoutId: 12,
+        id: 1033,
+        workoutId: 1011,
         exerciseId: 3,
       },
     ]
@@ -381,632 +537,632 @@ const main = async () => {
     data: [
       {
         // Set 1 of Exercise 1 from Workout 1
-        id: 1,
-        workoutDetailsId: 1,
+        id: 1000,
+        workoutDetailsId: 1000,
         setNr: 1,
         repetitions: 10,
         weightKG: 27,
       },
       {
         // Set 2 of Exercise 1 from Workout 1
-        id: 2,
-        workoutDetailsId: 1,
+        id: 1001,
+        workoutDetailsId: 1000,
         setNr: 2,
         repetitions: 9,
         weightKG: 21,
       },
       {
         // Set 3 of Exercise 1 from Workout 1
-        id: 3,
-        workoutDetailsId: 1,
+        id: 1002,
+        workoutDetailsId: 1000,
         setNr: 3,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 1 of Exercise 2 from Workout 1
-        id: 4,
-        workoutDetailsId: 2,
+        id: 1003,
+        workoutDetailsId: 1001,
         setNr: 1,
         repetitions: 10,
         weightKG: 10,
       },
       {
         // Set 2 of Exercise 2 from Workout 1
-        id: 5,
-        workoutDetailsId: 2,
+        id: 1004,
+        workoutDetailsId: 1001,
         setNr: 2,
         repetitions: 5,
         weightKG: 15,
       },
       {
         // Set 1 of Exercise 3 from Workout 1
-        id: 6,
-        workoutDetailsId: 3,
+        id: 1005,
+        workoutDetailsId: 1002,
         setNr: 1,
         repetitions: 5,
         weightKG: 15,
       },
       {
         // Set 2 of Exercise 3 from Workout 1
-        id: 7,
-        workoutDetailsId: 3,
+        id: 1006,
+        workoutDetailsId: 1002,
         setNr: 2,
         repetitions: 8,
         weightKG: 14,
       },
       {
         // Set 3 of Exercise 3 from Workout 1
-        id: 8,
-        workoutDetailsId: 3,
+        id: 1007,
+        workoutDetailsId: 1002,
         setNr: 3,
         repetitions: 5,
         weightKG: 15,
       },
       {
         // Set 1 of Exercise 1 from Workout 2
-        id: 9,
-        workoutDetailsId: 4,
+        id: 1008,
+        workoutDetailsId: 1003,
         setNr: 1,
         repetitions: 15,
         weightKG: 13,
       },
       {
         // Set 1 of Exercise 2 from Workout 2
-        id: 10,
-        workoutDetailsId: 5,
+        id: 1009,
+        workoutDetailsId: 1004,
         setNr: 1,
         repetitions: 5,
         weightKG: 15,
       },
       {
         // Set 2 of Exercise 2 from Workout 2
-        id: 11,
-        workoutDetailsId: 5,
+        id: 1010,
+        workoutDetailsId: 1004,
         setNr: 2,
         repetitions: 9,
         weightKG: 25,
       },
       {
         // Set 1 of Exercise 1 from Workout 3
-        id: 12,
-        workoutDetailsId: 6,
+        id: 1011,
+        workoutDetailsId: 1005,
         setNr: 1,
         repetitions: 8,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 1 from Workout 3
-        id: 13,
-        workoutDetailsId: 6,
+        id: 1012,
+        workoutDetailsId: 1005,
         setNr: 2,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 1 of Exercise 2 from Workout 3
-        id: 14,
-        workoutDetailsId: 7,
+        id: 1013,
+        workoutDetailsId: 1006,
         setNr: 1,
         repetitions: 12,
         weightKG: 12,
       },
       {
         // Set 2 of Exercise 2 from Workout 3
-        id: 15,
-        workoutDetailsId: 7,
+        id: 1014,
+        workoutDetailsId: 1006,
         setNr: 2,
         repetitions: 8,
         weightKG: 15,
       },
       {
         // Set 1 of Exercise 3 from Workout 3
-        id: 16,
-        workoutDetailsId: 8,
+        id: 1015,
+        workoutDetailsId: 1007,
         setNr: 1,
         repetitions: 6,
         weightKG: 16,
       },
       {
         // Set 2 of Exercise 3 from Workout 3
-        id: 17,
-        workoutDetailsId: 8,
+        id: 1016,
+        workoutDetailsId: 1007,
         setNr: 2,
         repetitions: 10,
         weightKG: 18,
       },
       {
         // Set 3 of Exercise 3 from Workout 3
-        id: 18,
-        workoutDetailsId: 8,
+        id: 1017,
+        workoutDetailsId: 1007,
         setNr: 3,
         repetitions: 6,
         weightKG: 17,
       },
       {
         // Set 1 of Exercise 1 from Workout 4
-        id: 19,
-        workoutDetailsId: 9,
+        id: 1018,
+        workoutDetailsId: 1008,
         setNr: 1,
         repetitions: 10,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 4
-        id: 20,
-        workoutDetailsId: 9,
+        id: 1019,
+        workoutDetailsId: 1008,
         setNr: 2,
         repetitions: 8,
         weightKG: 30,
       },
       {
         // Set 1 of Exercise 2 from Workout 4
-        id: 21,
-        workoutDetailsId: 10,
+        id: 1020,
+        workoutDetailsId: 1009,
         setNr: 1,
         repetitions: 12,
         weightKG: 15,
       },
       {
         // Set 2 of Exercise 2 from Workout 4
-        id: 22,
-        workoutDetailsId: 10,
+        id: 1021,
+        workoutDetailsId: 1009,
         setNr: 2,
         repetitions: 10,
         weightKG: 18,
       },
       {
         // Set 1 of Exercise 3 from Workout 4
-        id: 23,
-        workoutDetailsId: 11,
+        id: 1022,
+        workoutDetailsId: 1010,
         setNr: 1,
         repetitions: 8,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 3 from Workout 4
-        id: 24,
-        workoutDetailsId: 11,
+        id: 1023,
+        workoutDetailsId: 1010,
         setNr: 2,
         repetitions: 10,
         weightKG: 22,
       },
       {
         // Set 3 of Exercise 3 from Workout 4
-        id: 25,
-        workoutDetailsId: 11,
+        id: 1024,
+        workoutDetailsId: 1010,
         setNr: 3,
         repetitions: 6,
         weightKG: 25,
       },
       {
         // Set 1 of Exercise 1 from Workout 5
-        id: 26,
-        workoutDetailsId: 12,
+        id: 1025,
+        workoutDetailsId: 1011,
         setNr: 1,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 2 of Exercise 1 from Workout 5
-        id: 27,
-        workoutDetailsId: 12,
+        id: 1026,
+        workoutDetailsId: 1011,
         setNr: 2,
         repetitions: 10,
         weightKG: 25,
       },
       {
         // Set 1 of Exercise 2 from Workout 5
-        id: 28,
-        workoutDetailsId: 13,
+        id: 1027,
+        workoutDetailsId: 1012,
         setNr: 1,
         repetitions: 15,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 2 from Workout 5
-        id: 29,
-        workoutDetailsId: 13,
+        id: 1028,
+        workoutDetailsId: 1012,
         setNr: 2,
         repetitions: 12,
         weightKG: 20,
       },
       {
         // Set 1 of Exercise 3 from Workout 5
-        id: 30,
-        workoutDetailsId: 14,
+        id: 1029,
+        workoutDetailsId: 1013,
         setNr: 1,
         repetitions: 8,
         weightKG: 15,
       },
       {
         // Set 2 of Exercise 3 from Workout 5
-        id: 31,
-        workoutDetailsId: 14,
+        id: 1030,
+        workoutDetailsId: 1013,
         setNr: 2,
         repetitions: 10,
         weightKG: 17,
       },
       {
         // Set 3 of Exercise 3 from Workout 5
-        id: 32,
-        workoutDetailsId: 14,
+        id: 1031,
+        workoutDetailsId: 1013,
         setNr: 3,
         repetitions: 6,
         weightKG: 20,
       },
       {
         // Set 1 of Exercise 1 from Workout 6
-        id: 33,
-        workoutDetailsId: 15,
+        id: 1032,
+        workoutDetailsId: 1014,
         setNr: 1,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 2 of Exercise 1 from Workout 6
-        id: 34,
-        workoutDetailsId: 15,
+        id: 1033,
+        workoutDetailsId: 1014,
         setNr: 2,
         repetitions: 8,
         weightKG: 30,
       },
       {
         // Set 1 of Exercise 2 from Workout 6
-        id: 35,
-        workoutDetailsId: 16,
+        id: 1034,
+        workoutDetailsId: 1015,
         setNr: 1,
         repetitions: 12,
         weightKG: 16,
       },
       {
         // Set 2 of Exercise 2 from Workout 6
-        id: 36,
-        workoutDetailsId: 16,
+        id: 1035,
+        workoutDetailsId: 1015,
         setNr: 2,
         repetitions: 10,
         weightKG: 18,
       },
       {
         // Set 1 of Exercise 3 from Workout 6
-        id: 37,
-        workoutDetailsId: 17,
+        id: 1036,
+        workoutDetailsId: 1016,
         setNr: 1,
         repetitions: 8,
         weightKG: 22,
       },
       {
         // Set 2 of Exercise 3 from Workout 6
-        id: 38,
-        workoutDetailsId: 17,
+        id: 1037,
+        workoutDetailsId: 1016,
         setNr: 2,
         repetitions: 10,
         weightKG: 24,
       },
       {
         // Set 3 of Exercise 3 from Workout 6
-        id: 39,
-        workoutDetailsId: 17,
+        id: 1038,
+        workoutDetailsId: 1016,
         setNr: 3,
         repetitions: 6,
         weightKG: 26,
       },
       {
         // Set 1 of Exercise 1 from Workout 7
-        id: 40,
-        workoutDetailsId: 18,
+        id: 1039,
+        workoutDetailsId: 1017,
         setNr: 1,
         repetitions: 12,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 7
-        id: 41,
-        workoutDetailsId: 18,
+        id: 1040,
+        workoutDetailsId: 1017,
         setNr: 2,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 1 of Exercise 2 from Workout 7
-        id: 42,
-        workoutDetailsId: 19,
+        id: 1041,
+        workoutDetailsId: 1018,
         setNr: 1,
         repetitions: 15,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 2 from Workout 7
-        id: 43,
-        workoutDetailsId: 19,
+        id: 1042,
+        workoutDetailsId: 1018,
         setNr: 2,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 3 from Workout 7
-        id: 44,
-        workoutDetailsId: 20,
+        id: 1043,
+        workoutDetailsId: 1019,
         setNr: 1,
         repetitions: 8,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 3 from Workout 7
-        id: 45,
-        workoutDetailsId: 20,
+        id: 1044,
+        workoutDetailsId: 1019,
         setNr: 2,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 3 of Exercise 3 from Workout 7
-        id: 46,
-        workoutDetailsId: 20,
+        id: 1045,
+        workoutDetailsId: 1019,
         setNr: 3,
         repetitions: 6,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 1 from Workout 8
-        id: 47,
-        workoutDetailsId: 21,
+        id: 1046,
+        workoutDetailsId: 1020,
         setNr: 1,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 2 of Exercise 1 from Workout 8
-        id: 48,
-        workoutDetailsId: 21,
+        id: 1047,
+        workoutDetailsId: 1020,
         setNr: 2,
         repetitions: 8,
         weightKG: 30,
       },
       {
         // Set 1 of Exercise 2 from Workout 8
-        id: 49,
-        workoutDetailsId: 22,
+        id: 1048,
+        workoutDetailsId: 1021,
         setNr: 1,
         repetitions: 12,
         weightKG: 16,
       },
       {
         // Set 2 of Exercise 2 from Workout 8
-        id: 50,
-        workoutDetailsId: 22,
+        id: 1049,
+        workoutDetailsId: 1021,
         setNr: 2,
         repetitions: 10,
         weightKG: 18,
       },
       {
         // Set 1 of Exercise 3 from Workout 8
-        id: 51,
-        workoutDetailsId: 23,
+        id: 1050,
+        workoutDetailsId: 1022,
         setNr: 1,
         repetitions: 8,
         weightKG: 22,
       },
       {
         // Set 2 of Exercise 3 from Workout 8
-        id: 52,
-        workoutDetailsId: 23,
+        id: 1051,
+        workoutDetailsId: 1022,
         setNr: 2,
         repetitions: 10,
         weightKG: 24,
       },
       {
         // Set 3 of Exercise 3 from Workout 8
-        id: 53,
-        workoutDetailsId: 23,
+        id: 1052,
+        workoutDetailsId: 1022,
         setNr: 3,
         repetitions: 6,
         weightKG: 26,
       },
       {
         // Set 1 of Exercise 1 from Workout 9
-        id: 54,
-        workoutDetailsId: 24,
+        id: 1053,
+        workoutDetailsId: 1023,
         setNr: 1,
         repetitions: 12,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 9
-        id: 55,
-        workoutDetailsId: 24,
+        id: 1054,
+        workoutDetailsId: 1023,
         setNr: 2,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 1 of Exercise 2 from Workout 9
-        id: 56,
-        workoutDetailsId: 25,
+        id: 1055,
+        workoutDetailsId: 1024,
         setNr: 1,
         repetitions: 15,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 2 from Workout 9
-        id: 57,
-        workoutDetailsId: 25,
+        id: 1056,
+        workoutDetailsId: 1024,
         setNr: 2,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 3 from Workout 9
-        id: 58,
-        workoutDetailsId: 26,
+        id: 1057,
+        workoutDetailsId: 1025,
         setNr: 1,
         repetitions: 8,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 3 from Workout 9
-        id: 59,
-        workoutDetailsId: 26,
+        id: 1058,
+        workoutDetailsId: 1025,
         setNr: 2,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 3 of Exercise 3 from Workout 9
-        id: 60,
-        workoutDetailsId: 26,
+        id: 1059,
+        workoutDetailsId: 1025,
         setNr: 3,
         repetitions: 6,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 1 from Workout 10
-        id: 61,
-        workoutDetailsId: 27,
+        id: 1060,
+        workoutDetailsId: 1026,
         setNr: 1,
         repetitions: 12,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 10
-        id: 62,
-        workoutDetailsId: 27,
+        id: 1061,
+        workoutDetailsId: 1026,
         setNr: 2,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 1 of Exercise 2 from Workout 10
-        id: 63,
-        workoutDetailsId: 28,
+        id: 1062,
+        workoutDetailsId: 1027,
         setNr: 1,
         repetitions: 15,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 2 from Workout 10
-        id: 64,
-        workoutDetailsId: 28,
+        id: 1063,
+        workoutDetailsId: 1027,
         setNr: 2,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 3 from Workout 10
-        id: 65,
-        workoutDetailsId: 29,
+        id: 1064,
+        workoutDetailsId: 1028,
         setNr: 1,
         repetitions: 8,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 3 from Workout 10
-        id: 66,
-        workoutDetailsId: 29,
+        id: 1065,
+        workoutDetailsId: 1028,
         setNr: 2,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 3 of Exercise 3 from Workout 10
-        id: 67,
-        workoutDetailsId: 29,
+        id: 1066,
+        workoutDetailsId: 1028,
         setNr: 3,
         repetitions: 6,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 1 from Workout 11
-        id: 68,
-        workoutDetailsId: 30,
+        id: 1067,
+        workoutDetailsId: 1029,
         setNr: 1,
         repetitions: 12,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 11
-        id: 69,
-        workoutDetailsId: 30,
+        id: 1068,
+        workoutDetailsId: 1029,
         setNr: 2,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 1 of Exercise 2 from Workout 11
-        id: 70,
-        workoutDetailsId: 31,
+        id: 1069,
+        workoutDetailsId: 1030,
         setNr: 1,
         repetitions: 15,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 2 from Workout 11
-        id: 71,
-        workoutDetailsId: 31,
+        id: 1070,
+        workoutDetailsId: 1030,
         setNr: 2,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 3 of Exercise 2 from Workout 11
-        id: 72,
-        workoutDetailsId: 31,
+        id: 1071,
+        workoutDetailsId: 1030,
         setNr: 3,
         repetitions: 10,
         weightKG: 27,
       },
       {
         // Set 1 of Exercise 1 from Workout 12
-        id: 73,
-        workoutDetailsId: 32,
+        id: 1072,
+        workoutDetailsId: 1031,
         setNr: 1,
         repetitions: 12,
         weightKG: 25,
       },
       {
         // Set 2 of Exercise 1 from Workout 12
-        id: 74,
-        workoutDetailsId: 32,
+        id: 1073,
+        workoutDetailsId: 1031,
         setNr: 2,
         repetitions: 10,
         weightKG: 28,
       },
       {
         // Set 1 of Exercise 2 from Workout 12
-        id: 75,
-        workoutDetailsId: 33,
+        id: 1074,
+        workoutDetailsId: 1032,
         setNr: 1,
         repetitions: 15,
         weightKG: 20,
       },
       {
         // Set 2 of Exercise 2 from Workout 12
-        id: 76,
-        workoutDetailsId: 33,
+        id: 1075,
+        workoutDetailsId: 1032,
         setNr: 2,
         repetitions: 12,
         weightKG: 22,
       },
       {
         // Set 1 of Exercise 3 from Workout 12
-        id: 77,
-        workoutDetailsId: 34,
+        id: 1076,
+        workoutDetailsId: 1033,
         setNr: 1,
         repetitions: 8,
         weightKG: 18,
       },
       {
         // Set 2 of Exercise 3 from Workout 12
-        id: 78,
-        workoutDetailsId: 34,
+        id: 1077,
+        workoutDetailsId: 1033,
         setNr: 2,
         repetitions: 10,
         weightKG: 20,
       },
       {
         // Set 3 of Exercise 3 from Workout 12
-        id: 79,
-        workoutDetailsId: 34,
+        id: 1078,
+        workoutDetailsId: 1033,
         setNr: 3,
         repetitions: 6,
         weightKG: 22,
@@ -1018,22 +1174,22 @@ const main = async () => {
     data: [{
       message: "Leuke workout!",
       profileId: 1,
-      workoutId: 1,
+      workoutId: 1000,
     },
     {
       message: "Leuke workout!",
       profileId: 2,
-      workoutId: 2,
+      workoutId: 1001,
     },
     {
       message: "Leuke workout!",
       profileId: 3,
-      workoutId: 3,
+      workoutId: 1002,
     },
     {
       message: "Leuke workout!",
       profileId: 4,
-      workoutId: 4,
+      workoutId: 1003,
     }
     ]
   });
