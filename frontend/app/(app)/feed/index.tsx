@@ -23,17 +23,6 @@ export default function FeedPage({ navigation }: { navigation: NavigationProp<an
 		);
 	  };
 
-	const updateCommentsByCount = (workoutId: number, newComments: any[]) => {
-		setWorkouts(prevWorkouts =>
-		prevWorkouts?.map(workout => {
-			if (workout.id === workoutId) {
-			  return { ...workout, comments: newComments }; // Update the comments array for the specific workout
-			}
-			return workout;
-		  })
-		);
-	  }
-
 	var fetchData = async () => {
 	  try {
 		const p = JSON.parse((await AsyncStorage.getItem("profile")) ?? "{}") as TProfile;
@@ -87,7 +76,7 @@ export default function FeedPage({ navigation }: { navigation: NavigationProp<an
   
 		  // Render each workout using the Workout component
 		  renderItem={({ item }) => (
-			<Workout key={item.id} workout={item} navigation={navigation} updateLikeCount={updateLikedByCount} updateCommentsCount={updateCommentsByCount} />
+			<Workout key={item.id} workout={item} navigation={navigation} updateLikeCount={updateLikedByCount} />
 		  )}
   
 		  // Add a margin-bottom under the last rendered item

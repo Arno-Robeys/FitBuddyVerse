@@ -27,9 +27,9 @@ export default function SettingsPage({ navigation }: { navigation: NavigationPro
             if (currentPassword && newPassword) {
                 updatedProfile.password = newPassword;
             } else if (!currentPassword && newPassword) {
-                console.log("Please provide the current password.");
+                ToastAndroid.show("Please provide the current password.", ToastAndroid.SHORT);
             } else if (currentPassword && !newPassword) {
-                console.log("Please provide the new password.");
+                ToastAndroid.show("Please provide the new password.", ToastAndroid.SHORT);
             }
 
             await profileService.updateProfile(id, updatedProfile.username, updatedProfile.email, updatedProfile.password);
