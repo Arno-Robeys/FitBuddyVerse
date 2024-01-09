@@ -127,7 +127,6 @@ const placeComment = async (workoutId: number, profileId: number, message: strin
 			profile: true
 		}
 	});
-	console.log(comment);
 	return comment;
 }
 

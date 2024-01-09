@@ -69,7 +69,6 @@ const getWorkoutCommentsById = async (id: string) => {
 	if (!Number.isInteger(parseInt(id)))
 		throw new Error("Id must be numeric and whole");
 	const comments = await workoutDB.getWorkoutCommentsById(parseInt(id));
-	console.log(comments);
 	return comments;
 }
 

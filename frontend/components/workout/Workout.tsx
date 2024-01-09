@@ -3,31 +3,20 @@ import { EvilIcons } from "@expo/vector-icons";
 import moment from "moment";
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { format, isToday, isYesterday } from "date-fns";
 import workoutService from "@/lib/workoutService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/native";
+import utils from "@/lib/utils";
 
-const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLikeCount?: any, updateCommentsCount?: any }> = ({
+const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLikeCount?: any }> = ({
 	workout,
 	navigation,
-	updateLikeCount,
-	updateCommentsCount,
+	updateLikeCount
 }) => {
 
 	const formatDuration = (durationSec: number) => {
 		const duration = moment.duration(durationSec, "seconds");
 		return `${duration.hours()}h ${duration.minutes()}m`;
-	};
-
-	const formatDate = (createdAt: String) => {
-		if (isToday(new Date(String(createdAt)))) {
-			return "Today at " + format(new Date(String(createdAt)), "HH:mm");
-		} else if (isYesterday(new Date(String(createdAt)))) {
-			return "Yesterday at " + format(new Date(String(createdAt)), "HH:mm");
-		} else {
-			return format(new Date(String(createdAt)), "dd MMMM yyyy 'at' HH:mm");
-		}
 	};
 
 	const likeWorkout = async () => {
@@ -68,7 +57,7 @@ const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLi
 
 			{/* clickable workout to go to workout details */}
 			<TouchableOpacity onPress={() => navigation.navigate("Workout", { id: workout.id })}>
-				<Text className="text-xs text-white pb-1">{formatDate(workout.createdAt)}</Text>
+				<Text className="text-xs text-white pb-1">{utils.formatDate(workout.createdAt)}</Text>
 
 				<View className="border-t-2 border-gray-200 py-2">
 					<Text className="text-xl text-white text-center text-bold pb-2">{workout.name}</Text>

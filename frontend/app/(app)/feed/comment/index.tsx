@@ -4,8 +4,8 @@ import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import workoutService from "@/lib/workoutService";
-import { format, isToday, isYesterday } from "date-fns";
 import { Ionicons } from "@expo/vector-icons";
+import utils from "@/lib/utils";
 
 export default function CommentPage({ 
     route,
@@ -42,16 +42,6 @@ export default function CommentPage({
         setNewComment('');
     };
 
-    const formatDate = (createdAt: String) => {
-		if (isToday(new Date(String(createdAt)))) {
-			return "Today at " + format(new Date(String(createdAt)), "HH:mm");
-		} else if (isYesterday(new Date(String(createdAt)))) {
-			return "Yesterday at " + format(new Date(String(createdAt)), "HH:mm");
-		} else {
-			return format(new Date(String(createdAt)), "dd MMMM yyyy 'at' HH:mm");
-		}
-	};
-
     return (
         <>
             <View className="bg-white p-6 h-full w-full">
@@ -63,7 +53,7 @@ export default function CommentPage({
                         <View className="my-1">
                             <View className="py-2 flex flex-row justify-between border-2 border-gray-500 rounded-t-lg bg-gray-800">
                                 <Text className="px-1 text-left text-white font-bold text-lg">{item.profile.username}</Text>
-                                <Text className="px-1 text-right text-white text-sm">{formatDate(item.createdAt)}</Text>
+                                <Text className="px-1 text-right text-white text-sm">{utils.formatDate(item.createdAt)}</Text>
                             </View>
                             <View className="border-b-2 border-x-2 border-gray-500 rounded-b-lg">
                             <Text className="px-1 py-2">{item.message}</Text>

@@ -45,6 +45,7 @@ const updateProfile = async (id: number, username: string, email: string, passwo
 }
 
 const getFollow = async (id: number) => (await axios.get(process.env.EXPO_PUBLIC_URL + `/profiles/${id}/follow`)).data;
+
 export default {
 	createProfile,
 	loginProfile,
