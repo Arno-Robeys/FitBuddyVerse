@@ -76,21 +76,21 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
       <View className="px-4 pt-3">
         <Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{exercise.name} <Text className="text-xl">({exercise.equipment})</Text></Text>
         <Text>Primary: {exercise.type}</Text>
-        
+
         <View className="mt-3 pb-3 border-b-2 border-gray-200">
-          <Text className="p-2 text-lg font-bold border-2 rounded-t-lg border-gray-500 bg-gray-800 text-white"><Ionicons name="barbell-outline" size={18} color={"white"}/> How To</Text>
+          <Text className="p-2 text-lg font-bold border-2 rounded-t-lg border-gray-500 bg-gray-800 text-white"><Ionicons name="barbell-outline" size={18} color={"white"} /> How To</Text>
           <Text className="p-2 text-base border-x-2 border-b-2 rounded-b-lg border-gray-500 bg-gray-100">{exercise.description}</Text>
         </View>
       </View>
 
       <View className="px-4 py-3">
         <View className="border-b-2 border-gray-200 pb-3">
-        {/* Go to exercise history button */}
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ExerciseHistory", { id: id, userid: userid, name: exercise.name })}
-          className="bg-gray-800 rounded py-2">
-          <Text className="text-center text-white font-bold text-lg">Go to Exercise History</Text>
-        </TouchableOpacity>
+          {/* Go to exercise history button */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ExerciseHistory", { id: id, userid: userid, name: exercise.name })}
+            className="bg-gray-800 rounded py-2">
+            <Text className="text-center text-white font-bold text-lg">Go to Exercise History</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -188,7 +188,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
             <Text className="text-center font-bold text-lg">No graph data yet</Text>
           </View>
         )}
-            
+
         {/* BEST VIEW */}
         {/* Verify if there is data available to display in the records section. */}
         {exerciseBest && exerciseBest.personal_best[0].heaviest_weight !== null ? (
