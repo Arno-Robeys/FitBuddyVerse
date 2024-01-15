@@ -7,7 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/native";
 import moment from "moment";
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, ToastAndroid } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import Toast from "react-native-root-toast";
 
 
 export default function WorkoutPage({ navigation }: { navigation: NavigationProp<any> }) {
@@ -23,15 +24,21 @@ export default function WorkoutPage({ navigation }: { navigation: NavigationProp
             const completedSets = workout.workoutDetails?.map((exercise) => exercise?.exerciseSets?.filter((set) => set.isCompleted && set.repetitions != 0 && set.weightKG != 0)).flat()
 
             if (!workout.name.trim()) {
-                ToastAndroid.show('Please enter a workout name', ToastAndroid.SHORT);
+                Toast.show('Please enter a workout name', {
+                    duration: Toast.durations.LONG,
+                  });
                 setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
             } else if (!workout.workoutDetails?.length) {
-                ToastAndroid.show('Please add at least 1 exercise', ToastAndroid.SHORT);
+                Toast.show('Please add at least 1 exercise', {
+                    duration: Toast.durations.LONG,
+                  });
                 setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
             } else if (completedSets?.length === 0) {
-                ToastAndroid.show('Please complete at least 1 set', ToastAndroid.SHORT);
+                Toast.show('Please complete at least 1 set', {
+                    duration: Toast.durations.LONG,
+                  });
                 setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 return;
             }
@@ -44,7 +51,9 @@ export default function WorkoutPage({ navigation }: { navigation: NavigationProp
 
             workoutService.createWorkout(workout).then((res) => {
                 navigation.reset({ routes: [{ name: "Profile" }] });
-                ToastAndroid.show('Workout completed', ToastAndroid.SHORT);
+                Toast.show('Workout completed!', {
+                    duration: Toast.durations.LONG,
+                  });
             }).catch((err) => {
                 setWorkout((prevWorkout) => ({ ...prevWorkout, completed: false }))
                 console.log(err);

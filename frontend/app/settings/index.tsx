@@ -1,8 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import profileService from "@/lib/profileService";
 import { NavigationProp } from "@react-navigation/native";
+import Toast from "react-native-root-toast";
+
 
 export default function SettingsPage({ navigation }: { navigation: NavigationProp<any> }) {
     const [username, setUsername] = useState("");
@@ -27,9 +29,13 @@ export default function SettingsPage({ navigation }: { navigation: NavigationPro
             if (currentPassword && newPassword) {
                 updatedProfile.password = newPassword;
             } else if (!currentPassword && newPassword) {
-                ToastAndroid.show("Please provide the current password.", ToastAndroid.SHORT);
+                Toast.show('Please provide the current password.', {
+                    duration: Toast.durations.LONG,
+                  });
             } else if (currentPassword && !newPassword) {
-                ToastAndroid.show("Please provide the new password.", ToastAndroid.SHORT);
+                Toast.show('Please provide the new password.', {
+                    duration: Toast.durations.LONG,
+                  });
             }
 
             await profileService.updateProfile(id, updatedProfile.username, updatedProfile.email, updatedProfile.password);
@@ -39,8 +45,9 @@ export default function SettingsPage({ navigation }: { navigation: NavigationPro
 
         setIsLoading(false);
         
-
-        ToastAndroid.show("Changes saved successfully!", ToastAndroid.SHORT);
+        Toast.show('Changes saved successfully!', {
+            duration: Toast.durations.LONG,
+          });
         navigation.navigate('Profile');   
     };
 
