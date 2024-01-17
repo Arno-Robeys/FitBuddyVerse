@@ -110,7 +110,7 @@ const Workout: FC<{ workout: TWorkout; navigation: NavigationProp<any>; updateLi
 					</TouchableOpacity>
 				</View>
 
-				{/* TODO: Clickable comment button */}
+				{/* Clickable comment button */}
 				<View className="py-1 px-4 w-6/12">
 					<TouchableOpacity onPress={commentWorkout}>
 						<Text className="text-lg text-white text-right mt-1">
