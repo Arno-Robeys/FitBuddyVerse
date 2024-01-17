@@ -72,7 +72,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
 
   return (
     <ScrollView className="bg-white h-screen">
-
+      {/* INFO VIEW */}
       <View className="px-4 pt-3">
         <Text className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{exercise.name} <Text className="text-xl">({exercise.equipment})</Text></Text>
         <Text>Primary: {exercise.type}</Text>
@@ -95,7 +95,6 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
       </View>
 
       <View className="px-4 mb-10">
-
         {/* GRAPH VIEW */}
         {/* Verify if there is data available to display in the graph. */}
         {exerciseGraph && exerciseGraph.graph.length > 0 ? (
@@ -146,36 +145,31 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
                 {/* Filter buttons */}
                 <TouchableOpacity
                   onPress={() => setUserSelected(userSelected === "volumeKG" ? "volumeKG" : "volumeKG")}
-                  className="bg-gray-800 rounded mr-1 px-2 py-1"
-                >
+                  className="bg-gray-800 rounded mr-1 px-2 py-1">
                   <Text className="text-center text-white font-bold">Volume</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => setUserSelected(userSelected === "one_rep_max" ? "volumeKG" : "one_rep_max")}
-                  className="bg-gray-800 rounded mr-1 px-2 py-1"
-                >
+                  className="bg-gray-800 rounded mr-1 px-2 py-1">
                   <Text className="text-center text-white font-bold">One Rep Max</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => setUserSelected(userSelected === "max_weight" ? "volumeKG" : "max_weight")}
-                  className="bg-gray-800 rounded mr-1 px-2 py-1"
-                >
+                  className="bg-gray-800 rounded mr-1 px-2 py-1">
                   <Text className="text-center text-white font-bold">Max Weight</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => setUserSelected(userSelected === "total_reps" ? "volumeKG" : "total_reps")}
-                  className="bg-gray-800 rounded mr-1 px-2 py-1"
-                >
+                  className="bg-gray-800 rounded mr-1 px-2 py-1">
                   <Text className="text-center text-white font-bold">Total Reps</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => setUserSelected(userSelected === "best_set_volume" ? "volumeKG" : "best_set_volume")}
-                  className="bg-gray-800 rounded mr-1 px-2 py-1"
-                >
+                  className="bg-gray-800 rounded mr-1 px-2 py-1">
                   <Text className="text-center text-white font-bold">Best Set Volume</Text>
                 </TouchableOpacity>
               </View>
