@@ -191,7 +191,7 @@ export default function ExerciseInfoPage({ route, navigation }: { route: any; na
             <View>
               <Text className="border-b-2 py-3 border-gray-200 font-bold">Heaviest Weight: {exerciseBest.personal_best[0].heaviest_weight} kg</Text>
               <Text className="border-b-2 py-3 border-gray-200 font-bold">Best 1RM: {exerciseBest.personal_best[0].best_one_rep_max} kg</Text>
-              <Text className="border-b-2 py-3 border-gray-200 font-bold">Best Total Reps: {exerciseBest.personal_best[0].best_reps} kg</Text>
+              <Text className="border-b-2 py-3 border-gray-200 font-bold">Best Reps Amount: {exerciseBest.personal_best[0].best_reps} reps</Text>
               <Text className="border-b-2 py-3 border-gray-200 font-bold">
                 Best Set Volume: {exerciseBest.personal_best[0].best_set_volume} kg ({exerciseBest.personal_best[0].set_volume_string})
               </Text>
